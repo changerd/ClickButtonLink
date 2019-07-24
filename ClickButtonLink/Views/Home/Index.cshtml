@@ -1,0 +1,26 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <script type="text/javascript">
+        constants = {
+            @*getPage: '@Url.RouteUrl("DefaultApi", new {controller = "Blog", action = "page" })'*@
+        }
+    </script>
+    <title>Index</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+</head>
+<body>
+    <div id="content">
+    </div>
+    <footer>
+        <div class="copyrights">
+            <p class="text-center">&copy; @DateTime.Now.Year – ClickButtonLink</p>
+        </div>
+    </footer>
+    <script type="text/javascript" src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+    <script type="text/javascript" src="~/lib/jQuery/dist/jquery.js"></script> 
+    <script type="text/javascript" src="@Url.Content("~/assets/bundle.js")"></script>
+</body>
+</html>
