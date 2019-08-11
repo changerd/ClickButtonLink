@@ -6,6 +6,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="8.1.1" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="6.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.3" />
@@ -16,7 +18,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="App\containers\projects\" />
+    <Folder Include="App\components\" />
+    <Folder Include="App\routes\" />
+    <Folder Include="App\utils\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
 

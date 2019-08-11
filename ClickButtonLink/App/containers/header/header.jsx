@@ -3,23 +3,7 @@ import { Link } from 'react-router-dom';
 
 export default class Header extends React.Component {
     render() {
-        return (
-            //<div className="navbar navbar-inverse navbar-fixed-top">
-            //    <div className="navbar-header">
-            //        ClickButtonLink
-            //        </div>
-            //    <div className="navbar-collapse collapse">
-            //        <ul className="nav navbar-nav">
-            //            <li>Проекты</li>
-            //            <li>Ссылки</li>
-            //            <li>О программе</li>
-            //        </ul>
-            //        <ul className="nav navbar-nav navbar-right">
-            //            <li>Регистрация</li>
-            //            <li>Вход</li>
-            //        </ul>
-            //    </div>
-            //</div>            
+        return (                     
             <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
                 <a className="navbar-brand" href="#">ClickButtonLink</a>
                 <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
