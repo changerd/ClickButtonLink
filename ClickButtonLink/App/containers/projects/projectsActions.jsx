@@ -4,6 +4,7 @@
     DELETE_PROJECT_SUCCESS,
     DELETE_PROJECT_ERROR,
 } from './projectsConstants.jsx'
+import "isomorphic-fetch"
 
 export function getProjects(pageIndex = 0) {
     return (dispatch) => {

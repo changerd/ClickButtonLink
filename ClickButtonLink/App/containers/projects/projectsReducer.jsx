@@ -15,7 +15,7 @@ const initialState = {
     error: '',
 }
 
-export default function projects(state = intitialState, action) {
+export default function projects(state = initialState, action) {
     switch (action.type) {
         case GET_PROJECTS_SUCCESS:
             return { ...state, data: action.payload, error: '' }

@@ -9,7 +9,7 @@ namespace ClickButtonLink.Services.Interfaces
 {
     public interface IProjectService
     {
-        Task<Page<ProjectsViewModel>> GetProjects(int pageIndex, string userId);
+        Task<Page<ProjectsViewModel>> GetProjects(int pageIndex/*, string userId*/);
         Task<Project> GetProject(int projectId);
         Task AddProject(AddProjectRequest request);
         Task DeleteProject(int projectId);

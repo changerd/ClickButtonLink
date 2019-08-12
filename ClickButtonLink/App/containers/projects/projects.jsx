@@ -5,18 +5,27 @@ import { connect } from 'react-redux';
 import queryString from 'query-string';
 import { Link } from 'react-router-dom';
 import { ProjectItem } from './components/projectItem.jsx';
-import { getProjects } from './projectsActions.jsx';
+import { getProjects, deleteProject } from './projectsActions.jsx';
 import "isomorphic-fetch";
 
 class Projects extends React.Component {
     constructor(props) {
         super(props);
         this.state = { query: location.search };
-        this.deletePost = this.deletePost.bind(this);
+        this.deleteProject = this.deleteProject.bind(this);
     }
 
     componentDidMount() {
         this.getProjects();
+    }
+
+    deleteProject(projectId) {
+        let pageIndex;
+        const parsed = queryString.parse(location.search);
+        if (parsed) {
+            pageIndex = parsed['pageIndex'];
+        }
+        this.props.deleteProject(projectId, pageIndex);
     }
 
     getProjects() {
@@ -36,8 +45,8 @@ class Projects extends React.Component {
     }
 
     render() {
-        const total = this.props.posts.totalPages;
-        const pageSize = this.props.posts.pageSize;
+        const total = this.props.projects.totalPages;
+        const pageSize = this.props.projects.pageSize;
         const pageNumbers = [];
         let params = queryString.parse(location.search);
         let queryTrailer = '';
@@ -84,13 +93,14 @@ class Projects extends React.Component {
 let mapProps = (state) => {
     return {
         projects: state.projects.data,
-        error: state.blog.error,
+        error: state.projects.error,
     }
 }
 
 let mapDispatch = (dispatch) => {
     return {
         getProjects: bindActionCreators(getProjects, dispatch),
+        deleteProject: bindActionCreators(deleteProject, dispatch)
     }
 }
 
