@@ -13,7 +13,13 @@ export default class App extends React.Component {
                 <div className="container">
                     <Header />
                     <Routing />
+                    <footer>
+                        <div className="copyrights">
+                            <p className="text-center">&copy; 2019 – ClickButtonLink</p>
+                        </div>
+                    </footer>
                 </div>
+                
             </Router>
         );
     }

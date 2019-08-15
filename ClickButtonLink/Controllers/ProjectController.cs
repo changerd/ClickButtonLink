@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using ClickButtonLink.Services.Interfaces;
 using ClickButtonLink.ViewModels;
+using DBRepository.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Models;
 
@@ -13,10 +14,12 @@ namespace ClickButtonLink.Controllers
     public class ProjectController : Controller
     {
         IProjectService _projectService;
+        IProjectRepository _projectRepository;
 
-        public ProjectController(IProjectService projectService)
+        public ProjectController(IProjectService projectService, IProjectRepository projectRepository)
         {
             _projectService = projectService;
+            _projectRepository = projectRepository;
         }
 
         [Route("page")]
@@ -44,7 +47,7 @@ namespace ClickButtonLink.Controllers
         [HttpDelete]
         public async Task DeleteProject(int projectId)
         {
-            await _projectService.DeleteProject(projectId);
+            await _projectRepository.DeleteProject(projectId);
         }
     }
 }

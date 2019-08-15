@@ -54,7 +54,7 @@ namespace DBRepository.Repositories
             using (var context = ContextFactory.CreateDbContext(ConnectionString))
             {
                 var project = new Project { ProjectId = projectId };
-                context.Remove(project);
+                context.Projects.Remove(project);
                 await context.SaveChangesAsync();
             }
         }

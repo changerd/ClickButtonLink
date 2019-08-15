@@ -17,21 +17,19 @@ export default class ProjectItem extends React.Component {
                 <Link className="link" to={"/links?projectId=" + this.props.data.projectId}>{this.props.data.linkCount} ссылок</Link>;
         }
 
-        let deleteBlock;
-        if (this.props.isLogged) {
-            deleteBlock =
-                <a className="link" onClick={() => {
+        let deleteBlock =
+                <button className="btn btn-dark" onClick={() => {
                     if (confirm('Вы уверены что хотите удалить проект?')) {
                         this.props.deleteProject(this.props.data.projectId);
-                    }
-                }}>Удалить проект</a>;
-        }
+                }
+            }}>Удалить проект</button>;        
 
         return (
             <tr id="projectItem">
                 <td>{this.props.data.projectName}</td>
                 <td>{this.props.data.transitionCount}</td>
                 <td>{linkBlock}</td>
+                <td>{deleteBlock}</td>
             </tr>
         );
 

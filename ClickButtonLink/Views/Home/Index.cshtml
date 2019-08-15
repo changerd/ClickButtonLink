@@ -5,20 +5,18 @@
     <meta name="viewport" content="width=device-width" />
     <script type="text/javascript">
         constants = {
-            @*getPage: '@Url.RouteUrl("DefaultApi", new {controller = "Blog", action = "page" })'*@
+            page: '@Url.RouteUrl("DefaultApi", new {controller = "Project", action = "page" })',
+            project: '@Url.RouteUrl("DefaultApi", new {controller = "Project", action = "project" })'
+
         }
     </script>
     <title>Index</title>
+    <link rel="stylesheet" href="~/css/style.css" />
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
 </head>
 <body>
     <div id="content">
-    </div>
-    <footer>
-        <div class="copyrights">
-            <p class="text-center">&copy; @DateTime.Now.Year – ClickButtonLink</p>
-        </div>
-    </footer>
+    </div>    
     <script type="text/javascript" src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
     <script type="text/javascript" src="~/lib/jQuery/dist/jquery.js"></script> 
     <script type="text/javascript" src="@Url.Content("~/assets/bundle.js")"></script>

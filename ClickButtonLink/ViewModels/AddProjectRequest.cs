@@ -8,5 +8,6 @@ namespace ClickButtonLink.ViewModels
     public class AddProjectRequest
     {
         public string ProjectName { get; set; }
+        public string ProjectDescription { get; set; }
     }
 }

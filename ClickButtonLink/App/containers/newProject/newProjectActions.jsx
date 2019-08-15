@@ -1,7 +1,8 @@
 ﻿import {
     ADD_PROJECT_SUCCESS,
     ADD_PROJECT_ERROR,
-    CHANGE_PROJECTNAME
+    CHANGE_PROJECTNAME,
+    CHANGE_PROJECTDESCRIPTION
 } from './newProjectConstants.jsx'
 import "isomorphic-fetch"
 
@@ -12,15 +13,22 @@ export function changeProjectName(text) {
     }
 }
 
-export function addProject(projectName, historyObject) {
+export function changeProjectDescription(text) {
+    return {
+        type: CHANGE_PROJECTDESCRIPTION,
+        payload: text
+    }
+}
+
+export function addProject(projectName, projectDescription, historyObject) {
     return (dispatch) => {
-        if (projectName) {
+        if (projectName, projectDescription) {
             fetch(constants.project, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ projectName: projectName })
+                body: JSON.stringify({ projectName: projectName, projectDescription: projectDescription })
             }).then((response) => {
                 if (response.ok) {
                     dispatch({ type: ADD_PROJECT_SUCCESS });
@@ -34,8 +42,12 @@ export function addProject(projectName, historyObject) {
                 dispatch({ type: ADD_PROJECT_ERROR, payload: ex });
             });
         } else {
-            if(!projectName) {
-                alert('Необходимо заполнить название новой записи');
+            if (!projectName) {
+                alert('Необходимо заполнить название проекта');
+                dispatch({ type: ADD_PROJECT_ERROR, payload: 'Необходимо заполнить название новой записи' });
+            }
+            if (!projectDescription) {
+                alert('Необходимо заполнить описание проекта');
                 dispatch({ type: ADD_PROJECT_ERROR, payload: 'Необходимо заполнить название новой записи' });
             }
         }

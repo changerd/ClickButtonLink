@@ -30,7 +30,7 @@ export function deleteProject(projectId, returnPageIndex) {
         }).then((response) => {
             if (response.ok) {
                 dispatch({ type: DELETE_PROJECT_SUCCESS });
-                getPosts(returnPageIndex, returnTag)(dispatch);
+                getProjects(returnPageIndex)(dispatch);
             } else {
                 alert('Ошибка удаления записи');
                 dispatch({ type: DELETE_PROJECT_ERROR, payload: 'Ошибка удаления записи' });

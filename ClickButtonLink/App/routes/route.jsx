@@ -9,8 +9,8 @@ export default class Routing extends React.Component {
         return (
             <main>
                 <Switch>
-                    <Route path="/projects" component={Projects} />
                     <Route path="/projects/new" component={NewProject} />
+                    <Route path="/projects" component={Projects} />                    
                     <Route exact path="/" render={() => (<Redirect to="/projects" />)} />
                 </Switch>
             </main>

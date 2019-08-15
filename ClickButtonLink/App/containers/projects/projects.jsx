@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import queryString from 'query-string';
 import { Link } from 'react-router-dom';
-import { ProjectItem } from './components/projectItem.jsx';
+import ProjectItem from './components/projectItem.jsx';
 import { getProjects, deleteProject } from './projectsActions.jsx';
 import "isomorphic-fetch";
 
@@ -56,29 +56,28 @@ class Projects extends React.Component {
 
         const renderPageNumbers = pageNumbers.map(number => {
             return (
-                <li key={number}>
-                    <Link className="link" to={"/blog?pageIndex=" + (number - 1) + queryTrailer}>{number}</Link>
+                <li className="listPageNumbers" key={number}>
+                    <Link className="btn btn-dark" to={"/projects?pageIndex=" + (number - 1) + queryTrailer}>{number}</Link>
                 </li>
             );
         });
 
         let projects = this.props.projects.records.map(item => {
             return (
-                <ProjectItem key={item.projectId} data={item} isFull={false} /*isLogged={this.props.isLogged}*/ />
+                <ProjectItem key={item.projectId} data={item} isFull={false} /*isLogged={this.props.isLogged}*/ deleteProject={this.deleteProject} />
             );
         });
 
         return (
             <div id="projects">
-                <table className="table">
-                    <thread>
+                <table className="table">                    
+                    <tbody>
                         <tr>
                             <th scope="col">Название</th>
                             <th scope="col">Переходов</th>
                             <th scope="col">Ссылки</th>
+                            <th></th>
                         </tr>
-                    </thread>
-                    <tbody>
                         {projects}
                     </tbody>
                 </table>
