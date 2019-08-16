@@ -1,8 +1,8 @@
 ﻿import {
     GET_PROJECTS_SUCCESS,
-    GET_PROJECTS_ERROR,
+    GET_PROJECTS_ERROR,    
     DELETE_PROJECT_SUCCESS,
-    DELETE_PROJECT_ERROR,
+    DELETE_PROJECT_ERROR   
 } from './projectsConstants.jsx'
 import "isomorphic-fetch"
 

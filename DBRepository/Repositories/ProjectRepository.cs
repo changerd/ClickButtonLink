@@ -41,14 +41,14 @@ namespace DBRepository.Repositories
                 await context.SaveChangesAsync();
             }
         }
-        //public async Task EditProject(int projectId)
-        //{
-        //    using (var context = ContextFactory.CreateDbContext(ConnectionString))
-        //    {
-        //        var project = await context.Projects.FindAsync(projectId);
-        //        return 
-        //    }
-        //}
+        public async Task EditProject(Project project)
+        {
+            using (var context = ContextFactory.CreateDbContext(ConnectionString))
+            {                
+                context.Entry(project).State = EntityState.Modified;
+                await context.SaveChangesAsync();
+            }
+        }
         public async Task DeleteProject(int projectId)
         {
             using (var context = ContextFactory.CreateDbContext(ConnectionString))

@@ -1,22 +1,31 @@
 ﻿import {
-    ADD_PROJECT_SUCCESS,
-    ADD_PROJECT_ERROR,
+    EDIT_PROJECT_SUCCESS,
+    EDIT_PROJECT_ERROR,
+    GET_PROJECT_SUCCESS,
+    GET_PROJECT_ERROR,
     CHANGE_PROJECTNAME,
     CHANGE_PROJECTDESCRIPTION
-} from './newProjectConstants.jsx'
+} from './editProjectConstants.jsx'
 
 const initialState = {
+    project: null,
     projectName: '',
     projectDescription: '',
     error: ''
 }
 
-export default function newProject(state = initialState, action) {
+export default function editProject(state = initialState, action) {
     switch (action.type) {
-        case ADD_PROJECT_SUCCESS:
+        case EDIT_PROJECT_SUCCESS:
             return { ...state, projectName: '', projectDescription: '', error: '' }
 
-        case ADD_PROJECT_ERROR:
+        case EDIT_PROJECT_ERROR:
+            return { ...state, error: action.payload }        
+
+        case GET_PROJECT_SUCCESS:
+            return { ...state, project: action.payload, error: '' }
+
+        case GET_PROJECT_ERROR:
             return { ...state, error: action.payload }
 
         case CHANGE_PROJECTNAME:
@@ -27,5 +36,6 @@ export default function newProject(state = initialState, action) {
 
         default:
             return state;
+
     }
 }

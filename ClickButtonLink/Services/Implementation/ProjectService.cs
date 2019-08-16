@@ -42,7 +42,13 @@ namespace ClickButtonLink.Services.Implementation
         {
             var project = _mapper.Map<AddProjectRequest, Project>(request);
             await _repository.AddProject(project);
-        }        
+        }  
+        
+        public async Task EditProject(EditProjectRequest request)
+        {
+            var project = _mapper.Map<EditProjectRequest, Project>(request);
+            await _repository.EditProject(project);
+        }
 
         public async Task DeleteProject(int projectId)
         {

@@ -44,6 +44,13 @@ namespace ClickButtonLink.Controllers
         }
 
         [Route("project")]
+        [HttpPut]
+        public async Task EditProject([FromBody] EditProjectRequest request)
+        {
+            await _projectService.EditProject(request);
+        }
+
+        [Route("project")]
         [HttpDelete]
         public async Task DeleteProject(int projectId)
         {

@@ -11,8 +11,7 @@ namespace DBRepository.Interfaces
         Task<Page<Project>> GetProjects(int index, int pageSize/*, string userId*/);
         Task<Project> GetProject(int projectId);
         Task AddProject(Project project);
-        //Task EditProject(int projectId);
-        //Task EditProjectConfirmed(Project project);
+        Task EditProject(Project project);        
         Task DeleteProject(int projectId);        
     }
 }
