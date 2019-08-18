@@ -68,8 +68,9 @@ class Projects extends React.Component {
             );
         });
 
-        return (
+        return (            
             <div id="projects">
+                <Link className="btn btn-primary" to={"/projects/new"}>Создать проект</Link>
                 <table className="table">                    
                     <tbody>
                         <tr>

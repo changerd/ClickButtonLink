@@ -28,7 +28,7 @@ class NewProject extends React.Component {
                         className="form-control"
                         value={this.props.data.projectDescription}
                         onChange={(e) => this.props.changeProjectDescription(e.target.value)}
-                        placeholder="Введите название проекта"
+                        placeholder="Введите описание проекта"
                     />
                 </div>
                 <input

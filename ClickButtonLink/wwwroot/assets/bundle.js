@@ -280,7 +280,7 @@ if (process.env.NODE_ENV === 'production') {
  */
 
 if (process.env.NODE_ENV !== 'production') {
-  var ReactIs = __webpack_require__(13);
+  var ReactIs = __webpack_require__(12);
 
   // By explicitly using `prop-types` you are opting into new development behavior.
   // http://fb.me/prop-types-in-prod
@@ -613,7 +613,7 @@ if (process.env.NODE_ENV !== 'production' && typeof isCrushed.name === 'string' 
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return locationsAreEqual; });
 /* unused harmony export parsePath */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return createPath; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_runtime_helpers_esm_extends__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_runtime_helpers_esm_extends__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_resolve_pathname__ = __webpack_require__(85);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_value_equal__ = __webpack_require__(86);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_tiny_warning__ = __webpack_require__(87);
@@ -1590,18 +1590,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 /* 10 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// the whatwg-fetch polyfill installs the fetch() function
-// on the global object (window or self)
-//
-// Return that as the export for use in Webpack, Browserify etc.
-__webpack_require__(113);
-module.exports = self.fetch.bind(self);
-
-
-/***/ }),
-/* 11 */
 /***/ (function(module, exports) {
 
 var g;
@@ -1628,7 +1616,7 @@ module.exports = g;
 
 
 /***/ }),
-/* 12 */
+/* 11 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1646,7 +1634,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /***/ }),
-/* 13 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1661,7 +1649,7 @@ if (process.env.NODE_ENV === 'production') {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 14 */
+/* 13 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1683,6 +1671,18 @@ function _extends() {
 
   return _extends.apply(this, arguments);
 }
+
+/***/ }),
+/* 14 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// the whatwg-fetch polyfill installs the fetch() function
+// on the global object (window or self)
+//
+// Return that as the export for use in Webpack, Browserify etc.
+__webpack_require__(113);
+module.exports = self.fetch.bind(self);
+
 
 /***/ }),
 /* 15 */
@@ -2132,7 +2132,7 @@ var storeShape = __WEBPACK_IMPORTED_MODULE_0_prop_types___default.a.shape({
 /* WEBPACK VAR INJECTION */(function(process) {/* harmony export (immutable) */ __webpack_exports__["a"] = connectAdvanced;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_runtime_helpers_esm_inheritsLoose__ = __webpack_require__(23);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__babel_runtime_helpers_esm_assertThisInitialized__ = __webpack_require__(58);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__babel_runtime_helpers_esm_extends__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__babel_runtime_helpers_esm_extends__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__babel_runtime_helpers_esm_objectWithoutPropertiesLoose__ = __webpack_require__(18);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_hoist_non_react_statics__ = __webpack_require__(59);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_hoist_non_react_statics___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_hoist_non_react_statics__);
@@ -2140,7 +2140,7 @@ var storeShape = __WEBPACK_IMPORTED_MODULE_0_prop_types___default.a.shape({
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_invariant___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_invariant__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_react__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_react_is__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_react_is__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_react_is___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_react_is__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__utils_Subscription__ = __webpack_require__(60);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__utils_PropTypes__ = __webpack_require__(24);
@@ -3998,7 +3998,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactDom = __webpack_require__(5);
 
-var _reactRedux = __webpack_require__(12);
+var _reactRedux = __webpack_require__(11);
 
 var _app = __webpack_require__(83);
 
@@ -6262,7 +6262,7 @@ exports.unstable_scheduleCallback=function(a,b){var c=-1!==k?k:exports.unstable_
 b=c.previous;b.next=c.previous=a;a.next=c;a.previous=b}return a};exports.unstable_cancelCallback=function(a){var b=a.next;if(null!==b){if(b===a)d=null;else{a===d&&(d=b);var c=a.previous;c.next=b;b.previous=c}a.next=a.previous=null}};exports.unstable_wrapCallback=function(a){var b=g;return function(){var c=g,f=k;g=b;k=exports.unstable_now();try{return a.apply(this,arguments)}finally{g=c,k=f,v()}}};exports.unstable_getCurrentPriorityLevel=function(){return g};
 exports.unstable_shouldYield=function(){return!e&&(null!==d&&d.expirationTime<l||w())};exports.unstable_continueExecution=function(){null!==d&&p()};exports.unstable_pauseExecution=function(){};exports.unstable_getFirstCallbackNode=function(){return d};
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(11)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(10)))
 
 /***/ }),
 /* 48 */
@@ -6969,7 +6969,7 @@ exports.unstable_getFirstCallbackNode = unstable_getFirstCallbackNode;
   })();
 }
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0), __webpack_require__(11)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0), __webpack_require__(10)))
 
 /***/ }),
 /* 49 */
@@ -29075,7 +29075,7 @@ exports.isSuspense = isSuspense;
 
 
 
-var ReactIs = __webpack_require__(13);
+var ReactIs = __webpack_require__(12);
 var assign = __webpack_require__(6);
 
 var ReactPropTypesSecret = __webpack_require__(16);
@@ -29756,7 +29756,7 @@ function _assertThisInitialized(self) {
  * Copyright 2015, Yahoo! Inc.
  * Copyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.
  */
-var ReactIs = __webpack_require__(13);
+var ReactIs = __webpack_require__(12);
 var REACT_STATICS = {
     childContextTypes: true,
     contextType: true,
@@ -29956,7 +29956,7 @@ function () {
 
 "use strict";
 /* unused harmony export createConnect */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_runtime_helpers_esm_extends__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_runtime_helpers_esm_extends__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__babel_runtime_helpers_esm_objectWithoutPropertiesLoose__ = __webpack_require__(18);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_connectAdvanced__ = __webpack_require__(25);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__utils_shallowEqual__ = __webpack_require__(62);
@@ -30193,7 +30193,7 @@ var freeGlobal = typeof global == 'object' && global && global.Object === Object
 
 /* harmony default export */ __webpack_exports__["a"] = (freeGlobal);
 
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(11)))
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(10)))
 
 /***/ }),
 /* 67 */
@@ -30376,7 +30376,7 @@ if (typeof self !== 'undefined') {
 var result = Object(__WEBPACK_IMPORTED_MODULE_0__ponyfill_js__["a" /* default */])(root);
 /* harmony default export */ __webpack_exports__["a"] = (result);
 
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(11), __webpack_require__(73)(module)))
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(10), __webpack_require__(73)(module)))
 
 /***/ }),
 /* 73 */
@@ -30735,7 +30735,7 @@ function whenMapStateToPropsIsMissing(mapStateToProps) {
 /* unused harmony export wrapMergePropsFunc */
 /* unused harmony export whenMergePropsIsFunction */
 /* unused harmony export whenMergePropsIsOmitted */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_runtime_helpers_esm_extends__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_runtime_helpers_esm_extends__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils_verifyPlainObject__ = __webpack_require__(32);
 
 
@@ -32239,7 +32239,7 @@ var _reactDom2 = _interopRequireDefault(_reactDom);
 
 var _redux = __webpack_require__(7);
 
-var _reactRedux = __webpack_require__(12);
+var _reactRedux = __webpack_require__(11);
 
 var _queryString = __webpack_require__(38);
 
@@ -32253,7 +32253,7 @@ var _projectItem2 = _interopRequireDefault(_projectItem);
 
 var _projectsActions = __webpack_require__(112);
 
-__webpack_require__(10);
+__webpack_require__(14);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -32342,6 +32342,11 @@ var Projects = function (_React$Component) {
             return _react2.default.createElement(
                 'div',
                 { id: 'projects' },
+                _react2.default.createElement(
+                    _reactRouterDom.Link,
+                    { className: 'btn btn-primary', to: "/projects/new" },
+                    '\u0421\u043E\u0437\u0434\u0430\u0442\u044C \u043F\u0440\u043E\u0435\u043A\u0442'
+                ),
                 _react2.default.createElement(
                     'table',
                     { className: 'table' },
@@ -32586,6 +32591,12 @@ var ProjectItem = function (_React$Component) {
                 '\u0423\u0434\u0430\u043B\u0438\u0442\u044C \u043F\u0440\u043E\u0435\u043A\u0442'
             );
 
+            var editBlock = _react2.default.createElement(
+                _reactRouterDom.Link,
+                { className: 'btn btn-dark', to: "/projects/edit?projectId=" + this.props.data.projectId },
+                '\u0420\u0435\u0434\u0430\u043A\u0442\u0438\u0440\u043E\u0432\u0430\u0442\u044C'
+            );
+
             return _react2.default.createElement(
                 'tr',
                 { id: 'projectItem' },
@@ -32607,6 +32618,8 @@ var ProjectItem = function (_React$Component) {
                 _react2.default.createElement(
                     'td',
                     null,
+                    editBlock,
+                    ' ',
                     deleteBlock
                 )
             );
@@ -32633,7 +32646,7 @@ exports.deleteProject = deleteProject;
 
 var _projectsConstants = __webpack_require__(39);
 
-__webpack_require__(10);
+__webpack_require__(14);
 
 function getProjects() {
     var pageIndex = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
@@ -33223,7 +33236,7 @@ var _reactDom2 = _interopRequireDefault(_reactDom);
 
 var _redux = __webpack_require__(7);
 
-var _reactRedux = __webpack_require__(12);
+var _reactRedux = __webpack_require__(11);
 
 var _newProjectActions = __webpack_require__(115);
 
@@ -33290,7 +33303,7 @@ var NewProject = function (_React$Component) {
                         onChange: function onChange(e) {
                             return _this2.props.changeProjectDescription(e.target.value);
                         },
-                        placeholder: '\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u043D\u0430\u0437\u0432\u0430\u043D\u0438\u0435 \u043F\u0440\u043E\u0435\u043A\u0442\u0430'
+                        placeholder: '\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u043E\u043F\u0438\u0441\u0430\u043D\u0438\u0435 \u043F\u0440\u043E\u0435\u043A\u0442\u0430'
                     })
                 ),
                 _react2.default.createElement('input', {
@@ -33342,7 +33355,7 @@ exports.addProject = addProject;
 
 var _newProjectConstants = __webpack_require__(40);
 
-__webpack_require__(10);
+__webpack_require__(14);
 
 function changeProjectName(text) {
     return {
@@ -33415,15 +33428,13 @@ var _reactDom2 = _interopRequireDefault(_reactDom);
 
 var _redux = __webpack_require__(7);
 
-var _reactRedux = __webpack_require__(12);
+var _reactRedux = __webpack_require__(11);
 
 var _queryString = __webpack_require__(38);
 
 var _queryString2 = _interopRequireDefault(_queryString);
 
 var _editProjectActions = __webpack_require__(117);
-
-__webpack_require__(10);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -33455,6 +33466,7 @@ var EditProject = function (_React$Component) {
         value: function render() {
             var _this2 = this;
 
+            //this.props.data.projectName = this.props.data.project.projectName;        
             return _react2.default.createElement(
                 'div',
                 { id: 'editProject' },
@@ -33474,7 +33486,7 @@ var EditProject = function (_React$Component) {
                     _react2.default.createElement('input', {
                         type: 'input',
                         className: 'form-control',
-                        value: this.props.data.project.projectName,
+                        value: this.props.data.projectName,
                         onChange: function onChange(e) {
                             return _this2.props.changeProjectName(e.target.value);
                         },
@@ -33496,7 +33508,7 @@ var EditProject = function (_React$Component) {
                         onChange: function onChange(e) {
                             return _this2.props.changeProjectDescription(e.target.value);
                         },
-                        placeholder: '\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u043D\u0430\u0437\u0432\u0430\u043D\u0438\u0435 \u043F\u0440\u043E\u0435\u043A\u0442\u0430'
+                        placeholder: '\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u043E\u043F\u0438\u0441\u0430\u043D\u0438\u0435 \u043F\u0440\u043E\u0435\u043A\u0442\u0430'
                     })
                 ),
                 _react2.default.createElement('input', {
@@ -33548,19 +33560,19 @@ exports.editProject = editProject;
 
 var _editProjectConstants = __webpack_require__(41);
 
-__webpack_require__(10);
+__webpack_require__(14);
 
-function changeProjectName(projectName) {
+function changeProjectName(text) {
     return {
         type: _editProjectConstants.CHANGE_PROJECTNAME,
-        payload: projectName
+        payload: text
     };
 }
 
-function changeProjectDescription(projectDescription) {
+function changeProjectDescription(text) {
     return {
         type: _editProjectConstants.CHANGE_PROJECTDESCRIPTION,
-        payload: projectDescription
+        payload: text
     };
 }
 
@@ -33881,7 +33893,7 @@ exports.default = editProject;
 var _editProjectConstants = __webpack_require__(41);
 
 var initialState = {
-    project: null,
+    project: {},
     projectName: '',
     projectDescription: '',
     error: ''

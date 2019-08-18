@@ -13,11 +13,12 @@ class EditProject extends React.Component {
     componentDidMount() {
         const parsed = queryString.parse(location.search);
         if (parsed) {
-            this.props.getProject(parsed['projectId']);
+            this.props.getProject(parsed['projectId']);            
         }
     }    
-
-    render() {        
+        
+    render() {
+        //this.props.data.projectName = this.props.data.project.projectName;        
         return (
             <div id="editProject">
                 <h3>Редактирование проекта</h3>
@@ -38,7 +39,7 @@ class EditProject extends React.Component {
                         className="form-control"
                         value={this.props.data.projectDescription}
                         onChange={(e) => this.props.changeProjectDescription(e.target.value)}
-                        placeholder="Введите название проекта"
+                        placeholder="Введите описание проекта"
                     />
                 </div>
                 <input

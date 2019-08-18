@@ -8,17 +8,17 @@
 } from './editProjectConstants.jsx'
 import "isomorphic-fetch"
 
-export function changeProjectName(projectName) {
+export function changeProjectName(text) {
     return {
         type: CHANGE_PROJECTNAME,
-        payload: projectName
+        payload: text
     }
 }
 
-export function changeProjectDescription(projectDescription) {
+export function changeProjectDescription(text) {
     return {
         type: CHANGE_PROJECTDESCRIPTION,
-        payload: projectDescription
+        payload: text
     }
 }
 
@@ -26,7 +26,7 @@ export function getProject(projectId) {
     return (dispatch) => {
         fetch(window.constants.project + '?projectId=' + projectId)
             .then((response) => {
-                return response.json();
+                return response.json();                
             }).then((data) => {
                 dispatch({ type: GET_PROJECT_SUCCESS, payload: data });
             }).catch((ex) => {
