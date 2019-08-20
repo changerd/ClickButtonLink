@@ -10,6 +10,7 @@ const initialState = {
         currentPage: 0,
         totalPages: 0,
         pageSizes: 0,
+        countRecords: 0,
         records: []
     },    
     error: '',

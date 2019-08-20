@@ -13,15 +13,16 @@ namespace DBRepository.Repositories
     {
         public ProjectRepository(string connectionString, IRepositoryContextFactory contextFactory) : base(connectionString, contextFactory) { }
 
-        public async Task<Page<Project>> GetProjects(int index, int pageSize/*, string userId*/)
+        public async Task<PageProjects<Project>> GetProjects(int index, int pageSize/*, string userId*/)
         {
-            var result = new Page<Project>() { CurrentPage = index, PageSize = pageSize };
+            var result = new PageProjects<Project>() { CurrentPage = index, PageSize = pageSize };
 
             using (var context = ContextFactory.CreateDbContext(ConnectionString))
             {
                 var query = context.Projects/*.Where(u => String.Equals(u.UserId, userId))*/.AsQueryable();
                 result.TotalPages = await query.CountAsync();
-                result.Records = await query.Include(l => l.Links).OrderByDescending(p => p.ProjectId).Skip(index * pageSize).Take(pageSize).ToListAsync();
+                result.Records = await query.Include(l => l.Links).ThenInclude(s => s.Statistics).OrderByDescending(p => p.ProjectId).Skip(index * pageSize).Take(pageSize).ToListAsync();
+                result.CountRecords = result.Records.Sum(s => s.Links.Count());
             }
 
             return result;
@@ -29,10 +30,10 @@ namespace DBRepository.Repositories
         public async Task<Project> GetProject(int projectId)
         {
             using (var context = ContextFactory.CreateDbContext(ConnectionString))
-            {
+            {                
                 return await context.Projects.Include(l => l.Links).ThenInclude(s => s.Statistics).SingleOrDefaultAsync(p => p.ProjectId == projectId);
             }
-        }
+        }        
         public async Task AddProject(Project project)
         {
             using (var context = ContextFactory.CreateDbContext(ConnectionString))

@@ -1,18 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace Models
+namespace ClickButtonLink.ViewModels
 {
-    public class Link
+    public class EditLinkRequest
     {
         public int LinkId { get; set; }
+        public int ProjectId { get; set; }
         public string LinkName { get; set; }
         public string LinkDescription { get; set; }
         public string LinkValue { get; set; }
         public bool LinkIsActive { get; set; }
-        public int ProjectId { get; set; }
-        //public virtual Project Project { get; set; }
-        public virtual ICollection<Statistic> Statistics { get; set; }
     }
 }

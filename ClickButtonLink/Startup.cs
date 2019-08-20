@@ -36,9 +36,11 @@ namespace ClickButtonLink
 
             services.AddScoped<IRepositoryContextFactory, RepositoryContextFactory>();
             services.AddScoped<IProjectRepository>(provider => new ProjectRepository(Configuration.GetConnectionString("DefaultConnection"), provider.GetService<IRepositoryContextFactory>()));
+            services.AddScoped<ILinkRepository>(provider => new LinkRepository(Configuration.GetConnectionString("DefaultConnection"), provider.GetService<IRepositoryContextFactory>()));
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddSingleton<IConfiguration>(Configuration);
             services.AddScoped<IProjectService, ProjectService>();
+            services.AddScoped<ILinkService, LinkService>();
 
         }
 

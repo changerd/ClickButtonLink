@@ -6,10 +6,17 @@ namespace ClickButtonLink
 {
     public static class MappingExtensions
     {
-        public static Page<TDestination> ToMappedPage<TSource, TDestination>(this IMapper mapper, Page<TSource> page)
+        public static PageProjects<TDestination> ToMappedPage<TSource, TDestination>(this IMapper mapper, PageProjects<TSource> page)
         {
             IEnumerable<TDestination> sourceList = mapper.Map<IEnumerable<TSource>, IEnumerable<TDestination>>(page?.Records);
-            Page<TDestination> pagedResult = new Page<TDestination>(sourceList) { CurrentPage = page.CurrentPage, PageSize = page.PageSize, TotalPages = page.TotalPages };
+            PageProjects<TDestination> pagedResult = new PageProjects<TDestination>(sourceList) { CurrentPage = page.CurrentPage, PageSize = page.PageSize, TotalPages = page.TotalPages, CountRecords = page.CountRecords };
+            return pagedResult;
+        }
+
+        public static PageLinks<TDestination> ToMappedPage<TSource, TDestination>(this IMapper mapper, PageLinks<TSource> page)
+        {
+            IEnumerable<TDestination> sourceList = mapper.Map<IEnumerable<TSource>, IEnumerable<TDestination>>(page?.Records);
+            PageLinks<TDestination> pagedResult = new PageLinks<TDestination>(sourceList) { CurrentPage = page.CurrentPage, PageSize = page.PageSize, TotalPages = page.TotalPages, CountLinks = page.CountLinks, ProjectName = page.ProjectName, ProjectDescription = page.ProjectDescription };
             return pagedResult;
         }
     }

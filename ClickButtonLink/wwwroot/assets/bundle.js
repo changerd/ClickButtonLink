@@ -32316,6 +32316,7 @@ var Projects = function (_React$Component) {
 
             var total = this.props.projects.totalPages;
             var pageSize = this.props.projects.pageSize;
+            var countRecords = this.props.projects.countRecords;
             var pageNumbers = [];
             var params = _queryString2.default.parse(location.search);
             var queryTrailer = '';
@@ -32342,11 +32343,40 @@ var Projects = function (_React$Component) {
             return _react2.default.createElement(
                 'div',
                 { id: 'projects' },
+                _react2.default.createElement('br', null),
                 _react2.default.createElement(
-                    _reactRouterDom.Link,
-                    { className: 'btn btn-primary', to: "/projects/new" },
-                    '\u0421\u043E\u0437\u0434\u0430\u0442\u044C \u043F\u0440\u043E\u0435\u043A\u0442'
+                    'div',
+                    { className: 'row' },
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'col' },
+                        _react2.default.createElement(
+                            'h3',
+                            null,
+                            '\u0412\u0441\u0435 \u043F\u0440\u043E\u0435\u043A\u0442\u044B'
+                        )
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'col-7' },
+                        _react2.default.createElement(
+                            'i',
+                            null,
+                            countRecords,
+                            ' \u0441\u0441\u044B\u043B\u043A\u0438'
+                        )
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'col text-right' },
+                        _react2.default.createElement(
+                            _reactRouterDom.Link,
+                            { className: 'btn btn-primary', to: "/projects/new" },
+                            '\u0421\u043E\u0437\u0434\u0430\u0442\u044C \u043F\u0440\u043E\u0435\u043A\u0442'
+                        )
+                    )
                 ),
+                _react2.default.createElement('br', null),
                 _react2.default.createElement(
                     'table',
                     { className: 'table' },
@@ -33803,6 +33833,7 @@ var initialState = {
         currentPage: 0,
         totalPages: 0,
         pageSizes: 0,
+        countRecords: 0,
         records: []
     },
     error: ''

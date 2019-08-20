@@ -9,6 +9,6 @@ namespace Models
         public int StatisticId { get; set; }
         public DateTime StatisticDate { get; set; }
         public int LinkId { get; set; }
-        public Link Link { get; set; }
+        //public virtual Link Link { get; set; }
     }
 }

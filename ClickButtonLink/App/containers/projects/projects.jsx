@@ -47,6 +47,7 @@ class Projects extends React.Component {
     render() {
         const total = this.props.projects.totalPages;
         const pageSize = this.props.projects.pageSize;
+        const countRecords = this.props.projects.countRecords;
         const pageNumbers = [];
         let params = queryString.parse(location.search);
         let queryTrailer = '';
@@ -68,10 +69,22 @@ class Projects extends React.Component {
             );
         });
 
-        return (            
+        return (
             <div id="projects">
-                <Link className="btn btn-primary" to={"/projects/new"}>Создать проект</Link>
-                <table className="table">                    
+                <br/>
+                <div className="row">
+                    <div className="col">
+                        <h3>Все проекты</h3>
+                    </div>
+                    <div className="col-7">
+                        <i>{countRecords} ссылки</i> 
+                    </div>
+                    <div className="col text-right">
+                        <Link className="btn btn-primary" to={"/projects/new"}>Создать проект</Link>
+                    </div>
+                    </div>               
+                <br />
+                <table className="table">
                     <tbody>
                         <tr>
                             <th scope="col">Название</th>

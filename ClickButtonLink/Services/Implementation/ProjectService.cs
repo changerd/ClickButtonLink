@@ -24,7 +24,7 @@ namespace ClickButtonLink.Services.Implementation
             _mapper = mapper;
         }
 
-        public async Task<Page<ProjectsViewModel>> GetProjects(int pageIndex/*, string userId*/)
+        public async Task<PageProjects<ProjectsViewModel>> GetProjects(int pageIndex/*, string userId*/)
         {
             var pageSize = _config.GetValue<int>("pageSize");
             var page = await _repository.GetProjects(pageIndex, pageSize/*, userId*/);

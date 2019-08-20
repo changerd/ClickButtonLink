@@ -8,10 +8,10 @@ namespace DBRepository.Interfaces
 {
     public interface ILinkRepository
     {
-        Task<Page<Link>> GetLinks(int index, int pageSize);
+        Task<PageLinks<Link>> GetLinks(int index, int pageSize, int projectId = 0);
         Task<Link> GetLink(int linkId);
         Task AddLink(Link link);
-        Task EditLink(int linkId);
+        Task EditLink(Link link);
         Task DeleteLink(int linkId);
     }
 }

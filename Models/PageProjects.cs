@@ -4,19 +4,20 @@ using System.Text;
 
 namespace Models
 {
-    public class Page<T>
+    public class PageProjects<T>
     {
         public int CurrentPage { get; set; }
         public int PageSize { get; set; }
         public int TotalPages { get; set; }
+        public int CountRecords { get; set; }
         public List<T> Records { get; set; }
 
-        public Page()
+        public PageProjects()
         {
             Records = new List<T>();
         }
 
-        public Page(IEnumerable<T> records)
+        public PageProjects(IEnumerable<T> records)
         {
             Records = new List<T>(records);
         }

@@ -24,7 +24,7 @@ namespace ClickButtonLink.Controllers
 
         [Route("page")]
         [HttpGet]
-        public async Task<Page<ProjectsViewModel>> GetProjects(int pageIndex)
+        public async Task<PageProjects<ProjectsViewModel>> GetProjects(int pageIndex)
         {
             return await _projectService.GetProjects(pageIndex);
         }

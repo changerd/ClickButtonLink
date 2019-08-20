@@ -8,8 +8,8 @@ namespace DBRepository.Interfaces
 {
     public interface IProjectRepository
     {
-        Task<Page<Project>> GetProjects(int index, int pageSize/*, string userId*/);
-        Task<Project> GetProject(int projectId);
+        Task<PageProjects<Project>> GetProjects(int index, int pageSize/*, string userId*/);
+        Task<Project> GetProject(int projectId);        
         Task AddProject(Project project);
         Task EditProject(Project project);        
         Task DeleteProject(int projectId);        

@@ -17,6 +17,10 @@ namespace ClickButtonLink.Helpers
                 .ForMember(m => m.TransitionCount, opt => opt.MapFrom(m => m.Links != null ? m.Links.Sum(s => s.Statistics.Count) : 0));
             CreateMap<AddProjectRequest, Project>();
             CreateMap<EditProjectRequest, Project>();
+            CreateMap<Link, LinksViewModel>()
+                .ForMember(m => m.TransitionCount, opt => opt.MapFrom(s => s.Statistics != null ? s.Statistics.Count : 0));
+            CreateMap<AddLinkRequest, Link>();
+            CreateMap<EditLinkRequest, Link>();
         }
     }
 }

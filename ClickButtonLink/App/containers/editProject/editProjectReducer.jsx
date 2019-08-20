@@ -8,7 +8,7 @@
 } from './editProjectConstants.jsx'
 
 const initialState = {
-    project: {},
+    project: { },
     projectName: '',
     projectDescription: '',
     error: ''
