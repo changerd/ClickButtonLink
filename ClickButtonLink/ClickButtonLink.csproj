@@ -21,6 +21,7 @@
   <ItemGroup>
     <Folder Include="App\components\" />
     <Folder Include="App\utils\" />
+    <Folder Include="wwwroot\imgs\" />
   </ItemGroup>
 
 </Project>

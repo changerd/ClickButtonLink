@@ -1,0 +1,2 @@
+﻿export const GET_LINKS_SUCCESS = 'GET_LINKS_SUCCESS'
+export const GET_LINKS_ERROR = 'GET_LINKS_ERROR'

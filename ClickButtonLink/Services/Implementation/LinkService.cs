@@ -33,8 +33,15 @@ namespace ClickButtonLink.Services.Implementation
         }
 
         public async Task<Link> GetLink(int linkId)
-        {
+        {            
             var result = await _repository.GetLink(linkId);
+            return result;
+        }
+
+        public async Task<LinkViewModel> GetLinkDetails(int linkId)
+        {
+            var link = await _repository.GetLink(linkId);
+            var result = _mapper.Map<Link, LinkViewModel>(link);
             return result;
         }
 

@@ -37,6 +37,7 @@ namespace ClickButtonLink
             services.AddScoped<IRepositoryContextFactory, RepositoryContextFactory>();
             services.AddScoped<IProjectRepository>(provider => new ProjectRepository(Configuration.GetConnectionString("DefaultConnection"), provider.GetService<IRepositoryContextFactory>()));
             services.AddScoped<ILinkRepository>(provider => new LinkRepository(Configuration.GetConnectionString("DefaultConnection"), provider.GetService<IRepositoryContextFactory>()));
+            services.AddScoped<IRedirectRepository>(provider => new RedirectRepository(Configuration.GetConnectionString("DefaultConnection"), provider.GetService<IRepositoryContextFactory>()));
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddSingleton<IConfiguration>(Configuration);
             services.AddScoped<IProjectService, ProjectService>();
@@ -69,6 +70,10 @@ namespace ClickButtonLink
                 routes.MapRoute(
                     name: "DefaultApi",
                     template: "api/{controller}/{action}");
+                routes.MapRoute(
+                    name: "RedirectApi",
+                    template: "{id:int}",
+                    defaults: new { controller = "Redirect", action = "StartRedirect" });
                 routes.MapSpaFallbackRoute("spa-fallback", new { controller = "Home", action = "Index" });
             });
         }

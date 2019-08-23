@@ -31,7 +31,7 @@ namespace DBRepository.Repositories
         {
             using (var context = ContextFactory.CreateDbContext(ConnectionString))
             {                
-                return await context.Projects.Include(l => l.Links).ThenInclude(s => s.Statistics).SingleOrDefaultAsync(p => p.ProjectId == projectId);
+                return await context.Projects.FindAsync(projectId);
             }
         }        
         public async Task AddProject(Project project)

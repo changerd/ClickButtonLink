@@ -11,6 +11,6 @@ namespace ClickButtonLink.ViewModels
         public string LinkName { get; set; }
         public string LinkValue { get; set; }
         public int TransitionCount { get; set; }
-        public bool LinkIsActive { get; }
+        public bool LinkIsActive { get; set; }
     }
 }

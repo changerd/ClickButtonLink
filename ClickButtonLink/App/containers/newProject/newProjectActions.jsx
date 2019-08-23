@@ -45,8 +45,7 @@ export function addProject(projectName, projectDescription, historyObject) {
             if (!projectName) {
                 alert('Необходимо заполнить название проекта');
                 dispatch({ type: ADD_PROJECT_ERROR, payload: 'Необходимо заполнить название новой записи' });
-            }
-            if (!projectDescription) {
+            } else if (!projectDescription) {
                 alert('Необходимо заполнить описание проекта');
                 dispatch({ type: ADD_PROJECT_ERROR, payload: 'Необходимо заполнить название новой записи' });
             }

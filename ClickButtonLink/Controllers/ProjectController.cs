@@ -14,12 +14,10 @@ namespace ClickButtonLink.Controllers
     public class ProjectController : Controller
     {
         IProjectService _projectService;
-        IProjectRepository _projectRepository;
-
-        public ProjectController(IProjectService projectService, IProjectRepository projectRepository)
+       
+        public ProjectController(IProjectService projectService)
         {
-            _projectService = projectService;
-            _projectRepository = projectRepository;
+            _projectService = projectService;            
         }
 
         [Route("page")]
@@ -54,7 +52,7 @@ namespace ClickButtonLink.Controllers
         [HttpDelete]
         public async Task DeleteProject(int projectId)
         {
-            await _projectRepository.DeleteProject(projectId);
+            await _projectService.DeleteProject(projectId);
         }
     }
 }

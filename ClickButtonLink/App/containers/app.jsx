@@ -3,8 +3,6 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
 import Routing from '../routes/route.jsx';
 import Header from './header/header.jsx';
-//import About from './about/about.jsx';
-//import Blog from './blog/blog.jsx';
 
 export default class App extends React.Component {
     render() {
@@ -18,8 +16,7 @@ export default class App extends React.Component {
                             <p className="text-center">&copy; 2019 – ClickButtonLink</p>
                         </div>
                     </footer>
-                </div>
-                
+                </div>                
             </Router>
         );
     }

@@ -6,7 +6,10 @@
     <script type="text/javascript">
         constants = {
             page: '@Url.RouteUrl("DefaultApi", new {controller = "Project", action = "page" })',
-            project: '@Url.RouteUrl("DefaultApi", new {controller = "Project", action = "project" })'
+            project: '@Url.RouteUrl("DefaultApi", new {controller = "Project", action = "project" })',
+            pagelinks: '@Url.RouteUrl("DefaultApi", new {controller = "Link", action = "pagelinks" })',
+            link: '@Url.RouteUrl("DefaultApi", new {controller = "Link", action = "link" })',
+            linkdetails: '@Url.RouteUrl("DefaultApi", new {controller = "Link", action = "linkdetails" })',
 
         }
     </script>
@@ -16,9 +19,11 @@
 </head>
 <body>
     <div id="content">
-    </div>    
+    </div>
     <script type="text/javascript" src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
-    <script type="text/javascript" src="~/lib/jQuery/dist/jquery.js"></script> 
+    <script type="text/javascript" src="~/lib/jQuery/dist/jquery.js"></script>
+    <script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+    <script src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
     <script type="text/javascript" src="@Url.Content("~/assets/bundle.js")"></script>
 </body>
 </html>

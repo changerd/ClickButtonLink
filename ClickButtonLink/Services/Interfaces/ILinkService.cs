@@ -11,6 +11,7 @@ namespace ClickButtonLink.Services.Interfaces
     {
         Task<PageLinks<LinksViewModel>> GetLinks(int pageIndex, int projectId);
         Task<Link> GetLink(int linkId);
+        Task<LinkViewModel> GetLinkDetails(int linkId);
         Task AddLink(AddLinkRequest request);
         Task EditLink(EditLinkRequest request);
         Task DeleteLink(int linkId);

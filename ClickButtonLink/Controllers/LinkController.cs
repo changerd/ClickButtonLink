@@ -9,6 +9,7 @@ using Models;
 
 namespace ClickButtonLink.Controllers
 {
+    [Route("api/[controller]")]
     public class LinkController : Controller
     {
         ILinkService _linkService;
@@ -18,7 +19,7 @@ namespace ClickButtonLink.Controllers
             _linkService = linkService;
         }
 
-        [Route("pagelink")]
+        [Route("pagelinks")]
         [HttpGet]
         public async Task<PageLinks<LinksViewModel>> GetLinks(int pageIndex, int projectId)
         {
@@ -30,6 +31,13 @@ namespace ClickButtonLink.Controllers
         public async Task<Link> GetLink(int linkId)
         {
             return await _linkService.GetLink(linkId);
+        }
+
+        [Route("linkdetails")]
+        [HttpGet]
+        public async Task<LinkViewModel> GetLinkDetails(int linkId)
+        {
+            return await _linkService.GetLinkDetails(linkId);
         }
 
         [Route("link")]
