@@ -16,7 +16,7 @@ namespace DBRepository.Repositories
             using (var context = ContextFactory.CreateDbContext(ConnectionString))
             {
                 var link = context.Links.Find(linkId);
-                if(link.LinkIsActive)
+                if(link != null && link.LinkIsActive)
                 {
                     var statistic = new Statistic { LinkId = link.LinkId, StatisticDate = DateTime.Parse(DateTime.Now.ToShortDateString()) };
                     context.Statistics.Add(statistic);
