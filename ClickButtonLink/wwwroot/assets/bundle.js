@@ -61981,8 +61981,8 @@ var LinkItem = function (_React$Component) {
                     'td',
                     null,
                     _react2.default.createElement(
-                        _reactRouterDom.Link,
-                        { to: "/" + this.props.data.linkId },
+                        'a',
+                        { href: "/" + this.props.data.linkId },
                         'localhost:44324/',
                         this.props.data.linkId
                     )
@@ -62761,8 +62761,8 @@ var LinkItem = function (_React$Component) {
                             'dd',
                             null,
                             _react2.default.createElement(
-                                _reactRouterDom.Link,
-                                { to: "/" + this.props.data.linkId },
+                                'a',
+                                { href: "/" + this.props.data.linkId },
                                 'localhost:44324/',
                                 this.props.data.linkId
                             )

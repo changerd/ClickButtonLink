@@ -114,8 +114,8 @@ class LinkItem extends React.Component {
                             Короткая ссылка
                         </dt>
 
-                        <dd>
-                            <Link to={"/" + this.props.data.linkId}>localhost:44324/{this.props.data.linkId}</Link>
+                        <dd>                            
+                            <a href={"/" + this.props.data.linkId}>localhost:44324/{this.props.data.linkId}</a>
                         </dd>
 
                         <dt>
