@@ -2,12 +2,26 @@
 import ReactDOM from 'react-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { addProject, changeProjectName, changeProjectDescription } from './newProjectActions.jsx'
+import { addProject } from './newProjectActions.jsx'
 
 
 class NewProject extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            projectName: '',
+            projectDescription: '',
+        }
 
-    render() {
+        this.handleChange = this.handleChange.bind(this);        
+    }
+
+    handleChange(event) {
+        const { id, value } = event.currentTarget;
+        this.setState({ [id]: event.target.value })
+    }    
+
+    render() {       
         return (
             <div id="project">
                 <h3>Новый проект</h3>
@@ -15,9 +29,10 @@ class NewProject extends React.Component {
                     <label>Название</label>
                     <input
                         type="input"
+                        id="projectName"
                         className="form-control"
-                        value={this.props.data.projectName}
-                        onChange={(e) => this.props.changeProjectName(e.target.value)}
+                        value={this.state.projectName}
+                        onChange={this.handleChange}
                         placeholder="Введите название проекта"
                     />
                 </div>
@@ -25,9 +40,10 @@ class NewProject extends React.Component {
                     <label>Описание</label>
                     <input
                         type="input"
+                        id="projectDescription"
                         className="form-control"
-                        value={this.props.data.projectDescription}
-                        onChange={(e) => this.props.changeProjectDescription(e.target.value)}
+                        value={this.state.projectDescription}
+                        onChange={this.handleChange}
                         placeholder="Введите описание проекта"
                     />
                 </div>
@@ -35,7 +51,7 @@ class NewProject extends React.Component {
                     type="button"
                     className="btn btn-primary"
                     value="Отправить"
-                    onClick={() => this.props.addProject(this.props.data.projectName, this.props.data.projectDescription, this.props.history)}
+                    onClick={() => this.props.addProject(this.state.projectName, this.state.projectDescription, this.props.history)}
                 />
             </div>
         );
@@ -50,9 +66,7 @@ let mapProps = (state) => {
 
 let mapDispatch = (dispatch) => {
     return {
-        addProject: bindActionCreators(addProject, dispatch),
-        changeProjectName: bindActionCreators(changeProjectName, dispatch),
-        changeProjectDescription: bindActionCreators(changeProjectDescription, dispatch)
+        addProject: bindActionCreators(addProject, dispatch),        
     }
 }
 

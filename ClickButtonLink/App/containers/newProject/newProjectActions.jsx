@@ -1,24 +1,8 @@
 ﻿import {
     ADD_PROJECT_SUCCESS,
-    ADD_PROJECT_ERROR,
-    CHANGE_PROJECTNAME,
-    CHANGE_PROJECTDESCRIPTION
+    ADD_PROJECT_ERROR
 } from './newProjectConstants.jsx'
 import "isomorphic-fetch"
-
-export function changeProjectName(text) {
-    return {
-        type: CHANGE_PROJECTNAME,
-        payload: text
-    }
-}
-
-export function changeProjectDescription(text) {
-    return {
-        type: CHANGE_PROJECTDESCRIPTION,
-        payload: text
-    }
-}
 
 export function addProject(projectName, projectDescription, historyObject) {
     return (dispatch) => {
