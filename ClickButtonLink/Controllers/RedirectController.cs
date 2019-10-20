@@ -16,6 +16,7 @@ namespace ClickButtonLink.Controllers
             _repository = repository;
         }
         
+        [HttpGet]
         public async Task<IActionResult> StartRedirect(int id)
         {
             string FullLink = await _repository.StartRedirect(id);
