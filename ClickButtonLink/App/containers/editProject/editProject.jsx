@@ -17,8 +17,7 @@ class EditProject extends React.Component {
         }
     }    
         
-    render() {
-        //this.props.data.projectName = this.props.data.project.projectName;        
+    render() {             
         return (
             <div id="editProject">
                 <h3>Редактирование проекта</h3>
@@ -27,7 +26,7 @@ class EditProject extends React.Component {
                     <input
                         type="input"
                         className="form-control"
-                        value={this.props.data.projectName}
+                        value={this.props.data.project.projectName}
                         onChange={(e) => this.props.changeProjectName(e.target.value)}
                         placeholder="Введите название проекта"
                     />
@@ -37,7 +36,7 @@ class EditProject extends React.Component {
                     <input
                         type="input"
                         className="form-control"
-                        value={this.props.data.projectDescription}
+                        value={this.props.data.project.projectDescription}
                         onChange={(e) => this.props.changeProjectDescription(e.target.value)}
                         placeholder="Введите описание проекта"
                     />
@@ -46,7 +45,11 @@ class EditProject extends React.Component {
                     type="button"
                     className="btn btn-primary"
                     value="Отправить"
-                    onClick={() => this.props.editProject(this.props.data.project.projectId, this.props.data.projectName, this.props.data.projectDescription, this.props.history)}
+                    onClick={() => this.props.editProject(
+                        this.props.data.project.projectId,
+                        this.props.data.project.projectName,
+                        this.props.data.project.projectDescription                        
+                    )}
                 />
             </div>
         );

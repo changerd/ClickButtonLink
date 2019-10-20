@@ -36,7 +36,7 @@ export function getProject(projectId) {
     }
 }
 
-export function editProject(projectId, projectName, projectDescription, historyObject) {
+export function editProject(projectId, projectName, projectDescription) {
     return (dispatch) => {
         if (projectId, projectName, projectDescription) {
             fetch(window.constants.project + '?projectId=' + projectId, {
@@ -48,7 +48,7 @@ export function editProject(projectId, projectName, projectDescription, historyO
             }).then((response) => {
                 if (response.ok) {
                     dispatch({ type: EDIT_PROJECT_SUCCESS });
-                    historyObject.push('/');
+                    window.history.back();
                 } else {
                     alert('Ошибка редактирования проекта');
                     dispatch({ type: EDIT_PROJECT_ERROR, payload: 'Ошибка редактирования проекта' });
@@ -63,7 +63,7 @@ export function editProject(projectId, projectName, projectDescription, historyO
                 dispatch({ type: EDIT_PROJECT_ERROR, payload: 'Необходимо заполнить название новой записи' });
             } else if (!projectDescription) {
                 alert('Необходимо заполнить описание проекта');
-                dispatch({ type: EDIT_PROJECT_ERROR, payload: 'Необходимо заполнить название новой записи' });
+                dispatch({ type: EDIT_PROJECT_ERROR, payload: 'Необходимо заполнить описание новой записи' });
             }
         }
     }

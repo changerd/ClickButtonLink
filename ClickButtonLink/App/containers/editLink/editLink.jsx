@@ -33,7 +33,7 @@ class EditLink extends React.Component {
                     <input
                         type="input"
                         className="form-control"
-                        value={this.props.data.linkName}
+                        value={this.props.data.link.linkName}
                         onChange={(e) => this.props.changeLinkName(e.target.value)}
                         placeholder="Введите название ссылки"
                     />
@@ -43,7 +43,7 @@ class EditLink extends React.Component {
                     <input
                         type="input"
                         className="form-control"
-                        value={this.props.data.linkDescription}
+                        value={this.props.data.link.linkDescription}
                         onChange={(e) => this.props.changeLinkDescription(e.target.value)}
                         placeholder="Введите описание ссылки"
                     />
@@ -53,7 +53,7 @@ class EditLink extends React.Component {
                     <input
                         type="input"
                         className="form-control"
-                        value={this.props.data.linkValue}
+                        value={this.props.data.link.linkValue}
                         onChange={(e) => this.props.changeLinkValue(e.target.value)}
                         placeholder="Введите полную ссылку"
                     />
@@ -63,7 +63,7 @@ class EditLink extends React.Component {
                         type="checkbox"
                         className="form-check-input"
                         onChange={(e) => this.props.changeLinkIsActive(e.target.checked)}
-                        checked={this.props.data.linkIsActive}
+                        checked={this.props.data.link.linkIsActive}
                     />
                     <label className="form-check-label">Ссылка активна?</label>
                 </div>
@@ -74,10 +74,11 @@ class EditLink extends React.Component {
                     onClick={() => this.props.editLink(
                         this.props.data.link.linkId,
                         this.props.data.link.projectId,
-                        this.props.data.linkName,
-                        this.props.data.linkDescription,
-                        this.props.data.linkValue,
-                        this.props.data.linkIsActive)}
+                        this.props.data.link.linkName,
+                        this.props.data.link.linkDescription,
+                        this.props.data.link.linkValue,
+                        this.props.data.link.linkIsActive
+                    )}
                 />
             </div>
             )

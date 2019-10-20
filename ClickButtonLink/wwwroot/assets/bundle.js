@@ -61470,7 +61470,6 @@ var EditProject = function (_React$Component) {
         value: function render() {
             var _this2 = this;
 
-            //this.props.data.projectName = this.props.data.project.projectName;        
             return _react2.default.createElement(
                 'div',
                 { id: 'editProject' },
@@ -61490,7 +61489,7 @@ var EditProject = function (_React$Component) {
                     _react2.default.createElement('input', {
                         type: 'input',
                         className: 'form-control',
-                        value: this.props.data.projectName,
+                        value: this.props.data.project.projectName,
                         onChange: function onChange(e) {
                             return _this2.props.changeProjectName(e.target.value);
                         },
@@ -61508,7 +61507,7 @@ var EditProject = function (_React$Component) {
                     _react2.default.createElement('input', {
                         type: 'input',
                         className: 'form-control',
-                        value: this.props.data.projectDescription,
+                        value: this.props.data.project.projectDescription,
                         onChange: function onChange(e) {
                             return _this2.props.changeProjectDescription(e.target.value);
                         },
@@ -61520,7 +61519,7 @@ var EditProject = function (_React$Component) {
                     className: 'btn btn-primary',
                     value: '\u041E\u0442\u043F\u0440\u0430\u0432\u0438\u0442\u044C',
                     onClick: function onClick() {
-                        return _this2.props.editProject(_this2.props.data.project.projectId, _this2.props.data.projectName, _this2.props.data.projectDescription, _this2.props.history);
+                        return _this2.props.editProject(_this2.props.data.project.projectId, _this2.props.data.project.projectName, _this2.props.data.project.projectDescription);
                     }
                 })
             );
@@ -61593,7 +61592,7 @@ function getProject(projectId) {
     };
 }
 
-function editProject(projectId, projectName, projectDescription, historyObject) {
+function editProject(projectId, projectName, projectDescription) {
     return function (dispatch) {
         if (projectId, projectName, projectDescription) {
             fetch(window.constants.project + '?projectId=' + projectId, {
@@ -61605,7 +61604,7 @@ function editProject(projectId, projectName, projectDescription, historyObject) 
             }).then(function (response) {
                 if (response.ok) {
                     dispatch({ type: _editProjectConstants.EDIT_PROJECT_SUCCESS });
-                    historyObject.push('/');
+                    window.history.back();
                 } else {
                     alert('Ошибка редактирования проекта');
                     dispatch({ type: _editProjectConstants.EDIT_PROJECT_ERROR, payload: 'Ошибка редактирования проекта' });
@@ -61620,7 +61619,7 @@ function editProject(projectId, projectName, projectDescription, historyObject) 
                 dispatch({ type: _editProjectConstants.EDIT_PROJECT_ERROR, payload: 'Необходимо заполнить название новой записи' });
             } else if (!projectDescription) {
                 alert('Необходимо заполнить описание проекта');
-                dispatch({ type: _editProjectConstants.EDIT_PROJECT_ERROR, payload: 'Необходимо заполнить название новой записи' });
+                dispatch({ type: _editProjectConstants.EDIT_PROJECT_ERROR, payload: 'Необходимо заполнить описание новой записи' });
             }
         }
     };
@@ -61807,9 +61806,13 @@ var Links = function (_React$Component) {
                         )
                     ),
                     _react2.default.createElement(
-                        'h4',
+                        'div',
                         null,
-                        this.props.links.projectDescription
+                        _react2.default.createElement(
+                            'i',
+                            null,
+                            this.props.links.projectDescription
+                        )
                     )
                 );
             }
@@ -62385,7 +62388,7 @@ var EditLink = function (_React$Component) {
                     _react2.default.createElement('input', {
                         type: 'input',
                         className: 'form-control',
-                        value: this.props.data.linkName,
+                        value: this.props.data.link.linkName,
                         onChange: function onChange(e) {
                             return _this2.props.changeLinkName(e.target.value);
                         },
@@ -62403,7 +62406,7 @@ var EditLink = function (_React$Component) {
                     _react2.default.createElement('input', {
                         type: 'input',
                         className: 'form-control',
-                        value: this.props.data.linkDescription,
+                        value: this.props.data.link.linkDescription,
                         onChange: function onChange(e) {
                             return _this2.props.changeLinkDescription(e.target.value);
                         },
@@ -62421,7 +62424,7 @@ var EditLink = function (_React$Component) {
                     _react2.default.createElement('input', {
                         type: 'input',
                         className: 'form-control',
-                        value: this.props.data.linkValue,
+                        value: this.props.data.link.linkValue,
                         onChange: function onChange(e) {
                             return _this2.props.changeLinkValue(e.target.value);
                         },
@@ -62437,7 +62440,7 @@ var EditLink = function (_React$Component) {
                         onChange: function onChange(e) {
                             return _this2.props.changeLinkIsActive(e.target.checked);
                         },
-                        checked: this.props.data.linkIsActive
+                        checked: this.props.data.link.linkIsActive
                     }),
                     _react2.default.createElement(
                         'label',
@@ -62450,7 +62453,7 @@ var EditLink = function (_React$Component) {
                     className: 'btn btn-primary',
                     value: '\u041E\u0442\u043F\u0440\u0430\u0432\u0438\u0442\u044C',
                     onClick: function onClick() {
-                        return _this2.props.editLink(_this2.props.data.link.linkId, _this2.props.data.link.projectId, _this2.props.data.linkName, _this2.props.data.linkDescription, _this2.props.data.linkValue, _this2.props.data.linkIsActive);
+                        return _this2.props.editLink(_this2.props.data.link.linkId, _this2.props.data.link.projectId, _this2.props.data.link.linkName, _this2.props.data.link.linkDescription, _this2.props.data.link.linkValue, _this2.props.data.link.linkIsActive);
                     }
                 })
             );
@@ -62697,6 +62700,7 @@ var LinkItem = function (_React$Component) {
             return _react2.default.createElement(
                 'div',
                 { id: 'link' },
+                _react2.default.createElement('br', null),
                 _react2.default.createElement(
                     'h2',
                     null,
@@ -81553,8 +81557,6 @@ var _editProjectConstants = __webpack_require__(192);
 
 var initialState = {
     project: {},
-    projectName: '',
-    projectDescription: '',
     error: ''
 };
 
@@ -81564,7 +81566,7 @@ function editProject() {
 
     switch (action.type) {
         case _editProjectConstants.EDIT_PROJECT_SUCCESS:
-            return _extends({}, state, { projectName: '', projectDescription: '', error: '' });
+            return _extends({}, state, { error: '' });
 
         case _editProjectConstants.EDIT_PROJECT_ERROR:
             return _extends({}, state, { error: action.payload });
@@ -81576,10 +81578,18 @@ function editProject() {
             return _extends({}, state, { error: action.payload });
 
         case _editProjectConstants.CHANGE_PROJECTNAME:
-            return _extends({}, state, { projectName: action.payload });
+            return _extends({}, state, {
+                project: _extends({}, state.project, {
+                    projectName: action.payload
+                })
+            });
 
         case _editProjectConstants.CHANGE_PROJECTDESCRIPTION:
-            return _extends({}, state, { projectDescription: action.payload });
+            return _extends({}, state, {
+                project: _extends({}, state.project, {
+                    projectDescription: action.payload
+                })
+            });
 
         default:
             return state;
@@ -81713,10 +81723,6 @@ var _editLinkConstants = __webpack_require__(195);
 
 var initialState = {
     link: {},
-    linkName: '',
-    linkDescription: '',
-    linkValue: '',
-    linkIsActive: false,
     error: ''
 };
 
@@ -81726,7 +81732,7 @@ function editLink() {
 
     switch (action.type) {
         case _editLinkConstants.EDIT_LINK_SUCCESS:
-            return _extends({}, state, { linkName: '', linkDescription: '', linkValue: '', linkIsActive: false, error: '' });
+            return _extends({}, state, { error: '' });
 
         case _editLinkConstants.EDIT_LINK_ERROR:
             return _extends({}, state, { error: action.payload });
@@ -81738,16 +81744,28 @@ function editLink() {
             return _extends({}, state, { error: action.payload });
 
         case _editLinkConstants.CHANGE_LINKNAME:
-            return _extends({}, state, { linkName: action.payload });
+            return _extends({}, state, { link: _extends({}, state.link, {
+                    linkName: action.payload
+                })
+            });
 
         case _editLinkConstants.CHANGE_LINKDESCRIPTION:
-            return _extends({}, state, { linkDescription: action.payload });
+            return _extends({}, state, { link: _extends({}, state.link, {
+                    linkDescription: action.payload
+                })
+            });
 
         case _editLinkConstants.CHANGE_LINKVALUE:
-            return _extends({}, state, { linkValue: action.payload });
+            return _extends({}, state, { link: _extends({}, state.link, {
+                    linkValue: action.payload
+                })
+            });
 
         case _editLinkConstants.CHANGE_LINKISACTIVE:
-            return _extends({}, state, { linkIsActive: action.payload });
+            return _extends({}, state, { link: _extends({}, state.link, {
+                    linkIsActive: action.payload
+                })
+            });
 
         default:
             return state;

@@ -90,7 +90,7 @@ class Links extends React.Component {
                         <Link className="btn btn-primary" to={"/links/new?projectId=" + this.props.links.projectId}>Создать ссылку</Link>
                         </div>
                     </div>
-                    <h4>{this.props.links.projectDescription}</h4>
+                    <div><i>{this.props.links.projectDescription}</i></div>
                 </div>
         }
 

@@ -11,17 +11,13 @@
 
 const initialState = {
     link: { },
-    linkName: '',
-    linkDescription: '',
-    linkValue: '',
-    linkIsActive: false,
     error: ''
 }
 
 export default function editLink(state = initialState, action) {
     switch (action.type) {
         case EDIT_LINK_SUCCESS:
-            return { ...state, linkName: '', linkDescription: '', linkValue: '', linkIsActive: false, error: '' }
+            return { ...state, error: '' }
 
         case EDIT_LINK_ERROR:
             return { ...state, error: action.payload }
@@ -33,16 +29,36 @@ export default function editLink(state = initialState, action) {
             return { ...state, error: action.payload }
 
         case CHANGE_LINKNAME:
-            return { ...state, linkName: action.payload }
+            return {
+                ...state, link: {
+                    ...state.link,
+                    linkName: action.payload
+                }
+            }
 
         case CHANGE_LINKDESCRIPTION:
-            return { ...state, linkDescription: action.payload }
+            return {
+                ...state, link: {
+                    ...state.link,
+                    linkDescription: action.payload
+                }
+            }
 
         case CHANGE_LINKVALUE:
-            return { ...state, linkValue: action.payload }
+            return {
+                ...state, link: {
+                    ...state.link,
+                    linkValue: action.payload
+                }
+            }
 
         case CHANGE_LINKISACTIVE:
-            return { ...state, linkIsActive: action.payload }
+            return {
+                ...state, link: {
+                    ...state.link,
+                    linkIsActive: action.payload
+                }
+            }
 
         default:
             return state;

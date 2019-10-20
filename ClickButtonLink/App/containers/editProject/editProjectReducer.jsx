@@ -8,16 +8,14 @@
 } from './editProjectConstants.jsx'
 
 const initialState = {
-    project: { },
-    projectName: '',
-    projectDescription: '',
+    project: { },    
     error: ''
 }
 
 export default function editProject(state = initialState, action) {
     switch (action.type) {
         case EDIT_PROJECT_SUCCESS:
-            return { ...state, projectName: '', projectDescription: '', error: '' }
+            return { ...state, error: '' }
 
         case EDIT_PROJECT_ERROR:
             return { ...state, error: action.payload }        
@@ -29,10 +27,22 @@ export default function editProject(state = initialState, action) {
             return { ...state, error: action.payload }
 
         case CHANGE_PROJECTNAME:
-            return { ...state, projectName: action.payload }
+            return {
+                ...state,
+                project: {
+                    ...state.project,
+                    projectName: action.payload
+                }
+            }
 
         case CHANGE_PROJECTDESCRIPTION:
-            return { ...state, projectDescription: action.payload }
+            return {
+                ...state,
+                project: {
+                    ...state.project,
+                    projectDescription: action.payload
+                }
+            }
 
         default:
             return state;
