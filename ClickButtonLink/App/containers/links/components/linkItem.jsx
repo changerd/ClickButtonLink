@@ -24,7 +24,7 @@ export default class LinkItem extends React.Component {
                 <td>{status}</td>
                 <td><Link to={"/link?linkId=" + this.props.data.linkId}>{this.props.data.linkName}</Link></td>
                 <td>{this.props.data.transitionCount}</td>
-                <td><a target="blank" href={this.props.data.linkValue}>{this.props.data.linkValue}</a></td>
+                <td><a target="_blank" href={this.props.data.linkValue}>{this.props.data.linkValue}</a></td>
                 <td><a href={"/" + this.props.data.linkId}>localhost:44324/{this.props.data.linkId}</a></td>
             </tr>
         );

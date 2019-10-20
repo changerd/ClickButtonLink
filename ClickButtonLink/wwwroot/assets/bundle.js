@@ -61687,9 +61687,17 @@ var Links = function (_React$Component) {
     }
 
     _createClass(Links, [{
-        key: 'componentDedMount',
-        value: function componentDedMount() {
+        key: 'componentDidMount',
+        value: function componentDidMount() {
             this.getLinks();
+        }
+    }, {
+        key: 'componentWillReceiveProps',
+        value: function componentWillReceiveProps(nextProps) {
+            if (this.state.query != location.search) {
+                this.setState({ query: location.search });
+                this.getLinks();
+            }
         }
     }, {
         key: 'getLinks',
@@ -61701,14 +61709,6 @@ var Links = function (_React$Component) {
                 projectId = parsed['projectId'];
             }
             this.props.getLinks(pageIndex, projectId);
-        }
-    }, {
-        key: 'componentWillReceiveProps',
-        value: function componentWillReceiveProps(nextProps) {
-            if (this.state.query != location.search) {
-                this.setState({ query: location.search });
-                this.getLinks();
-            }
         }
     }, {
         key: 'render',
@@ -61801,7 +61801,7 @@ var Links = function (_React$Component) {
                             { className: 'col text-right' },
                             _react2.default.createElement(
                                 _reactRouterDom.Link,
-                                { className: 'btn btn-primary', to: "/links/new" },
+                                { className: 'btn btn-primary', to: "/links/new?projectId=" + this.props.links.projectId },
                                 '\u0421\u043E\u0437\u0434\u0430\u0442\u044C \u0441\u0441\u044B\u043B\u043A\u0443'
                             )
                         )
@@ -61973,7 +61973,7 @@ var LinkItem = function (_React$Component) {
                     null,
                     _react2.default.createElement(
                         'a',
-                        { target: 'blank', href: this.props.data.linkValue },
+                        { target: '_blank', href: this.props.data.linkValue },
                         this.props.data.linkValue
                     )
                 ),

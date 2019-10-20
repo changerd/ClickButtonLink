@@ -15,8 +15,15 @@ class Links extends React.Component {
 
     }
 
-    componentDedMount() {
+    componentDidMount() {
         this.getLinks();
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (this.state.query != location.search) {
+            this.setState({ query: location.search });
+            this.getLinks();
+        }
     }
 
     getLinks() {
@@ -27,13 +34,6 @@ class Links extends React.Component {
             projectId = parsed['projectId'];
         }
         this.props.getLinks(pageIndex, projectId);
-    }
-
-    componentWillReceiveProps(nextProps) {
-        if (this.state.query != location.search) {
-            this.setState({ query: location.search });
-            this.getLinks();
-        }
     }
 
     render() {
@@ -86,8 +86,8 @@ class Links extends React.Component {
                         <div className="col-7">
                             <i>{countLinks} ссылки</i>
                         </div>
-                        <div className="col text-right">
-                            <Link className="btn btn-primary" to={"/links/new"}>Создать ссылку</Link>
+                    <div className="col text-right">
+                        <Link className="btn btn-primary" to={"/links/new?projectId=" + this.props.links.projectId}>Создать ссылку</Link>
                         </div>
                     </div>
                     <h4>{this.props.links.projectDescription}</h4>
