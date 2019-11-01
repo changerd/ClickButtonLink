@@ -16,7 +16,7 @@ package.json:
 
 ```
 {
-  "name": "personalportal",
+  "name": "clickbuttonlink",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
