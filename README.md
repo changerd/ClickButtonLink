@@ -12,7 +12,7 @@ Microsoft Visual Studio
 
 package.json:
 
-'''
+```
 {
   "name": "personalportal",
   "version": "1.0.0",
@@ -48,4 +48,4 @@ package.json:
     "redux-thunk": "^2.2.0"
   }
 }
-'''
+```
