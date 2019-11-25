@@ -2,9 +2,7 @@
     EDIT_PROJECT_SUCCESS,
     EDIT_PROJECT_ERROR,
     GET_PROJECT_SUCCESS,
-    GET_PROJECT_ERROR,
-    CHANGE_PROJECTNAME,
-    CHANGE_PROJECTDESCRIPTION
+    GET_PROJECT_ERROR    
 } from './editProjectConstants.jsx'
 
 const initialState = {
@@ -24,25 +22,7 @@ export default function editProject(state = initialState, action) {
             return { ...state, project: action.payload, error: '' }
 
         case GET_PROJECT_ERROR:
-            return { ...state, error: action.payload }
-
-        case CHANGE_PROJECTNAME:
-            return {
-                ...state,
-                project: {
-                    ...state.project,
-                    projectName: action.payload
-                }
-            }
-
-        case CHANGE_PROJECTDESCRIPTION:
-            return {
-                ...state,
-                project: {
-                    ...state.project,
-                    projectDescription: action.payload
-                }
-            }
+            return { ...state, error: action.payload }         
 
         default:
             return state;

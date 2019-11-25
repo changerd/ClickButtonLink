@@ -2,25 +2,9 @@
     EDIT_PROJECT_SUCCESS,
     EDIT_PROJECT_ERROR,
     GET_PROJECT_SUCCESS,
-    GET_PROJECT_ERROR,
-    CHANGE_PROJECTNAME,
-    CHANGE_PROJECTDESCRIPTION
+    GET_PROJECT_ERROR   
 } from './editProjectConstants.jsx'
 import "isomorphic-fetch"
-
-export function changeProjectName(text) {
-    return {
-        type: CHANGE_PROJECTNAME,
-        payload: text
-    }
-}
-
-export function changeProjectDescription(text) {
-    return {
-        type: CHANGE_PROJECTDESCRIPTION,
-        payload: text
-    }
-}
 
 export function getProject(projectId) {
     return (dispatch) => {

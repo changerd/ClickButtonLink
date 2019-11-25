@@ -2,41 +2,9 @@
     EDIT_LINK_SUCCESS,
     EDIT_LINK_ERROR,
     GET_LINK_SUCCESS,
-    GET_LINK_ERROR,
-    CHANGE_LINKNAME,
-    CHANGE_LINKDESCRIPTION,
-    CHANGE_LINKVALUE,
-    CHANGE_LINKISACTIVE
+    GET_LINK_ERROR   
 } from './editLinkConstants.jsx'
 import "isomorphic-fetch"
-
-export function changeLinkName(text) {
-    return {
-        type: CHANGE_LINKNAME,
-        payload: text
-    }
-}
-
-export function changeLinkDescription(text) {
-    return {
-        type: CHANGE_LINKDESCRIPTION,
-        payload: text
-    }
-}
-
-export function changeLinkValue(text) {
-    return {
-        type: CHANGE_LINKVALUE,
-        payload: text
-    }
-}
-
-export function changeLinkIsActive(check) {
-    return {
-        type: CHANGE_LINKISACTIVE,
-        payload: check
-    }
-}
 
 export function getLink(linkId) {
     return (dispatch) => {

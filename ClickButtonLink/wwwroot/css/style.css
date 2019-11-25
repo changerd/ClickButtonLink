@@ -3,3 +3,7 @@
     display: inline-block;
     list-style-type: none;
 }
+
+.project-name-header {
+    padding-left: 15px;
+}

@@ -19544,8 +19544,6 @@ var EDIT_PROJECT_SUCCESS = exports.EDIT_PROJECT_SUCCESS = 'EDIT_PROJECT_SUCCESS'
 var EDIT_PROJECT_ERROR = exports.EDIT_PROJECT_ERROR = 'EDIT_PROJECT_ERROR';
 var GET_PROJECT_SUCCESS = exports.GET_PROJECT_SUCCESS = 'GET_PROJECT_SUCCESS';
 var GET_PROJECT_ERROR = exports.GET_PROJECT_ERROR = 'GET_PROJECT_ERROR';
-var CHANGE_PROJECTNAME = exports.CHANGE_PROJECTNAME = 'CHANGE_PROJECTNAME';
-var CHANGE_PROJECTDESCRIPTION = exports.CHANGE_PROJECTDESCRIPTION = 'CHANGE_PROJECTDESCRIPTION';
 
 /***/ }),
 /* 193 */
@@ -19574,10 +19572,6 @@ var ADD_LINK_SUCCESS = exports.ADD_LINK_SUCCESS = 'ADD_LINK_SUCCESS';
 var ADD_LINK_ERROR = exports.ADD_LINK_ERROR = 'ADD_LINK_ERROR';
 var GET_PROJECT_SUCCESS = exports.GET_PROJECT_SUCCESS = 'GET_PROJECT_SUCCESS';
 var GET_PROJECT_ERROR = exports.GET_PROJECT_ERROR = 'GET_PROJECT_ERROR';
-var CHANGE_LINKNAME = exports.CHANGE_LINKNAME = 'CHANGE_LINKNAME';
-var CHANGE_LINKDESCRIPTION = exports.CHANGE_LINKDESCRIPTION = 'CHANGE_LINKDESCRIPTION';
-var CHANGE_LINKVALUE = exports.CHANGE_LINKVALUE = 'CHANGE_LINKVALUE';
-var CHANGE_LINKISACTIVE = exports.CHANGE_LINKISACTIVE = 'CHANGE_LINKISACTIVE';
 
 /***/ }),
 /* 195 */
@@ -19593,10 +19587,6 @@ var EDIT_LINK_SUCCESS = exports.EDIT_LINK_SUCCESS = 'EDIT_LINK_SUCCESS';
 var EDIT_LINK_ERROR = exports.EDIT_LINK_ERROR = 'EDIT_LINK_ERROR';
 var GET_LINK_SUCCESS = exports.GET_LINK_SUCCESS = 'GET_LINK_SUCCESS';
 var GET_LINK_ERROR = exports.GET_LINK_ERROR = 'GET_LINK_ERROR';
-var CHANGE_LINKNAME = exports.CHANGE_LINKNAME = 'CHANGE_LINKNAME';
-var CHANGE_LINKDESCRIPTION = exports.CHANGE_LINKDESCRIPTION = 'CHANGE_LINKDESCRIPTION';
-var CHANGE_LINKVALUE = exports.CHANGE_LINKVALUE = 'CHANGE_LINKVALUE';
-var CHANGE_LINKISACTIVE = exports.CHANGE_LINKISACTIVE = 'CHANGE_LINKISACTIVE';
 
 /***/ }),
 /* 196 */
@@ -61439,6 +61429,8 @@ var _editProjectActions = __webpack_require__(397);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -61451,15 +61443,46 @@ var EditProject = function (_React$Component) {
     function EditProject(props) {
         _classCallCheck(this, EditProject);
 
-        return _possibleConstructorReturn(this, (EditProject.__proto__ || Object.getPrototypeOf(EditProject)).call(this, props));
+        var _this = _possibleConstructorReturn(this, (EditProject.__proto__ || Object.getPrototypeOf(EditProject)).call(this, props));
+
+        _this.state = {
+            projectName: "",
+            projectDescription: ""
+        };
+
+        _this.handleChange = _this.handleChange.bind(_this);
+        return _this;
     }
 
     _createClass(EditProject, [{
+        key: 'handleChange',
+        value: function handleChange(event) {
+            var _event$currentTarget = event.currentTarget,
+                id = _event$currentTarget.id,
+                value = _event$currentTarget.value;
+
+            this.setState(_defineProperty({}, id, event.target.value));
+        }
+    }, {
         key: 'componentDidMount',
         value: function componentDidMount() {
             var parsed = _queryString2.default.parse(location.search);
             if (parsed) {
                 this.props.getProject(parsed['projectId']);
+            }
+        }
+    }, {
+        key: 'componentDidUpdate',
+        value: function componentDidUpdate(prevProps) {
+            if (this.props.data.project.projectName !== prevProps.data.project.projectName) {
+                this.setState({
+                    projectName: this.props.data.project.projectName
+                });
+            }
+            if (this.props.data.project.projectDescription !== prevProps.data.project.projectDescription) {
+                this.setState({
+                    projectDescription: this.props.data.project.projectDescription
+                });
             }
         }
     }, {
@@ -61485,11 +61508,10 @@ var EditProject = function (_React$Component) {
                     ),
                     _react2.default.createElement('input', {
                         type: 'input',
+                        id: 'projectName',
                         className: 'form-control',
-                        value: this.props.data.project.projectName,
-                        onChange: function onChange(e) {
-                            return _this2.props.changeProjectName(e.target.value);
-                        },
+                        value: this.state.projectName,
+                        onChange: this.handleChange,
                         placeholder: '\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u043D\u0430\u0437\u0432\u0430\u043D\u0438\u0435 \u043F\u0440\u043E\u0435\u043A\u0442\u0430'
                     })
                 ),
@@ -61503,11 +61525,10 @@ var EditProject = function (_React$Component) {
                     ),
                     _react2.default.createElement('input', {
                         type: 'input',
+                        id: 'projectDescription',
                         className: 'form-control',
-                        value: this.props.data.project.projectDescription,
-                        onChange: function onChange(e) {
-                            return _this2.props.changeProjectDescription(e.target.value);
-                        },
+                        value: this.state.projectDescription,
+                        onChange: this.handleChange,
                         placeholder: '\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u043E\u043F\u0438\u0441\u0430\u043D\u0438\u0435 \u043F\u0440\u043E\u0435\u043A\u0442\u0430'
                     })
                 ),
@@ -61516,7 +61537,7 @@ var EditProject = function (_React$Component) {
                     className: 'btn btn-primary',
                     value: '\u041E\u0442\u043F\u0440\u0430\u0432\u0438\u0442\u044C',
                     onClick: function onClick() {
-                        return _this2.props.editProject(_this2.props.data.project.projectId, _this2.props.data.project.projectName, _this2.props.data.project.projectDescription);
+                        return _this2.props.editProject(_this2.props.data.project.projectId, _this2.state.projectName, _this2.state.projectDescription);
                     }
                 })
             );
@@ -61535,9 +61556,7 @@ var mapProps = function mapProps(state) {
 var mapDispatch = function mapDispatch(dispatch) {
     return {
         editProject: (0, _redux.bindActionCreators)(_editProjectActions.editProject, dispatch),
-        getProject: (0, _redux.bindActionCreators)(_editProjectActions.getProject, dispatch),
-        changeProjectName: (0, _redux.bindActionCreators)(_editProjectActions.changeProjectName, dispatch),
-        changeProjectDescription: (0, _redux.bindActionCreators)(_editProjectActions.changeProjectDescription, dispatch)
+        getProject: (0, _redux.bindActionCreators)(_editProjectActions.getProject, dispatch)
     };
 };
 
@@ -61553,28 +61572,12 @@ exports.default = (0, _reactRedux.connect)(mapProps, mapDispatch)(EditProject);
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.changeProjectName = changeProjectName;
-exports.changeProjectDescription = changeProjectDescription;
 exports.getProject = getProject;
 exports.editProject = editProject;
 
 var _editProjectConstants = __webpack_require__(192);
 
 __webpack_require__(26);
-
-function changeProjectName(text) {
-    return {
-        type: _editProjectConstants.CHANGE_PROJECTNAME,
-        payload: text
-    };
-}
-
-function changeProjectDescription(text) {
-    return {
-        type: _editProjectConstants.CHANGE_PROJECTDESCRIPTION,
-        payload: text
-    };
-}
 
 function getProject(projectId) {
     return function (dispatch) {
@@ -61775,26 +61778,26 @@ var Links = function (_React$Component) {
                         { className: 'row' },
                         _react2.default.createElement(
                             'div',
-                            { className: 'col' },
+                            { className: 'col-md-10' },
                             _react2.default.createElement(
-                                'h3',
-                                null,
-                                this.props.links.projectName
+                                'div',
+                                { className: 'row project-name-header' },
+                                _react2.default.createElement(
+                                    'h3',
+                                    null,
+                                    this.props.links.projectName
+                                ),
+                                _react2.default.createElement(
+                                    'i',
+                                    null,
+                                    countLinks,
+                                    ' \u0441\u0441\u044B\u043B\u043A\u0438'
+                                )
                             )
                         ),
                         _react2.default.createElement(
                             'div',
-                            { className: 'col-7' },
-                            _react2.default.createElement(
-                                'i',
-                                null,
-                                countLinks,
-                                ' \u0441\u0441\u044B\u043B\u043A\u0438'
-                            )
-                        ),
-                        _react2.default.createElement(
-                            'div',
-                            { className: 'col text-right' },
+                            { className: 'col-md-2 text-right' },
                             _react2.default.createElement(
                                 _reactRouterDom.Link,
                                 { className: 'btn btn-primary', to: "/links/new?projectId=" + this.props.links.projectId },
@@ -62064,6 +62067,8 @@ var _newLinkActions = __webpack_require__(402);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -62076,10 +62081,35 @@ var NewLink = function (_React$Component) {
     function NewLink(props) {
         _classCallCheck(this, NewLink);
 
-        return _possibleConstructorReturn(this, (NewLink.__proto__ || Object.getPrototypeOf(NewLink)).call(this, props));
+        var _this = _possibleConstructorReturn(this, (NewLink.__proto__ || Object.getPrototypeOf(NewLink)).call(this, props));
+
+        _this.state = {
+            linkName: '',
+            linkDescription: '',
+            linkValue: '',
+            linkIsActive: false
+        };
+
+        _this.handleChange = _this.handleChange.bind(_this);
+        _this.handleCheckBoxChange = _this.handleCheckBoxChange.bind(_this);
+        return _this;
     }
 
     _createClass(NewLink, [{
+        key: 'handleChange',
+        value: function handleChange(event) {
+            var _event$currentTarget = event.currentTarget,
+                id = _event$currentTarget.id,
+                value = _event$currentTarget.value;
+
+            this.setState(_defineProperty({}, id, event.target.value));
+        }
+    }, {
+        key: 'handleCheckBoxChange',
+        value: function handleCheckBoxChange(event) {
+            this.setState({ linkIsActive: event.target.checked });
+        }
+    }, {
         key: 'componentDidMount',
         value: function componentDidMount() {
             var parsed = _queryString2.default.parse(location.search);
@@ -62110,11 +62140,10 @@ var NewLink = function (_React$Component) {
                     ),
                     _react2.default.createElement('input', {
                         type: 'input',
+                        id: 'linkName',
                         className: 'form-control',
-                        value: this.props.data.linkName,
-                        onChange: function onChange(e) {
-                            return _this2.props.changeLinkName(e.target.value);
-                        },
+                        value: this.state.linkName,
+                        onChange: this.handleChange,
                         placeholder: '\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u043D\u0430\u0437\u0432\u0430\u043D\u0438\u0435 \u0441\u0441\u044B\u043B\u043A\u0438'
                     })
                 ),
@@ -62128,11 +62157,10 @@ var NewLink = function (_React$Component) {
                     ),
                     _react2.default.createElement('input', {
                         type: 'input',
+                        id: 'linkDescription',
                         className: 'form-control',
-                        value: this.props.data.linkDescription,
-                        onChange: function onChange(e) {
-                            return _this2.props.changeLinkDescription(e.target.value);
-                        },
+                        value: this.state.linkDescription,
+                        onChange: this.handleChange,
                         placeholder: '\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u043E\u043F\u0438\u0441\u0430\u043D\u0438\u0435 \u0441\u0441\u044B\u043B\u043A\u0438'
                     })
                 ),
@@ -62146,11 +62174,10 @@ var NewLink = function (_React$Component) {
                     ),
                     _react2.default.createElement('input', {
                         type: 'input',
+                        id: 'linkValue',
                         className: 'form-control',
-                        value: this.props.data.linkValue,
-                        onChange: function onChange(e) {
-                            return _this2.props.changeLinkValue(e.target.value);
-                        },
+                        value: this.state.linkValue,
+                        onChange: this.handleChange,
                         placeholder: '\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u043F\u043E\u043B\u043D\u0443\u044E \u0441\u0441\u044B\u043B\u043A\u0443'
                     })
                 ),
@@ -62160,10 +62187,9 @@ var NewLink = function (_React$Component) {
                     _react2.default.createElement('input', {
                         type: 'checkbox',
                         className: 'form-check-input',
-                        onChange: function onChange(e) {
-                            return _this2.props.changeLinkIsActive(e.target.checked);
-                        },
-                        checked: this.props.data.linkIsActive
+                        id: 'linkIsActive',
+                        onChange: this.handleCheckBoxChange,
+                        checked: this.state.linkIsActive
                     }),
                     _react2.default.createElement(
                         'label',
@@ -62176,7 +62202,7 @@ var NewLink = function (_React$Component) {
                     className: 'btn btn-primary',
                     value: '\u041E\u0442\u043F\u0440\u0430\u0432\u0438\u0442\u044C',
                     onClick: function onClick() {
-                        return _this2.props.addLink(_this2.props.data.project.projectId, _this2.props.data.linkName, _this2.props.data.linkDescription, _this2.props.data.linkValue, _this2.props.data.linkIsActive);
+                        return _this2.props.addLink(_this2.props.data.project.projectId, _this2.state.linkName, _this2.state.linkDescription, _this2.state.linkValue, _this2.state.linkIsActive);
                     }
                 })
             );
@@ -62197,11 +62223,7 @@ var mapProps = function mapProps(state) {
 var mapDispatch = function mapDispatch(dispatch) {
     return {
         addLink: (0, _redux.bindActionCreators)(_newLinkActions.addLink, dispatch),
-        getProject: (0, _redux.bindActionCreators)(_newLinkActions.getProject, dispatch),
-        changeLinkName: (0, _redux.bindActionCreators)(_newLinkActions.changeLinkName, dispatch),
-        changeLinkDescription: (0, _redux.bindActionCreators)(_newLinkActions.changeLinkDescription, dispatch),
-        changeLinkValue: (0, _redux.bindActionCreators)(_newLinkActions.changeLinkValue, dispatch),
-        changeLinkIsActive: (0, _redux.bindActionCreators)(_newLinkActions.changeLinkIsActive, dispatch)
+        getProject: (0, _redux.bindActionCreators)(_newLinkActions.getProject, dispatch)
     };
 };
 
@@ -62217,44 +62239,12 @@ exports.default = (0, _reactRedux.connect)(mapProps, mapDispatch)(NewLink);
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.changeLinkName = changeLinkName;
-exports.changeLinkDescription = changeLinkDescription;
-exports.changeLinkValue = changeLinkValue;
-exports.changeLinkIsActive = changeLinkIsActive;
 exports.getProject = getProject;
 exports.addLink = addLink;
 
 var _newLinkConstants = __webpack_require__(194);
 
 __webpack_require__(26);
-
-function changeLinkName(text) {
-    return {
-        type: _newLinkConstants.CHANGE_LINKNAME,
-        payload: text
-    };
-}
-
-function changeLinkDescription(text) {
-    return {
-        type: _newLinkConstants.CHANGE_LINKDESCRIPTION,
-        payload: text
-    };
-}
-
-function changeLinkValue(text) {
-    return {
-        type: _newLinkConstants.CHANGE_LINKVALUE,
-        payload: text
-    };
-}
-
-function changeLinkIsActive(check) {
-    return {
-        type: _newLinkConstants.CHANGE_LINKISACTIVE,
-        payload: check
-    };
-}
 
 function getProject(projectId) {
     return function (dispatch) {
@@ -62338,6 +62328,8 @@ var _editLinkActions = __webpack_require__(404);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -62350,10 +62342,35 @@ var EditLink = function (_React$Component) {
     function EditLink(props) {
         _classCallCheck(this, EditLink);
 
-        return _possibleConstructorReturn(this, (EditLink.__proto__ || Object.getPrototypeOf(EditLink)).call(this, props));
+        var _this = _possibleConstructorReturn(this, (EditLink.__proto__ || Object.getPrototypeOf(EditLink)).call(this, props));
+
+        _this.state = {
+            linkName: '',
+            linkDescription: '',
+            linkValue: '',
+            linkIsActive: false
+        };
+
+        _this.handleChange = _this.handleChange.bind(_this);
+        _this.handleCheckBoxChange = _this.handleCheckBoxChange.bind(_this);
+        return _this;
     }
 
     _createClass(EditLink, [{
+        key: 'handleChange',
+        value: function handleChange(event) {
+            var _event$currentTarget = event.currentTarget,
+                id = _event$currentTarget.id,
+                value = _event$currentTarget.value;
+
+            this.setState(_defineProperty({}, id, event.target.value));
+        }
+    }, {
+        key: 'handleCheckBoxChange',
+        value: function handleCheckBoxChange(event) {
+            this.setState({ linkIsActive: event.target.checked });
+        }
+    }, {
         key: 'componentDidMount',
         value: function componentDidMount() {
             var parsed = _queryString2.default.parse(location.search);
@@ -62362,10 +62379,35 @@ var EditLink = function (_React$Component) {
             }
         }
     }, {
+        key: 'componentDidUpdate',
+        value: function componentDidUpdate(prevProps) {
+            if (this.props.data.link.linkName !== prevProps.data.link.linkName) {
+                this.setState({
+                    linkName: this.props.data.link.linkName
+                });
+            }
+            if (this.props.data.link.linkDescription !== prevProps.data.link.linkDescription) {
+                this.setState({
+                    linkDescription: this.props.data.link.linkDescription
+                });
+            }
+            if (this.props.data.link.linkValue !== prevProps.data.link.linkValue) {
+                this.setState({
+                    linkValue: this.props.data.link.linkValue
+                });
+            }
+            if (this.props.data.link.linkIsActive !== prevProps.data.link.linkIsActive) {
+                this.setState({
+                    linkIsActive: this.props.data.link.linkIsActive
+                });
+            }
+        }
+    }, {
         key: 'render',
         value: function render() {
             var _this2 = this;
 
+            console.log('render');
             return _react2.default.createElement(
                 'div',
                 { id: 'editLink' },
@@ -62384,11 +62426,10 @@ var EditLink = function (_React$Component) {
                     ),
                     _react2.default.createElement('input', {
                         type: 'input',
+                        id: 'linkName',
                         className: 'form-control',
-                        value: this.props.data.link.linkName,
-                        onChange: function onChange(e) {
-                            return _this2.props.changeLinkName(e.target.value);
-                        },
+                        value: this.state.linkName,
+                        onChange: this.handleChange,
                         placeholder: '\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u043D\u0430\u0437\u0432\u0430\u043D\u0438\u0435 \u0441\u0441\u044B\u043B\u043A\u0438'
                     })
                 ),
@@ -62402,11 +62443,10 @@ var EditLink = function (_React$Component) {
                     ),
                     _react2.default.createElement('input', {
                         type: 'input',
+                        id: 'linkDescription',
                         className: 'form-control',
-                        value: this.props.data.link.linkDescription,
-                        onChange: function onChange(e) {
-                            return _this2.props.changeLinkDescription(e.target.value);
-                        },
+                        value: this.state.linkDescription,
+                        onChange: this.handleChange,
                         placeholder: '\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u043E\u043F\u0438\u0441\u0430\u043D\u0438\u0435 \u0441\u0441\u044B\u043B\u043A\u0438'
                     })
                 ),
@@ -62420,11 +62460,10 @@ var EditLink = function (_React$Component) {
                     ),
                     _react2.default.createElement('input', {
                         type: 'input',
+                        id: 'linkValue',
                         className: 'form-control',
-                        value: this.props.data.link.linkValue,
-                        onChange: function onChange(e) {
-                            return _this2.props.changeLinkValue(e.target.value);
-                        },
+                        value: this.state.linkValue,
+                        onChange: this.handleChange,
                         placeholder: '\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u043F\u043E\u043B\u043D\u0443\u044E \u0441\u0441\u044B\u043B\u043A\u0443'
                     })
                 ),
@@ -62434,10 +62473,9 @@ var EditLink = function (_React$Component) {
                     _react2.default.createElement('input', {
                         type: 'checkbox',
                         className: 'form-check-input',
-                        onChange: function onChange(e) {
-                            return _this2.props.changeLinkIsActive(e.target.checked);
-                        },
-                        checked: this.props.data.link.linkIsActive
+                        id: 'linkIsActive',
+                        checked: this.state.linkIsActive,
+                        onChange: this.handleCheckBoxChange
                     }),
                     _react2.default.createElement(
                         'label',
@@ -62450,7 +62488,7 @@ var EditLink = function (_React$Component) {
                     className: 'btn btn-primary',
                     value: '\u041E\u0442\u043F\u0440\u0430\u0432\u0438\u0442\u044C',
                     onClick: function onClick() {
-                        return _this2.props.editLink(_this2.props.data.link.linkId, _this2.props.data.link.projectId, _this2.props.data.link.linkName, _this2.props.data.link.linkDescription, _this2.props.data.link.linkValue, _this2.props.data.link.linkIsActive);
+                        return _this2.props.editLink(_this2.props.data.link.linkId, _this2.props.data.link.projectId, _this2.state.linkName, _this2.state.linkDescription, _this2.state.linkValue, _this2.state.linkIsActive);
                     }
                 })
             );
@@ -62471,11 +62509,7 @@ var mapProps = function mapProps(state) {
 var mapDispatch = function mapDispatch(dispatch) {
     return {
         editLink: (0, _redux.bindActionCreators)(_editLinkActions.editLink, dispatch),
-        getLink: (0, _redux.bindActionCreators)(_editLinkActions.getLink, dispatch),
-        changeLinkName: (0, _redux.bindActionCreators)(_editLinkActions.changeLinkName, dispatch),
-        changeLinkDescription: (0, _redux.bindActionCreators)(_editLinkActions.changeLinkDescription, dispatch),
-        changeLinkValue: (0, _redux.bindActionCreators)(_editLinkActions.changeLinkValue, dispatch),
-        changeLinkIsActive: (0, _redux.bindActionCreators)(_editLinkActions.changeLinkIsActive, dispatch)
+        getLink: (0, _redux.bindActionCreators)(_editLinkActions.getLink, dispatch)
     };
 };
 
@@ -62491,44 +62525,12 @@ exports.default = (0, _reactRedux.connect)(mapProps, mapDispatch)(EditLink);
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.changeLinkName = changeLinkName;
-exports.changeLinkDescription = changeLinkDescription;
-exports.changeLinkValue = changeLinkValue;
-exports.changeLinkIsActive = changeLinkIsActive;
 exports.getLink = getLink;
 exports.editLink = editLink;
 
 var _editLinkConstants = __webpack_require__(195);
 
 __webpack_require__(26);
-
-function changeLinkName(text) {
-    return {
-        type: _editLinkConstants.CHANGE_LINKNAME,
-        payload: text
-    };
-}
-
-function changeLinkDescription(text) {
-    return {
-        type: _editLinkConstants.CHANGE_LINKDESCRIPTION,
-        payload: text
-    };
-}
-
-function changeLinkValue(text) {
-    return {
-        type: _editLinkConstants.CHANGE_LINKVALUE,
-        payload: text
-    };
-}
-
-function changeLinkIsActive(check) {
-    return {
-        type: _editLinkConstants.CHANGE_LINKISACTIVE,
-        payload: check
-    };
-}
 
 function getLink(linkId) {
     return function (dispatch) {
@@ -62701,7 +62703,7 @@ var LinkItem = function (_React$Component) {
                 _react2.default.createElement(
                     'h2',
                     null,
-                    '\u0421\u0421\u044B\u043B\u043A\u0430 ',
+                    '\u0421c\u044B\u043B\u043A\u0430 ',
                     this.props.data.linkName
                 ),
                 _react2.default.createElement(
@@ -81566,20 +81568,6 @@ function editProject() {
         case _editProjectConstants.GET_PROJECT_ERROR:
             return _extends({}, state, { error: action.payload });
 
-        case _editProjectConstants.CHANGE_PROJECTNAME:
-            return _extends({}, state, {
-                project: _extends({}, state.project, {
-                    projectName: action.payload
-                })
-            });
-
-        case _editProjectConstants.CHANGE_PROJECTDESCRIPTION:
-            return _extends({}, state, {
-                project: _extends({}, state.project, {
-                    projectDescription: action.payload
-                })
-            });
-
         default:
             return state;
 
@@ -81652,10 +81640,6 @@ var _newLinkConstants = __webpack_require__(194);
 
 var initialState = {
     project: {},
-    linkName: '',
-    linkDescription: '',
-    linkValue: '',
-    linkIsActive: false,
     error: ''
 };
 
@@ -81675,18 +81659,6 @@ function newLink() {
 
         case _newLinkConstants.GET_PROJECT_ERROR:
             return _extends({}, state, { error: action.payload });
-
-        case _newLinkConstants.CHANGE_LINKNAME:
-            return _extends({}, state, { linkName: action.payload });
-
-        case _newLinkConstants.CHANGE_LINKDESCRIPTION:
-            return _extends({}, state, { linkDescription: action.payload });
-
-        case _newLinkConstants.CHANGE_LINKVALUE:
-            return _extends({}, state, { linkValue: action.payload });
-
-        case _newLinkConstants.CHANGE_LINKISACTIVE:
-            return _extends({}, state, { linkIsActive: action.payload });
 
         default:
             return state;
@@ -81731,30 +81703,6 @@ function editLink() {
 
         case _editLinkConstants.GET_LINK_ERROR:
             return _extends({}, state, { error: action.payload });
-
-        case _editLinkConstants.CHANGE_LINKNAME:
-            return _extends({}, state, { link: _extends({}, state.link, {
-                    linkName: action.payload
-                })
-            });
-
-        case _editLinkConstants.CHANGE_LINKDESCRIPTION:
-            return _extends({}, state, { link: _extends({}, state.link, {
-                    linkDescription: action.payload
-                })
-            });
-
-        case _editLinkConstants.CHANGE_LINKVALUE:
-            return _extends({}, state, { link: _extends({}, state.link, {
-                    linkValue: action.payload
-                })
-            });
-
-        case _editLinkConstants.CHANGE_LINKISACTIVE:
-            return _extends({}, state, { link: _extends({}, state.link, {
-                    linkIsActive: action.payload
-                })
-            });
 
         default:
             return state;

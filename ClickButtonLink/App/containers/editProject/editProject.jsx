@@ -3,21 +3,46 @@ import ReactDOM from 'react-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import queryString from 'query-string';
-import { editProject, getProject, changeProjectName, changeProjectDescription } from './editProjectActions.jsx';
+import { editProject, getProject } from './editProjectActions.jsx';
 
 class EditProject extends React.Component {
     constructor(props) {
-        super(props);        
+        super(props);
+        this.state = {
+            projectName: "",
+            projectDescription: "" 
+        }
+
+        this.handleChange = this.handleChange.bind(this);
     }
+
+    handleChange(event) {
+        const { id, value } = event.currentTarget;
+        this.setState({ [id]: event.target.value })
+    } 
     
     componentDidMount() {
         const parsed = queryString.parse(location.search);
         if (parsed) {
-            this.props.getProject(parsed['projectId']);            
+            this.props.getProject(parsed['projectId']);           
         }
-    }    
         
-    render() {             
+    }  
+
+    componentDidUpdate(prevProps) {
+        if (this.props.data.project.projectName !== prevProps.data.project.projectName) {
+            this.setState({
+                projectName: this.props.data.project.projectName                
+            });
+        }
+        if (this.props.data.project.projectDescription !== prevProps.data.project.projectDescription) {
+            this.setState({                
+                projectDescription: this.props.data.project.projectDescription
+            });
+        }
+    }
+        
+    render() {        
         return (
             <div id="editProject">
                 <h3>Редактирование проекта</h3>
@@ -25,9 +50,10 @@ class EditProject extends React.Component {
                     <label>Название</label>
                     <input
                         type="input"
+                        id="projectName"
                         className="form-control"
-                        value={this.props.data.project.projectName}
-                        onChange={(e) => this.props.changeProjectName(e.target.value)}
+                        value={this.state.projectName}
+                        onChange={this.handleChange}
                         placeholder="Введите название проекта"
                     />
                 </div>
@@ -35,9 +61,10 @@ class EditProject extends React.Component {
                     <label>Описание</label>
                     <input
                         type="input"
+                        id="projectDescription"
                         className="form-control"
-                        value={this.props.data.project.projectDescription}
-                        onChange={(e) => this.props.changeProjectDescription(e.target.value)}
+                        value={this.state.projectDescription}
+                        onChange={this.handleChange}
                         placeholder="Введите описание проекта"
                     />
                 </div>
@@ -47,8 +74,8 @@ class EditProject extends React.Component {
                     value="Отправить"
                     onClick={() => this.props.editProject(
                         this.props.data.project.projectId,
-                        this.props.data.project.projectName,
-                        this.props.data.project.projectDescription                        
+                        this.state.projectName,
+                        this.state.projectDescription                        
                     )}
                 />
             </div>
@@ -65,9 +92,7 @@ let mapProps = (state) => {
 let mapDispatch = (dispatch) => {
     return {
         editProject: bindActionCreators(editProject, dispatch),
-        getProject: bindActionCreators(getProject, dispatch),
-        changeProjectName: bindActionCreators(changeProjectName, dispatch),
-        changeProjectDescription: bindActionCreators(changeProjectDescription, dispatch)
+        getProject: bindActionCreators(getProject, dispatch),        
     }
 }
 

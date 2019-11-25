@@ -2,41 +2,9 @@
     ADD_LINK_SUCCESS,
     ADD_LINK_ERROR,
     GET_PROJECT_SUCCESS,
-    GET_PROJECT_ERROR,
-    CHANGE_LINKNAME,
-    CHANGE_LINKDESCRIPTION,
-    CHANGE_LINKVALUE,
-    CHANGE_LINKISACTIVE
+    GET_PROJECT_ERROR   
 } from './newLinkConstants.jsx'
 import "isomorphic-fetch"
-
-export function changeLinkName(text) {
-    return {
-        type: CHANGE_LINKNAME,
-        payload: text
-    }
-}
-
-export function changeLinkDescription(text) {
-    return {
-        type: CHANGE_LINKDESCRIPTION,
-        payload: text
-    }
-}
-
-export function changeLinkValue(text) {
-    return {
-        type: CHANGE_LINKVALUE,
-        payload: text
-    }
-}
-
-export function changeLinkIsActive(check) {
-    return {
-        type: CHANGE_LINKISACTIVE,
-        payload: check
-    }
-}
 
 export function getProject(projectId) {
     return (dispatch) => {

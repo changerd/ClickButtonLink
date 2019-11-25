@@ -10,11 +10,7 @@
 } from './newLinkConstants.jsx'
 
 const initialState = {
-    project: { },
-    linkName: '',
-    linkDescription: '',
-    linkValue: '',
-    linkIsActive: false,
+    project: { },   
     error: ''
 }
 
@@ -30,19 +26,7 @@ export default function newLink(state = initialState, action) {
             return { ...state, project: action.payload, error: '' }
 
         case GET_PROJECT_ERROR:
-            return { ...state, error: action.payload }
-
-        case CHANGE_LINKNAME:
-            return { ...state, linkName: action.payload }        
-
-        case CHANGE_LINKDESCRIPTION:
-            return { ...state, linkDescription: action.payload }
-
-        case CHANGE_LINKVALUE:
-            return { ...state, linkValue: action.payload }
-
-        case CHANGE_LINKISACTIVE:
-            return { ...state, linkIsActive: action.payload }
+            return { ...state, error: action.payload }       
 
         default:
             return state;

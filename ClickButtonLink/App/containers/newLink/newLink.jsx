@@ -3,18 +3,29 @@ import ReactDOM from 'react-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import queryString from 'query-string';
-import {
-    addLink,
-    getProject,
-    changeLinkName,
-    changeLinkDescription,
-    changeLinkValue,
-    changeLinkIsActive
-} from './newLinkActions.jsx'
+import { addLink, getProject } from './newLinkActions.jsx'
 
 class NewLink extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            linkName: '',
+            linkDescription: '',
+            linkValue: '',
+            linkIsActive: false
+        }
+
+        this.handleChange = this.handleChange.bind(this);
+        this.handleCheckBoxChange = this.handleCheckBoxChange.bind(this);
+    }
+
+    handleChange(event) {
+        const { id, value } = event.currentTarget;
+        this.setState({ [id]: event.target.value })
+    }  
+
+    handleCheckBoxChange(event) {
+        this.setState({ linkIsActive: event.target.checked })
     }
 
     componentDidMount() {
@@ -32,9 +43,10 @@ class NewLink extends React.Component {
                     <label>Название</label>
                     <input
                         type="input"
+                        id="linkName"
                         className="form-control"
-                        value={this.props.data.linkName}
-                        onChange={(e) => this.props.changeLinkName(e.target.value)}
+                        value={this.state.linkName}
+                        onChange={this.handleChange}
                         placeholder="Введите название ссылки"
                     />
                 </div>
@@ -42,9 +54,10 @@ class NewLink extends React.Component {
                     <label>Описание</label>
                     <input
                         type="input"
+                        id="linkDescription"
                         className="form-control"
-                        value={this.props.data.linkDescription}
-                        onChange={(e) => this.props.changeLinkDescription(e.target.value)}
+                        value={this.state.linkDescription}
+                        onChange={this.handleChange}
                         placeholder="Введите описание ссылки"
                     />
                 </div>
@@ -52,9 +65,10 @@ class NewLink extends React.Component {
                     <label>Полная ссылка</label>
                     <input
                         type="input"
+                        id="linkValue"
                         className="form-control"
-                        value={this.props.data.linkValue}
-                        onChange={(e) => this.props.changeLinkValue(e.target.value)}
+                        value={this.state.linkValue}
+                        onChange={this.handleChange}
                         placeholder="Введите полную ссылку"
                     />
                 </div>
@@ -62,8 +76,9 @@ class NewLink extends React.Component {
                     <input
                         type="checkbox"
                         className="form-check-input"
-                        onChange={(e) => this.props.changeLinkIsActive(e.target.checked)}
-                        checked={this.props.data.linkIsActive}
+                        id="linkIsActive"
+                        onChange={this.handleCheckBoxChange}
+                        checked={this.state.linkIsActive}
                     />
                     <label className="form-check-label">Ссылка активна?</label>
                 </div>
@@ -73,10 +88,10 @@ class NewLink extends React.Component {
                     value="Отправить"
                     onClick={() => this.props.addLink(
                         this.props.data.project.projectId,
-                        this.props.data.linkName,
-                        this.props.data.linkDescription,
-                        this.props.data.linkValue,
-                        this.props.data.linkIsActive)}
+                        this.state.linkName,
+                        this.state.linkDescription,
+                        this.state.linkValue,
+                        this.state.linkIsActive)}
                 />
             </div>
         );
@@ -93,11 +108,7 @@ let mapProps = (state) => {
 let mapDispatch = (dispatch) => {
     return {
         addLink: bindActionCreators(addLink, dispatch),
-        getProject: bindActionCreators(getProject, dispatch),
-        changeLinkName: bindActionCreators(changeLinkName, dispatch),
-        changeLinkDescription: bindActionCreators(changeLinkDescription, dispatch),
-        changeLinkValue: bindActionCreators(changeLinkValue, dispatch),
-        changeLinkIsActive: bindActionCreators(changeLinkIsActive, dispatch)
+        getProject: bindActionCreators(getProject, dispatch)        
     }
 }
 

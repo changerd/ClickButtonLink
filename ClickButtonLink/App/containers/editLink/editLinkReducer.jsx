@@ -2,11 +2,7 @@
     EDIT_LINK_SUCCESS,
     EDIT_LINK_ERROR,
     GET_LINK_SUCCESS,
-    GET_LINK_ERROR,
-    CHANGE_LINKNAME,
-    CHANGE_LINKDESCRIPTION,
-    CHANGE_LINKVALUE,
-    CHANGE_LINKISACTIVE
+    GET_LINK_ERROR,    
 } from './editLinkConstants.jsx'
 
 const initialState = {
@@ -26,39 +22,7 @@ export default function editLink(state = initialState, action) {
             return { ...state, link: action.payload, error: '' }
 
         case GET_LINK_ERROR:
-            return { ...state, error: action.payload }
-
-        case CHANGE_LINKNAME:
-            return {
-                ...state, link: {
-                    ...state.link,
-                    linkName: action.payload
-                }
-            }
-
-        case CHANGE_LINKDESCRIPTION:
-            return {
-                ...state, link: {
-                    ...state.link,
-                    linkDescription: action.payload
-                }
-            }
-
-        case CHANGE_LINKVALUE:
-            return {
-                ...state, link: {
-                    ...state.link,
-                    linkValue: action.payload
-                }
-            }
-
-        case CHANGE_LINKISACTIVE:
-            return {
-                ...state, link: {
-                    ...state.link,
-                    linkIsActive: action.payload
-                }
-            }
+            return { ...state, error: action.payload }        
 
         default:
             return state;

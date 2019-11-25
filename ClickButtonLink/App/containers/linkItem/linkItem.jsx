@@ -76,7 +76,7 @@ class LinkItem extends React.Component {
         return (
             <div id="link">
                 <br />
-                <h2>ССылка {this.props.data.linkName}</h2>
+                <h2>Сcылка {this.props.data.linkName}</h2>
                 <div>
                     <hr />
                     <div>
