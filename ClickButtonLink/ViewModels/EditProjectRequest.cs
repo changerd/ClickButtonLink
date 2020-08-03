@@ -10,5 +10,6 @@ namespace ClickButtonLink.ViewModels
         public int ProjectId { get; set; }
         public string ProjectName { get; set; }
         public string ProjectDescription { get; set; }
+        public int UserId { get; set; }
     }
 }

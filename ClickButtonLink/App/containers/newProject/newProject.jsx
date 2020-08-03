@@ -13,15 +13,15 @@ class NewProject extends React.Component {
             projectDescription: '',
         }
 
-        this.handleChange = this.handleChange.bind(this);        
+        this.handleChange = this.handleChange.bind(this);
     }
 
     handleChange(event) {
         const { id, value } = event.currentTarget;
         this.setState({ [id]: event.target.value })
-    }    
+    }
 
-    render() {       
+    render() {
         return (
             <div id="project">
                 <h3>Новый проект</h3>
@@ -51,7 +51,16 @@ class NewProject extends React.Component {
                     type="button"
                     className="btn btn-primary"
                     value="Отправить"
-                    onClick={() => this.props.addProject(this.state.projectName, this.state.projectDescription, this.props.history)}
+                    onClick={() => {
+                        if (!this.state.projectName) {
+                            alert('Необходимо заполнить название проекта');
+                        } else if (!this.state.projectDescription) {
+                            alert('Необходимо заполнить описание проекта');
+                        } else {
+                            this.props.addProject(this.state.projectName, this.state.projectDescription);
+                        }
+                    }
+                }
                 />
             </div>
         );
@@ -66,7 +75,7 @@ let mapProps = (state) => {
 
 let mapDispatch = (dispatch) => {
     return {
-        addProject: bindActionCreators(addProject, dispatch),        
+        addProject: bindActionCreators(addProject, dispatch),
     }
 }
 

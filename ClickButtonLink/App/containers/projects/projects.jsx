@@ -20,12 +20,8 @@ class Projects extends React.Component {
     }
 
     deleteProject(projectId) {
-        let pageIndex;
-        const parsed = queryString.parse(location.search);
-        if (parsed) {
-            pageIndex = parsed['pageIndex'];
-        }
-        this.props.deleteProject(projectId, pageIndex);
+        this.props.deleteProject(projectId);
+        this.getProjects();
     }
 
     getProjects() {
@@ -34,12 +30,20 @@ class Projects extends React.Component {
         if (parsed) {
             pageIndex = parsed['pageIndex'];
         }
-        this.props.getProjects(pageIndex);
+        if (this.props.isLogged) {
+            this.props.getProjects(pageIndex);
+        }
     }
 
     componentWillReceiveProps(nextProps) {
         if (this.state.query != location.search) {
             this.setState({ query: location.search });
+            this.getProjects();
+        }
+    }
+
+    componentDidUpdate(prevProps) {
+        if (this.props.isLogged !== prevProps.isLogged) {
             this.getProjects();
         }
     }
@@ -65,24 +69,23 @@ class Projects extends React.Component {
 
         let projects = this.props.projects.records.map(item => {
             return (
-                <ProjectItem key={item.projectId} data={item} isFull={false} /*isLogged={this.props.isLogged}*/ deleteProject={this.deleteProject} />
+                <ProjectItem key={item.projectId} data={item} isFull={false} deleteProject={this.deleteProject} />
             );
         });
 
-        return (
-            <div id="projects">
-                <br/>
+        let renderPage = (this.props.isLogged) ?
+            <div>
                 <div className="row">
                     <div className="col">
                         <h3>Все проекты</h3>
                     </div>
                     <div className="col-7">
-                        <i>{countRecords} ссылки</i> 
+                        <i>{countRecords} ссылки</i>
                     </div>
                     <div className="col text-right">
                         <Link className="btn btn-primary" to={"/projects/new"}>Создать проект</Link>
                     </div>
-                    </div>               
+                </div>
                 <br />
                 <table className="table">
                     <tbody>
@@ -99,6 +102,16 @@ class Projects extends React.Component {
                     {renderPageNumbers}
                 </div>
             </div>
+            :
+            <div className="text-center">
+                <h1>Login please</h1>
+            </div>
+
+        return (
+            <div id="projects">
+                <br />
+                {renderPage}
+            </div>
         );
     }
 };
@@ -107,6 +120,7 @@ let mapProps = (state) => {
     return {
         projects: state.projects.data,
         error: state.projects.error,
+        isLogged: state.header.isLogged
     }
 }
 

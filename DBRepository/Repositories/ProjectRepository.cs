@@ -13,13 +13,13 @@ namespace DBRepository.Repositories
     {
         public ProjectRepository(string connectionString, IRepositoryContextFactory contextFactory) : base(connectionString, contextFactory) { }
 
-        public async Task<PageProjects<Project>> GetProjects(int index, int pageSize/*, string userId*/)
+        public async Task<PageProjects<Project>> GetProjects(int index, int pageSize, int userId)
         {
             var result = new PageProjects<Project>() { CurrentPage = index, PageSize = pageSize };
 
             using (var context = ContextFactory.CreateDbContext(ConnectionString))
             {
-                var query = context.Projects/*.Where(u => String.Equals(u.UserId, userId))*/.AsQueryable();
+                var query = context.Projects.Where(u => u.UserId == userId).AsQueryable();
                 result.TotalPages = await query.CountAsync();
                 result.Records = await query.Include(l => l.Links).ThenInclude(s => s.Statistics).OrderByDescending(p => p.ProjectId).Skip(index * pageSize).Take(pageSize).ToListAsync();
                 result.CountRecords = result.Records.Sum(s => s.Links.Count());

@@ -4,11 +4,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using ClickButtonLink.Services.Interfaces;
 using ClickButtonLink.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Models;
 
 namespace ClickButtonLink.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     public class LinkController : Controller
     {
@@ -42,23 +44,26 @@ namespace ClickButtonLink.Controllers
 
         [Route("link")]
         [HttpPost]
-        public async Task AddLink([FromBody] AddLinkRequest request)
+        public async Task<IActionResult> AddLink([FromBody] AddLinkRequest request)
         {
             await _linkService.AddLink(request);
+            return NoContent();
         }
 
         [Route("link")]
         [HttpPut]
-        public async Task EditLink([FromBody] EditLinkRequest request)
+        public async Task<IActionResult> EditLink([FromBody] EditLinkRequest request)
         {
             await _linkService.EditLink(request);
+            return NoContent();
         }
 
         [Route("link")]
         [HttpDelete]
-        public async Task DeleteLink(int linkId)
+        public async Task<IActionResult> DeleteLink(int linkId)
         {
             await _linkService.DeleteLink(linkId);
+            return NoContent();
         }
         
     }

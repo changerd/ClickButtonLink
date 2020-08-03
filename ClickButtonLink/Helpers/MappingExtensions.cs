@@ -16,7 +16,7 @@ namespace ClickButtonLink
         public static PageLinks<TDestination> ToMappedPage<TSource, TDestination>(this IMapper mapper, PageLinks<TSource> page)
         {
             IEnumerable<TDestination> sourceList = mapper.Map<IEnumerable<TSource>, IEnumerable<TDestination>>(page?.Records);
-            PageLinks<TDestination> pagedResult = new PageLinks<TDestination>(sourceList) { CurrentPage = page.CurrentPage, PageSize = page.PageSize, TotalPages = page.TotalPages, CountLinks = page.CountLinks, ProjectId=page.ProjectId, ProjectName = page.ProjectName, ProjectDescription = page.ProjectDescription };
+            PageLinks<TDestination> pagedResult = new PageLinks<TDestination>(sourceList) { CurrentPage = page.CurrentPage, PageSize = page.PageSize, TotalPages = page.TotalPages, CountLinks = page.CountLinks, ProjectId = page.ProjectId, ProjectName = page.ProjectName, ProjectDescription = page.ProjectDescription };
             return pagedResult;
         }
     }

@@ -7,9 +7,12 @@
         constants = {
             page: '@Url.RouteUrl("DefaultApi", new {controller = "Project", action = "page" })',
             pagelinks: '@Url.RouteUrl("DefaultApi", new {controller = "Link", action = "pagelinks" })',
-            project: '@Url.RouteUrl("DefaultApi", new {controller = "Project", action = "project" })',            
+            project: '@Url.RouteUrl("DefaultApi", new {controller = "Project", action = "project" })',
             link: '@Url.RouteUrl("DefaultApi", new {controller = "Link", action = "link" })',
             linkdetails: '@Url.RouteUrl("DefaultApi", new {controller = "Link", action = "linkdetails" })',
+            token: '@Url.RouteUrl("DefaultApi", new { controller = "Identity", action = "token" })',
+            register: '@Url.RouteUrl("DefaultApi", new { controller = "Identity", action = "register" })',
+            tokenKey: 'tokenKey'
         }
     </script>
     <title>ClickButtonLink</title>
