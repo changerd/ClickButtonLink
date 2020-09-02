@@ -19,9 +19,7 @@ export function addProject(projectName, projectDescription) {
         data: addProjectData,
     };
 
-
-
-    return (dispatch) => {
+    /*return (dispatch) => {
         if (projectName, projectDescription) {
             fetch(constants.project, {
                 method: 'POST',
@@ -50,5 +48,5 @@ export function addProject(projectName, projectDescription) {
                 dispatch({ type: ADD_PROJECT_ERROR, payload: 'Необходимо заполнить название новой записи' });
             }
         }
-    }
+    }*/
 }

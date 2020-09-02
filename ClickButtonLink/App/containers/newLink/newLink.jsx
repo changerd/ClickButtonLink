@@ -22,7 +22,7 @@ class NewLink extends React.Component {
     handleChange(event) {
         const { id, value } = event.currentTarget;
         this.setState({ [id]: event.target.value })
-    }  
+    }
 
     handleCheckBoxChange(event) {
         this.setState({ linkIsActive: event.target.checked })
@@ -33,7 +33,7 @@ class NewLink extends React.Component {
         if (parsed) {
             this.props.getProject(parsed['projectId']);
         }
-    }   
+    }
 
     render() {
         return (
@@ -72,7 +72,7 @@ class NewLink extends React.Component {
                         placeholder="Введите полную ссылку"
                     />
                 </div>
-                <div className="form-check">                    
+                <div className="form-check">
                     <input
                         type="checkbox"
                         className="form-check-input"
@@ -86,12 +86,25 @@ class NewLink extends React.Component {
                     type="button"
                     className="btn btn-primary"
                     value="Отправить"
-                    onClick={() => this.props.addLink(
-                        this.props.data.project.projectId,
-                        this.state.linkName,
-                        this.state.linkDescription,
-                        this.state.linkValue,
-                        this.state.linkIsActive)}
+                    onClick={() => {
+                        if (!this.state.linkName) {
+                            alert('Необходимо заполнить название ссылки');
+                        } else if (!this.state.linkDescription) {
+                            alert('Необходимо заполнить описание ссылки');
+                            dispatch({ type: ADD_LINK_ERROR, payload: 'Необходимо заполнить описание ссылки' });
+                        } else if (!this.state.linkValue) {
+                            alert('Необходимо заполнить полную ссылку');
+                            dispatch({ type: ADD_LINK_ERROR, payload: 'Необходимо заполнить полную ссылку' });
+                        } else {
+                            this.props.addLink(
+                                this.props.data.project.projectId,
+                                this.state.linkName,
+                                this.state.linkDescription,
+                                this.state.linkValue,
+                                this.state.linkIsActive)
+                        }
+                    }
+                }                    
                 />
             </div>
         );
@@ -108,7 +121,7 @@ let mapProps = (state) => {
 let mapDispatch = (dispatch) => {
     return {
         addLink: bindActionCreators(addLink, dispatch),
-        getProject: bindActionCreators(getProject, dispatch)        
+        getProject: bindActionCreators(getProject, dispatch)
     }
 }
 
