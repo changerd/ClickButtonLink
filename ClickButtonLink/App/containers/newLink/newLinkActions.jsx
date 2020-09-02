@@ -8,7 +8,14 @@
 } from './newLinkConstants.jsx'
 
 export function getProject(projectId) {
-    return (dispatch) => {
+    return {
+        type: 'PROMISE',
+        actions: [GET_PROJECT_START, GET_PROJECT_SUCCESS, GET_PROJECT_ERROR],
+        url: window.constants.project + '?projectId=' + projectId,
+        method: 'GET',
+    };
+
+    /*return (dispatch) => {
         fetch(window.constants.project + '?projectId=' + projectId)
             .then((response) => {
                 return response.json();
@@ -18,11 +25,27 @@ export function getProject(projectId) {
                 alert(ex);
                 dispatch({ type: GET_PROJECT_ERROR, payload: ex });
             });
-    }
+    }*/
 }
 
 export function addLink(projectId, linkName, linkDescription, linkValue, linkIsActive) {
-    return (dispatch) => {
+    var addLinkData = {
+        projectId: projectId, 
+        linkName: linkName, 
+        linkDescription: linkDescription, 
+        linkValue: linkValue, 
+        linkIsActive: linkIsActive
+    }
+
+    return {
+        type: 'PROMISE',
+        actions: [ADD_LINK_START, ADD_LINK_SUCCESS, ADD_LINK_ERROR],
+        url: constants.link,
+        method: 'POST',
+        data: addLinkData,
+    }
+
+    /*return (dispatch) => {
         if (projectId, linkName, linkDescription, linkValue) {
             fetch(constants.link, {
                 method: 'POST',
@@ -54,5 +77,5 @@ export function addLink(projectId, linkName, linkDescription, linkValue, linkIsA
                 dispatch({ type: ADD_LINK_ERROR, payload: 'Необходимо заполнить полную ссылку' });
             } 
         }
-    }
+    }*/
 }
