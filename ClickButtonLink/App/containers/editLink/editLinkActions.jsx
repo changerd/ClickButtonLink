@@ -1,13 +1,22 @@
 ﻿import {
+    EDIT_LINK_START,
     EDIT_LINK_SUCCESS,
     EDIT_LINK_ERROR,
-    GET_LINK_SUCCESS,
-    GET_LINK_ERROR   
+    GET_LINK_START,
+    GET_LINK_SUCCESS,    
+    GET_LINK_ERROR,   
 } from './editLinkConstants.jsx'
 import "isomorphic-fetch"
 
 export function getLink(linkId) {
-    return (dispatch) => {
+    return {
+        type: 'PROMISE',
+        actions: [GET_LINK_START, GET_LINK_SUCCESS, GET_LINK_ERROR],
+        url: window.constants.link + '?linkId=' + linkId,
+        method: 'GET',
+    }   
+    
+    /*return (dispatch) => {
         fetch(window.constants.link + '?linkId=' + linkId)
             .then((response) => {
                 return response.json();
@@ -17,11 +26,28 @@ export function getLink(linkId) {
                 alert(ex);
                 dispatch({ type: GET_LINK_ERROR, payload: ex });
             });
-    }
+    }*/
 }
 
 export function editLink(linkId, projectId, linkName, linkDescription, linkValue, linkIsActive) {
-    return (dispatch) => {
+    var editLinkData = {
+        linkId: linkId, 
+        projectId: projectId, 
+        linkName: linkName, 
+        linkDescription: linkDescription, 
+        linkValue: linkValue, 
+        linkIsActive: linkIsActive
+    }
+    
+    return {
+        type: 'PROMISE',
+        actions: [EDIT_LINK_START, EDIT_LINK_SUCCESS, EDIT_LINK_ERROR],
+        url: constants.link,
+        method: 'PUT',
+        data: editLinkData
+    }  
+    
+    /*return (dispatch) => {
         if (linkId, projectId, linkName, linkDescription, linkValue) {
             fetch(constants.link, {
                 method: 'PUT',
@@ -53,5 +79,5 @@ export function editLink(linkId, projectId, linkName, linkDescription, linkValue
                 dispatch({ type: EDIT_LINK_ERROR, payload: 'Необходимо заполнить полную ссылку' });
             }
         }
-    }
+    }*/
 }

@@ -29,13 +29,33 @@ class EditLink extends React.Component {
     }
 
     componentDidMount() {
+        this.getLink();
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (this.state.query !== location.search) {
+            this.setState({
+                query: location.search,
+            })
+            this.getLink();
+        }
+
+        this.setState({
+            linkName: this.props.data.link.linkName,
+            linkDescription: this.props.data.link.linkDescription,
+            linkValue: this.props.data.link.linkValue,
+            linkIsActive: this.props.data.link.linkIsActive,
+        })
+    }
+
+    getLink() {
         const parsed = queryString.parse(location.search);
         if (parsed) {
             this.props.getLink(parsed['linkId']);
         }
     }
 
-    componentDidUpdate(prevProps) {
+    /*componentDidUpdate(prevProps) {
         if (this.props.data.link.linkName !== prevProps.data.link.linkName) {
             this.setState({
                 linkName: this.props.data.link.linkName
@@ -56,10 +76,9 @@ class EditLink extends React.Component {
                 linkIsActive: this.props.data.link.linkIsActive
             });
         }
-    }
+    }*/
 
     render() {
-        console.log('render');
         return (
             <div id="editLink">
                 <h3>Редактирование ссылки</h3>
@@ -100,7 +119,7 @@ class EditLink extends React.Component {
                     <input
                         type="checkbox"
                         className="form-check-input"
-                        id="linkIsActive"                        
+                        id="linkIsActive"
                         checked={this.state.linkIsActive}
                         onChange={this.handleCheckBoxChange}
                     />
@@ -110,14 +129,26 @@ class EditLink extends React.Component {
                     type="button"
                     className="btn btn-primary"
                     value="Отправить"
-                    onClick={() => this.props.editLink(
-                        this.props.data.link.linkId,
-                        this.props.data.link.projectId,
-                        this.state.linkName,
-                        this.state.linkDescription,
-                        this.state.linkValue,
-                        this.state.linkIsActive
-                    )}
+                    onClick={() => {
+                        if (!this.state.inkName) {
+                            alert('Необходимо заполнить название ссылки');                            
+                        } else if (!this.state.linkDescription) {
+                            alert('Необходимо заполнить описание ссылки');                            
+                        } else if (!this.state.linkValue) {
+                            alert('Необходимо заполнить полную ссылку');                            
+                        } else {
+                            this.props.editLink(
+                                this.props.data.link.linkId,
+                                this.props.data.link.projectId,
+                                this.state.linkName,
+                                this.state.linkDescription,
+                                this.state.linkValue,
+                                this.state.linkIsActive
+                            )
+                        }
+                        
+                    }
+                }
                 />
             </div>
         )
@@ -133,7 +164,7 @@ let mapProps = (state) => {
 let mapDispatch = (dispatch) => {
     return {
         editLink: bindActionCreators(editLink, dispatch),
-        getLink: bindActionCreators(getLink, dispatch)        
+        getLink: bindActionCreators(getLink, dispatch)
     }
 }
 
