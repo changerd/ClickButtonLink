@@ -1,13 +1,22 @@
 ﻿import {
+    GET_LINK_START,
     GET_LINK_SUCCESS,
     GET_LINK_ERROR,
+    DELETE_LINK_START,
     DELETE_LINK_SUCCESS,
     DELETE_LINK_ERROR
 } from './linkItemConstants.jsx'
 import "isomorphic-fetch"
 
 export function getLink(linkId) {
-    return (dispatch) => {
+    return {
+        type: 'PROMISE',
+        actions: [GET_LINK_START, GET_LINK_SUCCESS, GET_LINK_ERROR],
+        url: constants.linkdetails + '?linkId=' + linkId,
+        method: 'GET', 
+    }  
+   
+    /* return (dispatch) => {
         fetch(window.constants.linkdetails + '?linkId=' + linkId)
             .then((response) => {
                 return response.json();
@@ -17,11 +26,18 @@ export function getLink(linkId) {
                 alert(ex);
                 dispatch({ type: GET_LINK_ERROR, payload: ex });
             });
-    }
+    }*/
 }
 
 export function deleteLink(linkId) {
-    return (dispatch) => {
+    return {
+        type: 'PROMISE',
+        actions: [DELETE_LINK_START, DELETE_LINK_SUCCESS, DELETE_LINK_ERROR],
+        url: constants.link + '?linkId=' + linkId,
+        method: 'DELETE',
+    }    
+    
+    /*return (dispatch) => {
         fetch(window.constants.link + '?linkId=' + linkId, {
             method: 'DELETE',
             headers: {
@@ -38,5 +54,5 @@ export function deleteLink(linkId) {
         }).catch((ex) => {
             dispatch({ type: DELETE_LINK_ERROR, payload: ex });
         });
-    }
+    }*/
 }

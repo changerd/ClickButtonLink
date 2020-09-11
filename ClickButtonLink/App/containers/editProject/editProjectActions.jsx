@@ -1,13 +1,22 @@
 ﻿import {
+    EDIT_PROJECT_START,
     EDIT_PROJECT_SUCCESS,
     EDIT_PROJECT_ERROR,
+    GET_PROJECT_START,
     GET_PROJECT_SUCCESS,
     GET_PROJECT_ERROR   
 } from './editProjectConstants.jsx'
 import "isomorphic-fetch"
 
 export function getProject(projectId) {
-    return (dispatch) => {
+    return {
+        type: 'PROMISE',
+        actions: [GET_PROJECT_START, GET_PROJECT_SUCCESS, GET_PROJECT_ERROR],
+        url: constants.project + '?projectId=' + projectId,
+        method: 'GET',
+    }
+
+    /*return (dispatch) => {
         fetch(window.constants.project + '?projectId=' + projectId)
             .then((response) => {
                 return response.json();                
@@ -17,11 +26,24 @@ export function getProject(projectId) {
                 alert(ex);
                 dispatch({ type: GET_PROJECT_ERROR, payload: ex });
             });
-    }
+    }*/
 }
 
 export function editProject(projectId, projectName, projectDescription) {
-    return (dispatch) => {
+    var editProjectData = {
+        projectId: projectId, 
+        projectName: projectName, 
+        projectDescription: projectDescription
+    }
+
+    return {
+        type: 'PROMISE',
+        actions: [EDIT_PROJECT_START, EDIT_PROJECT_SUCCESS, EDIT_PROJECT_ERROR],
+        url: constants.project + '?projectId=' + projectId,
+        data: editProjectData,
+    }
+
+    /*return (dispatch) => {
         if (projectId, projectName, projectDescription) {
             fetch(window.constants.project + '?projectId=' + projectId, {
                 method: 'PUT',
@@ -50,5 +72,5 @@ export function editProject(projectId, projectName, projectDescription) {
                 dispatch({ type: EDIT_PROJECT_ERROR, payload: 'Необходимо заполнить описание новой записи' });
             }
         }
-    }
+    }*/
 }

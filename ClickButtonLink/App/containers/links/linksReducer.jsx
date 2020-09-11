@@ -1,4 +1,5 @@
 ﻿import {
+    GET_LINKS_START,
     GET_LINKS_SUCCESS,
     GET_LINKS_ERROR    
 } from './linksConstants.jsx'
@@ -19,6 +20,9 @@ const initialState = {
 
 export default function links(state = initialState, action) {
     switch (action.type) {
+        case GET_LINKS_START:
+            return { ...state, data: {}, error: '' }
+                    
         case GET_LINKS_SUCCESS:
             return { ...state, data: action.payload, error: '' }
 

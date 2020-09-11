@@ -7,7 +7,8 @@ import queryString from 'query-string';
 import { getLink, deleteLink } from './linkItemActions.jsx';
 import {
     LineChart,
-    Line, XAxis,
+    Line, 
+    XAxis,
     YAxis,
     CartesianGrid,
     Tooltip,

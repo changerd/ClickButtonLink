@@ -10,7 +10,7 @@ class EditProject extends React.Component {
         super(props);
         this.state = {
             projectName: "",
-            projectDescription: "" 
+            projectDescription: ""
         }
 
         this.handleChange = this.handleChange.bind(this);
@@ -19,17 +19,34 @@ class EditProject extends React.Component {
     handleChange(event) {
         const { id, value } = event.currentTarget;
         this.setState({ [id]: event.target.value })
-    } 
-    
+    }
+
     componentDidMount() {
+        this.getProject();
+    }
+
+    componentWillReceiveProps() {
+        if (this.state.query !== location.search) {
+            this.setState({
+                query: location.search,
+            })
+            this.getProject();
+        }
+
+        this.setState({
+            projectName: this.props.data.project.projectName,
+            projectDescription: this.props.data.project.projectDescription,
+        })
+    }
+
+    getProject() {
         const parsed = queryString.parse(location.search);
         if (parsed) {
-            this.props.getProject(parsed['projectId']);           
+            this.props.getProject(parsed['projectId']);
         }
-        
-    }  
+    }
 
-    componentDidUpdate(prevProps) {
+    /*componentDidUpdate(prevProps) {
         if (this.props.data.project.projectName !== prevProps.data.project.projectName) {
             this.setState({
                 projectName: this.props.data.project.projectName                
@@ -40,9 +57,9 @@ class EditProject extends React.Component {
                 projectDescription: this.props.data.project.projectDescription
             });
         }
-    }
-        
-    render() {        
+    }*/
+
+    render() {
         return (
             <div id="editProject">
                 <h3>Редактирование проекта</h3>
@@ -72,11 +89,20 @@ class EditProject extends React.Component {
                     type="button"
                     className="btn btn-primary"
                     value="Отправить"
-                    onClick={() => this.props.editProject(
-                        this.props.data.project.projectId,
-                        this.state.projectName,
-                        this.state.projectDescription                        
-                    )}
+                    onClick={() => {
+                        if (!this.state.projectName) {
+                            alert('Необходимо заполнить название проекта');
+                        } else if (!this.state.projectDescription) {
+                            alert('Необходимо заполнить описание проекта');
+                        } else {
+                            this.props.editProject(
+                                this.props.data.project.projectId,
+                                this.state.projectName,
+                                this.state.projectDescription
+                            );
+                        }
+                    }
+                }
                 />
             </div>
         );
@@ -85,14 +111,14 @@ class EditProject extends React.Component {
 
 let mapProps = (state) => {
     return {
-        data: state.editProject        
+        data: state.editProject
     }
 }
 
 let mapDispatch = (dispatch) => {
     return {
         editProject: bindActionCreators(editProject, dispatch),
-        getProject: bindActionCreators(getProject, dispatch),        
+        getProject: bindActionCreators(getProject, dispatch),
     }
 }
 
