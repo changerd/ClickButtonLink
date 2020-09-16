@@ -49,6 +49,7 @@ namespace ClickButtonLink
                        ClockSkew = TimeSpan.Zero
                    };
                });
+
             //services.AddCors();
             services.AddMvc();
             services.AddAutoMapper();
@@ -66,7 +67,7 @@ namespace ClickButtonLink
             services.AddSingleton<IConfiguration>(Configuration);
             services.AddScoped<IProjectService, ProjectService>();
             services.AddScoped<ILinkService, LinkService>();
-
+            services.AddScoped<IIdentityService, IdentityService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

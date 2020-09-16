@@ -40,6 +40,7 @@ export function editProject(projectId, projectName, projectDescription) {
         type: 'PROMISE',
         actions: [EDIT_PROJECT_START, EDIT_PROJECT_SUCCESS, EDIT_PROJECT_ERROR],
         url: constants.project + '?projectId=' + projectId,
+        method: 'PUT',
         data: editProjectData,
     }
 

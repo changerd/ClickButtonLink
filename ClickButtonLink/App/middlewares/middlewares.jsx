@@ -1,5 +1,5 @@
 import "isomorphic-fetch";
-import AuthHelper from '../utils/authHelpers.jsx';
+import AuthHelper from '../utils/authHelpers.js';
 
 const middleware = store => next => action => {
     if (action.type !== 'PROMISE') {

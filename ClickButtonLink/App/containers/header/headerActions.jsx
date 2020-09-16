@@ -7,7 +7,7 @@ import {
     REGISTER_SUCCESS,
     REGISTER_ERROR
 } from './headerConstants.jsx';
-import AuthHelper from '../../Utils/authHelper.js';
+import AuthHelper from '../../utils/authHelpers.js';
 
 export function logout() {
     AuthHelper.clearAuth();

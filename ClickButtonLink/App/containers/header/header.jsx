@@ -9,7 +9,7 @@ import {
     logout,    
     register,
 } from './headerActions.jsx';
-import AuthHelper from '../../Utils/authHelper.js';
+import AuthHelper from '../../utils/authHelpers.js';
 
 class Header extends React.Component {
     render() {

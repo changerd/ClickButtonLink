@@ -130,7 +130,7 @@ class EditLink extends React.Component {
                     className="btn btn-primary"
                     value="Отправить"
                     onClick={() => {
-                        if (!this.state.inkName) {
+                        if (!this.state.linkName) {
                             alert('Необходимо заполнить название ссылки');                            
                         } else if (!this.state.linkDescription) {
                             alert('Необходимо заполнить описание ссылки');                            

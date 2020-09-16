@@ -26,7 +26,7 @@ namespace ClickButtonLink
                 .AddJsonFile("appsettings.json");
             var config = builder.Build();
 
-            using (var scope = host.Build().Services.CreateScope())
+            using (var scope = host.Services.CreateScope())
             {
                 var services = scope.ServiceProvider;
 
@@ -38,11 +38,12 @@ namespace ClickButtonLink
                 }
             }
 
-            host.Build().Run();
+            host.Run();
         }
 
-        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
+        public static IWebHost CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>();
+                .UseStartup<Startup>()
+                .Build();
     }
 }
