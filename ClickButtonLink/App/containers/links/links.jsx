@@ -61,7 +61,7 @@ class Links extends React.Component {
         let links;
 
         if (this.props.links.records) {
-            links = this.props.links.records.map(item => {
+           links = this.props.links.records.map(item => {
                 return (
                     <LinkItem key={item.linkId} data={item} isFull={false} />
                 );

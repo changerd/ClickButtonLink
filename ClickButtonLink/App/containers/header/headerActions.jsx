@@ -31,9 +31,10 @@ export function login(userName, password) {
     };
 }
 
-export function register(userName, password, confirmPassword) {
+export function register(userName, name, password, confirmPassword) {
     var registerData = {
         'username': userName,
+        'name': name,
         'password': password,
         'confirmPassword': confirmPassword
     }

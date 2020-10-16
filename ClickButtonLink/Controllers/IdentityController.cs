@@ -48,7 +48,8 @@ namespace ClickButtonLink.Controllers
             var response = new
             {
                 access_token = encodedJwt,
-                username = identity.Name
+                username = identity.Name,
+                name =  identity.Claims.Where(c => c.Type == ClaimTypes.Surname).Select(c => c.Value).SingleOrDefault(),
             };
 
             return Ok(response);
@@ -67,6 +68,7 @@ namespace ClickButtonLink.Controllers
                     var claims = new List<Claim>
                     {
                         new Claim(ClaimsIdentity.DefaultNameClaimType, user.Login),
+                        new Claim(ClaimTypes.Surname, user.Name),
                     };
                     identity = new ClaimsIdentity(claims, "Token", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
                 }
@@ -87,6 +89,7 @@ namespace ClickButtonLink.Controllers
                 await _service.RegisterUser(new Models.User
                 {
                     Login = request.Username,
+                    Name = request.Name,
                     Password = passwordHash
                 });
                 var response = new

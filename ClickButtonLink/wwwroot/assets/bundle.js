@@ -12484,16 +12484,16 @@ function (_Component) {
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({
-    saveAuth: (userName, token) => {
-        sessionStorage.setItem(constants.tokenKey, JSON.stringify({ userName: userName, access_token: token }));
+    saveAuth: (userName, token, name) => {
+        localStorage.setItem(constants.tokenKey, JSON.stringify({ userName: userName, access_token: token, name: name }));
     },
 
     clearAuth: () => {
-        sessionStorage.removeItem(constants.tokenKey);
+        localStorage.removeItem(constants.tokenKey);
     },
 
     getLogin: () => {
-        let item = sessionStorage.getItem(constants.tokenKey);
+        let item = localStorage.getItem(constants.tokenKey);
         let login = '';
         if (item) {
             login = JSON.parse(item).userName;
@@ -12501,8 +12501,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         return login;
     },
 
+    getName: () => {
+        let item = localStorage.getItem(constants.tokenKey);
+        let name = '';
+        if (item) {
+            name = JSON.parse(item).name;
+        }
+        return name;
+    },
+
     isLogged: () => {
-        let item = sessionStorage.getItem(constants.tokenKey);
+        let item = localStorage.getItem(constants.tokenKey);
         if (item) {
             return true;
         } else {
@@ -12511,7 +12520,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
 
     getToken: () => {
-        let item = sessionStorage.getItem(constants.tokenKey);
+        let item = localStorage.getItem(constants.tokenKey);
         let token = null;
         if (item) {
             token = JSON.parse(item).access_token;
@@ -60457,7 +60466,7 @@ var Projects = function (_React$Component) {
                 _react2.default.createElement(
                     'h1',
                     null,
-                    'Login please'
+                    '\u041F\u043E\u0436\u0430\u043B\u0443\u0439\u0441\u0442\u0430 \u0430\u0432\u0442\u043E\u0440\u0438\u0437\u0438\u0440\u0443\u0439\u0442\u0435\u0441\u044C'
                 )
             );
 
@@ -81584,16 +81593,16 @@ var Header = function (_React$Component) {
             var loginButton = this.props.header.isLogged ? _react2.default.createElement(
                 'span',
                 { className: 'nameLabel' },
-                'Hello, ',
-                _authHelpers2.default.getLogin()
+                '\u0417\u0434\u0440\u0430\u0432\u0441\u0442\u0432\u0443\u0439\u0442\u0435, ',
+                _authHelpers2.default.getName()
             ) : _react2.default.createElement(_loginForm2.default, { onLogin: this.props.login, onRegister: this.props.register });
 
             var logoutButton = this.props.header.isLogged ? _react2.default.createElement(
                 'button',
                 { className: 'btn btn-dark', onClick: function onClick() {
-                        if (confirm('Do you want logout?')) _this2.props.logout();
+                        if (confirm('Вы хотите выйти?')) _this2.props.logout();
                     } },
-                'Logout'
+                '\u0412\u044B\u0439\u0442\u0438'
             ) : '';
 
             return _react2.default.createElement(
@@ -81710,6 +81719,7 @@ var LoginForm = function (_React$Component) {
             username: '',
             password: '',
             registerUsername: '',
+            registerName: '',
             registerPassword: '',
             registerConfirmPassword: ''
         };
@@ -81752,7 +81762,7 @@ var LoginForm = function (_React$Component) {
                             _react2.default.createElement(
                                 'label',
                                 null,
-                                'Login'
+                                '\u041B\u043E\u0433\u0438\u043D'
                             ),
                             _react2.default.createElement('input', {
                                 type: 'text',
@@ -81760,7 +81770,7 @@ var LoginForm = function (_React$Component) {
                                 id: 'username',
                                 value: this.state.username,
                                 onChange: this.handleChange,
-                                placeholder: 'Enter login'
+                                placeholder: '\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u043B\u043E\u0433\u0438\u043D'
                             })
                         ),
                         _react2.default.createElement(
@@ -81769,7 +81779,7 @@ var LoginForm = function (_React$Component) {
                             _react2.default.createElement(
                                 'label',
                                 { htmlFor: 'password' },
-                                'Password'
+                                '\u041F\u0430\u0440\u043E\u043B\u044C'
                             ),
                             _react2.default.createElement('input', {
                                 type: 'password',
@@ -81777,12 +81787,12 @@ var LoginForm = function (_React$Component) {
                                 id: 'password',
                                 value: this.state.password,
                                 onChange: this.handleChange,
-                                placeholder: 'Enter password' })
+                                placeholder: '\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u043F\u0430\u0440\u043E\u043B\u044C' })
                         ),
                         _react2.default.createElement('input', {
                             type: 'button',
                             className: 'btn btn-dark',
-                            value: 'Sign up',
+                            value: '\u0412\u043E\u0439\u0442\u0438',
                             onClick: function onClick() {
                                 return _this2.props.onLogin(_this2.state.username, _this2.state.password);
                             }
@@ -81795,7 +81805,7 @@ var LoginForm = function (_React$Component) {
                             className: 'dropdown-item btn btn-dark',
                             'data-toggle': 'modal',
                             'data-target': '#registerModal' },
-                        'New around here? Sign up'
+                        '\u0420\u0435\u0433\u0438\u0441\u0442\u0440\u0430\u0446\u0438\u044F \u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u0435\u043B\u044F'
                     )
                 ),
                 _react2.default.createElement(
@@ -81813,7 +81823,7 @@ var LoginForm = function (_React$Component) {
                                 _react2.default.createElement(
                                     'h5',
                                     { id: 'registerModalLabel' },
-                                    'Register new user'
+                                    '\u0420\u0435\u0433\u0438\u0441\u0442\u0440\u0430\u0446\u0438\u044F \u043D\u043E\u0432\u043E\u0433\u043E \u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u0435\u043B\u044F'
                                 ),
                                 _react2.default.createElement(
                                     'button',
@@ -81834,7 +81844,7 @@ var LoginForm = function (_React$Component) {
                                     _react2.default.createElement(
                                         'label',
                                         { htmlFor: 'registerUsername', className: 'form-label' },
-                                        'Username'
+                                        '\u041B\u043E\u0433\u0438\u043D'
                                     ),
                                     _react2.default.createElement('input', {
                                         type: 'text',
@@ -81842,7 +81852,24 @@ var LoginForm = function (_React$Component) {
                                         id: 'registerUsername',
                                         value: this.state.registerUsername,
                                         onChange: this.handleChange,
-                                        placeholder: 'Enter Username'
+                                        placeholder: '\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u043B\u043E\u0433\u0438\u043D'
+                                    })
+                                ),
+                                _react2.default.createElement(
+                                    'div',
+                                    { className: 'form-group' },
+                                    _react2.default.createElement(
+                                        'label',
+                                        { htmlFor: 'registerName', className: 'form-label' },
+                                        '\u0418\u043C\u044F'
+                                    ),
+                                    _react2.default.createElement('input', {
+                                        type: 'text',
+                                        className: 'form-control',
+                                        id: 'registerName',
+                                        value: this.state.registerName,
+                                        onChange: this.handleChange,
+                                        placeholder: '\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u0438\u043C\u044F'
                                     })
                                 ),
                                 _react2.default.createElement(
@@ -81851,7 +81878,7 @@ var LoginForm = function (_React$Component) {
                                     _react2.default.createElement(
                                         'label',
                                         { htmlFor: 'registerPassword', className: 'form-label' },
-                                        'Password'
+                                        '\u041F\u0430\u0440\u043E\u043B\u044C'
                                     ),
                                     _react2.default.createElement('input', {
                                         type: 'password',
@@ -81859,7 +81886,7 @@ var LoginForm = function (_React$Component) {
                                         id: 'registerPassword',
                                         value: this.state.registerPassword,
                                         onChange: this.handleChange,
-                                        placeholder: 'Enter Password'
+                                        placeholder: '\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u043F\u0430\u0440\u043E\u043B\u044C'
                                     })
                                 ),
                                 _react2.default.createElement(
@@ -81868,7 +81895,7 @@ var LoginForm = function (_React$Component) {
                                     _react2.default.createElement(
                                         'label',
                                         { htmlFor: 'registerConfirmPassword', className: 'form-label' },
-                                        'Confirm Password'
+                                        '\u041F\u043E\u0434\u0442\u0432\u0435\u0440\u0436\u0434\u0435\u043D\u0438\u0435 \u043F\u0430\u0440\u043E\u043B\u044F'
                                     ),
                                     _react2.default.createElement('input', {
                                         type: 'password',
@@ -81876,7 +81903,7 @@ var LoginForm = function (_React$Component) {
                                         id: 'registerConfirmPassword',
                                         value: this.state.registerConfirmPassword,
                                         onChange: this.handleChange,
-                                        placeholder: 'ConfirmPassword'
+                                        placeholder: '\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u043F\u0430\u0440\u043E\u043B\u044C \u0435\u0449\u0451 \u0440\u0430\u0437'
                                     })
                                 )
                             ),
@@ -81885,15 +81912,16 @@ var LoginForm = function (_React$Component) {
                                 { className: 'modal-footer' },
                                 _react2.default.createElement('input', {
                                     type: 'button',
-                                    value: 'Register',
+                                    value: '\u0420\u0435\u0433\u0438\u0441\u0442\u0440\u0430\u0446\u0438\u044F',
                                     className: 'btn btn-dark',
                                     onClick: function onClick() {
                                         if (_this2.state.registerPassword !== _this2.state.registerConfirmPassword) {
                                             alert('Password does not match');
                                         } else {
-                                            _this2.props.onRegister(_this2.state.registerUsername, _this2.state.registerPassword, _this2.state.registerConfirmPassword);
+                                            _this2.props.onRegister(_this2.state.registerUsername, _this2.state.registerName, _this2.state.registerPassword, _this2.state.registerConfirmPassword);
                                             _this2.setState({
                                                 registerUsername: '',
+                                                registerName: '',
                                                 registerPassword: '',
                                                 registerConfirmPassword: ''
                                             });
@@ -81903,7 +81931,7 @@ var LoginForm = function (_React$Component) {
                                 _react2.default.createElement(
                                     'button',
                                     { type: 'button', className: 'btn btn-secondary', 'data-dismiss': 'modal' },
-                                    'Close'
+                                    '\u0417\u0430\u043A\u0440\u044B\u0442\u044C'
                                 )
                             )
                         )
@@ -81963,9 +81991,10 @@ function login(userName, password) {
     };
 }
 
-function register(userName, password, confirmPassword) {
+function register(userName, name, password, confirmPassword) {
     var registerData = {
         'username': userName,
+        'name': name,
         'password': password,
         'confirmPassword': confirmPassword
     };
@@ -82448,35 +82477,32 @@ var _authHelpers2 = _interopRequireDefault(_authHelpers);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 var initialState = {
     isLogged: _authHelpers2.default.isLogged(),
-    name: _authHelpers2.default.getLogin(),
+    username: _authHelpers2.default.getLogin(),
+    name: _authHelpers2.default.getName(),
     password: '',
     error: ''
 };
 
 function header() {
-    var _extends2;
-
     var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
     var action = arguments[1];
 
     switch (action.type) {
         case _headerConstants.LOGIN_START:
-            return _extends({}, state, (_extends2 = { isLogged: false, name: '' }, _defineProperty(_extends2, 'name', ''), _defineProperty(_extends2, 'password', ''), _defineProperty(_extends2, 'error', ''), _extends2));
+            return _extends({}, state, { isLogged: false, username: '', name: '', password: '', error: '' });
 
         case _headerConstants.LOGIN_SUCCESS:
-            _authHelpers2.default.saveAuth(action.payload.username, action.payload.access_token);
-            return _extends({}, state, { isLogged: true, name: action.payload, password: '', error: '' });
+            _authHelpers2.default.saveAuth(action.payload.username, action.payload.access_token, action.payload.name);
+            return _extends({}, state, { isLogged: true, username: action.payload, name: action.payload, password: '', error: '' });
 
         case _headerConstants.LOGIN_ERROR:
             alert('Auth error');
             return _extends({}, state, { error: action.payload });
 
         case _headerConstants.LOGOUT:
-            return _extends({}, state, { isLogged: false, name: '', password: '' });
+            return _extends({}, state, { isLogged: false, username: '', name: '', password: '' });
 
         case _headerConstants.REGISTER_START:
             return _extends({}, state, { error: '' });

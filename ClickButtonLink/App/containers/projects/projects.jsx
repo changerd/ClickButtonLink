@@ -104,7 +104,7 @@ class Projects extends React.Component {
             </div>
             :
             <div className="text-center">
-                <h1>Login please</h1>
+                <h1>Пожалуйста авторизируйтесь</h1>
             </div>
 
         return (

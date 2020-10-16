@@ -14,11 +14,11 @@ import AuthHelper from '../../utils/authHelpers.js';
 class Header extends React.Component {
     render() {
         let loginButton = this.props.header.isLogged ?
-            <span className="nameLabel">Hello, {AuthHelper.getLogin()}</span> :
+            <span className="nameLabel">Здравствуйте, {AuthHelper.getName()}</span> :
             <LoginForm onLogin={this.props.login} onRegister={this.props.register} />
 
         let logoutButton = this.props.header.isLogged ?
-            <button className="btn btn-dark" onClick={() => { if (confirm('Do you want logout?')) this.props.logout() }} >Logout</button> :
+            <button className="btn btn-dark" onClick={() => { if (confirm('Вы хотите выйти?')) this.props.logout() }} >Выйти</button> :
             '';
 
         return (                     

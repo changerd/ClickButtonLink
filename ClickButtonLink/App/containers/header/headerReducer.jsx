@@ -11,7 +11,8 @@ import AuthHelper from '../../utils/authHelpers.js';
 
 const initialState = {
     isLogged: AuthHelper.isLogged(),
-    name: AuthHelper.getLogin(),
+    username: AuthHelper.getLogin(),
+    name: AuthHelper.getName(),
     password: '',
     error: '',
 }
@@ -19,18 +20,18 @@ const initialState = {
 export default function header(state = initialState, action) {
     switch (action.type) {
         case LOGIN_START:
-            return { ...state, isLogged: false, name: '', name: '', password: '', error: '' }
+            return { ...state, isLogged: false, username: '', name: '', password: '', error: '' }
 
         case LOGIN_SUCCESS:
-            AuthHelper.saveAuth(action.payload.username, action.payload.access_token);                      
-            return { ...state, isLogged: true, name: action.payload, password: '', error: '' }            
+            AuthHelper.saveAuth(action.payload.username, action.payload.access_token, action.payload.name);                      
+            return { ...state, isLogged: true, username: action.payload, name: action.payload, password: '', error: '' }            
 
         case LOGIN_ERROR:
             alert('Auth error');
             return { ...state, error: action.payload }
 
         case LOGOUT:
-            return { ...state, isLogged: false, name: '', password: '' }        
+            return { ...state, isLogged: false, username: '', name: '', password: '' }        
 
         case REGISTER_START:
             return { ...state, error: '' }
