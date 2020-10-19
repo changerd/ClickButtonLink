@@ -2,15 +2,19 @@
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Net.Http;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using ClickButtonLink.Helpers;
+using ClickButtonLink.Helpers.VK;
 using ClickButtonLink.Services.Interfaces;
 using ClickButtonLink.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json;
 
 namespace ClickButtonLink.Controllers
 {
@@ -41,7 +45,7 @@ namespace ClickButtonLink.Controllers
                     audience: AuthOptions.AUDIENCE,
                     notBefore: now,
                     claims: identity.Claims,
-                    expires: now.Add(TimeSpan.FromMinutes(AuthOptions.LIFETIME)),
+                    expires: now.Add(TimeSpan.FromDays(AuthOptions.LIFETIME)),
                     signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
             var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
 
@@ -105,6 +109,58 @@ namespace ClickButtonLink.Controllers
                     message = "User already exist",
                 };
                 return Conflict(response);
+            }
+        }       
+
+        [HttpGet("[action]")]
+        public async Task VKLogin(string code)
+        {
+            if (!String.IsNullOrEmpty(code))
+            {
+                HttpClient client = new HttpClient();
+                HttpResponseMessage tokenResponse = await client.GetAsync("https://oauth.vk.com/access_token?client_id=" +
+                    ClientInfo.clientId +
+                    "&client_secret=" +
+                    ClientInfo.clientSecret +
+                    "&redirect_uri=http://localhost:44324/api/Identity/VKLogin&code=" +
+                    code);
+                string tokenResponseString = await tokenResponse.Content.ReadAsStringAsync();
+                VkTokenResponse vkTokenResponse = JsonConvert.DeserializeObject<VkTokenResponse>(tokenResponseString);
+
+                if(String.IsNullOrEmpty(vkTokenResponse.Error))
+                {
+                    HttpResponseMessage userResult = await client.GetAsync(
+                        "https://api.vk.com/method/users.get?access_token=" + vkTokenResponse.AccessToken + "&v=5.78");
+                    string userResponse = await userResult.Content.ReadAsStringAsync();
+                    VkUser vkUser = JsonConvert.DeserializeObject<VkUser>(userResponse);
+
+                    if (vkUser != null)
+                    {
+                        string UserEmail = String.IsNullOrEmpty(vkTokenResponse.Email) ? "FastLink" + vkUser.Response[0].Id + "@noEmail.ru" : vkTokenResponse.Email;
+
+                        var user = await _service.GetUser(UserEmail);
+
+                        if(user == null)
+                        {
+                            var sha256 = new SHA256Managed();
+                            var passwordHash = Convert.ToBase64String(sha256.ComputeHash(Encoding.UTF8.GetBytes("Pas" + vkUser.Response[0].Id + "word")));
+                            await _service.RegisterUser(new Models.User
+                            {
+                                Login = UserEmail,
+                                Name = vkUser.Response[0].FirstName + " " + vkUser.Response[0].LastName,
+                                Password = passwordHash
+                            });
+
+                            user = await _service.GetUser(UserEmail);
+                        }
+
+                        await Token(new IdentityViewModel
+                        {
+                            Username = user.Login,
+                            Password = user.Password,
+                        });                        
+                    }
+                }
             }
         }
 

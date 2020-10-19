@@ -24,7 +24,7 @@ const middleware = store => next => action => {
             alert('Нужно авторизироваться');
             return next(action);
         }
-    }
+    }    
 
     fetch(url, {
         method: method,
