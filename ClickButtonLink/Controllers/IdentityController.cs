@@ -35,7 +35,12 @@ namespace ClickButtonLink.Controllers
             var identity = await GetIdentity(model.Username, model.Password);
             if (identity == null)
             {
-                return Unauthorized();
+                var failresponse = new
+                {
+                    code = 401
+                };
+
+                return Unauthorized(failresponse);
             }
 
             var now = DateTime.UtcNow;
@@ -54,6 +59,7 @@ namespace ClickButtonLink.Controllers
                 access_token = encodedJwt,
                 username = identity.Name,
                 name =  identity.Claims.Where(c => c.Type == ClaimTypes.Surname).Select(c => c.Value).SingleOrDefault(),
+                code = 200,
             };
 
             return Ok(response);
@@ -98,7 +104,7 @@ namespace ClickButtonLink.Controllers
                 });
                 var response = new
                 {
-                    message = "Registration completed",
+                    message = "Регистрация завершена",
                 };
                 return Ok(response);
             }
@@ -106,14 +112,14 @@ namespace ClickButtonLink.Controllers
             {
                 var response = new
                 {
-                    message = "User already exist",
+                    message = "Пользователь уже существует",
                 };
                 return Conflict(response);
             }
         }       
 
         [HttpGet("[action]")]
-        public async Task VKLogin(string code)
+        public async Task<IActionResult> VKLogin(string code)
         {
             if (!String.IsNullOrEmpty(code))
             {
@@ -137,13 +143,14 @@ namespace ClickButtonLink.Controllers
                     if (vkUser != null)
                     {
                         string UserEmail = String.IsNullOrEmpty(vkTokenResponse.Email) ? "FastLink" + vkUser.Response[0].Id + "@noEmail.ru" : vkTokenResponse.Email;
+                        string UserPassword = String.Format("Pass{0}word", vkUser.Response[0].Id);
 
                         var user = await _service.GetUser(UserEmail);
 
                         if(user == null)
                         {
                             var sha256 = new SHA256Managed();
-                            var passwordHash = Convert.ToBase64String(sha256.ComputeHash(Encoding.UTF8.GetBytes("Pas" + vkUser.Response[0].Id + "word")));
+                            var passwordHash = Convert.ToBase64String(sha256.ComputeHash(Encoding.UTF8.GetBytes(UserPassword)));
                             await _service.RegisterUser(new Models.User
                             {
                                 Login = UserEmail,
@@ -154,14 +161,19 @@ namespace ClickButtonLink.Controllers
                             user = await _service.GetUser(UserEmail);
                         }
 
-                        await Token(new IdentityViewModel
+                        /*await Token(new IdentityViewModel
                         {
                             Username = user.Login,
                             Password = user.Password,
-                        });                        
+                        })*/;
+
+                        string uri = String.Format("/?vkLogin={0}&vkPassword={1}", user.Login, new string(UserPassword.ToCharArray().Reverse().ToArray()));
+                        return Redirect(uri);
                     }
                 }
             }
+
+            return Redirect("/");
         }
 
     }

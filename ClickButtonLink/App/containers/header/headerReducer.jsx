@@ -22,9 +22,15 @@ export default function header(state = initialState, action) {
         case LOGIN_START:
             return { ...state, isLogged: false, username: '', name: '', password: '', error: '' }
 
-        case LOGIN_SUCCESS:
-            AuthHelper.saveAuth(action.payload.username, action.payload.access_token, action.payload.name);                      
-            return { ...state, isLogged: true, username: action.payload, name: action.payload, password: '', error: '' }            
+        case LOGIN_SUCCESS:            
+            let log = false;
+            if(action.payload) {
+                AuthHelper.saveAuth(action.payload.username, action.payload.access_token, action.payload.name);
+                log = true;
+            } else {
+                alert("Ошибка авторизации!");
+            }                                  
+            return { ...state, isLogged: log, username: action.payload, name: action.payload, password: '', error: '' }            
 
         case LOGIN_ERROR:
             alert('Auth error');
@@ -38,7 +44,7 @@ export default function header(state = initialState, action) {
 
         case REGISTER_SUCCESS:
             alert(action.payload.message);
-            if(action.payload.message == 'Registration completed') {                
+            if(action.payload.message == 'Регистрация завершена') {                
                 $('#registerModal').modal('toggle');
             }             
             return { ...state, error: '' }

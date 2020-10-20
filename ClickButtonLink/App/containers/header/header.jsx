@@ -2,7 +2,7 @@
 import ReactDOM from 'react-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import LoginForm from './components/loginForm.jsx'
 import {
     login,
@@ -10,8 +10,34 @@ import {
     register,
 } from './headerActions.jsx';
 import AuthHelper from '../../utils/authHelpers.js';
+import queryString, { parse } from "query-string";
 
 class Header extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = { query: location.search }
+    }
+
+    componentDidMount() {
+        this.vkLogin();
+    }
+
+    vkLogin() {
+        let vkLogin, vkPassword;
+        const parsed = queryString.parse(location.search)
+        if(parsed)
+        {
+            vkLogin = parsed['vkLogin'];
+            vkPassword = parsed['vkPassword'];            
+
+            if (vkLogin && vkPassword)
+            {                
+                this.props.login(vkLogin, vkPassword.split("").reverse().join(""));
+                <Redirect to="/" />
+            }
+        }
+    }   
+
     render() {
         let loginButton = this.props.header.isLogged ?
             <span className="nameLabel">Здравствуйте, {AuthHelper.getName()}</span> :

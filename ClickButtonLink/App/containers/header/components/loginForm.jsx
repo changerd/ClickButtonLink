@@ -64,10 +64,11 @@ export default class LoginForm extends React.Component {
                         data-target="#registerModal">
                         Регистрация пользователя
                         </button>
-                    {/*<a className="dropdown-item"
-                    href="https://oauth.vk.com/authorize?client_id=7623241&display=page&redirect_uri=http://localhost:44324/api/Identity/VKLogin&scope=friends&response_type=code&v=5.78">
-                        Вход с помощью Вк
-        </a>*/}
+                    <a className="dropdown-item"
+                        href="https://oauth.vk.com/authorize?client_id=7623241&display=page&redirect_uri=http://localhost:44324/api/Identity/VKLogin&scope=friends&response_type=code&v=5.78"
+                    >
+                        <img src="/imgs/vk.png" height="32" width="32" alt="Войти с помощью ВК" title="Войти с помощью ВК" />
+                    </a>
                 </div>
                 {/*Modal*/}
                 <div className="modal fade" id="registerModal" tabIndex="-1" role="dialog" aria-labelledby="registerModallLabel" aria-hidden="true">
