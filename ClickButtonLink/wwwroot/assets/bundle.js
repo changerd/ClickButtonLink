@@ -61311,6 +61311,10 @@ var _reactRedux = __webpack_require__(27);
 
 var _newProjectActions = __webpack_require__(397);
 
+var _validationForm = __webpack_require__(754);
+
+var _validationForm2 = _interopRequireDefault(_validationForm);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -61335,6 +61339,7 @@ var NewProject = function (_React$Component) {
         };
 
         _this.handleChange = _this.handleChange.bind(_this);
+        _this.handleSubmit = _this.handleSubmit.bind(_this);
         return _this;
     }
 
@@ -61348,66 +61353,78 @@ var NewProject = function (_React$Component) {
             this.setState(_defineProperty({}, id, event.target.value));
         }
     }, {
+        key: 'handleSubmit',
+        value: function handleSubmit(event) {
+            if (this.state.projectName) {
+                this.props.addProject(this.state.projectName, this.state.projectDescription);
+            }
+            event.preventDefault();
+        }
+    }, {
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            _validationForm2.default.validateForm();
+        }
+    }, {
         key: 'render',
         value: function render() {
-            var _this2 = this;
-
             return _react2.default.createElement(
                 'div',
                 { id: 'project' },
                 _react2.default.createElement(
-                    'h3',
-                    null,
-                    '\u041D\u043E\u0432\u044B\u0439 \u043F\u0440\u043E\u0435\u043A\u0442'
-                ),
-                _react2.default.createElement(
-                    'div',
-                    { className: 'form-group' },
+                    'form',
+                    { className: 'needs-validation', onSubmit: this.handleSubmit, noValidate: true },
                     _react2.default.createElement(
-                        'label',
+                        'h3',
                         null,
-                        '\u041D\u0430\u0437\u0432\u0430\u043D\u0438\u0435'
+                        '\u041D\u043E\u0432\u044B\u0439 \u043F\u0440\u043E\u0435\u043A\u0442'
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'form-group' },
+                        _react2.default.createElement(
+                            'label',
+                            null,
+                            '\u041D\u0430\u0437\u0432\u0430\u043D\u0438\u0435'
+                        ),
+                        _react2.default.createElement('input', {
+                            type: 'input',
+                            id: 'projectName',
+                            className: 'form-control',
+                            value: this.state.projectName,
+                            onChange: this.handleChange,
+                            placeholder: '\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u043D\u0430\u0437\u0432\u0430\u043D\u0438\u0435 \u043F\u0440\u043E\u0435\u043A\u0442\u0430',
+                            required: true
+                        }),
+                        _react2.default.createElement(
+                            'div',
+                            { className: 'invalid-feedback' },
+                            '\u041D\u0430\u0437\u0432\u0430\u043D\u0438\u0435 \u043F\u0440\u043E\u0435\u043A\u0442\u0430 \u043D\u0435 \u0434\u043E\u043B\u0436\u043D\u043E \u0431\u044B\u0442\u044C \u043F\u0443\u0441\u0442\u044B\u043C.'
+                        )
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'form-group' },
+                        _react2.default.createElement(
+                            'label',
+                            null,
+                            '\u041E\u043F\u0438\u0441\u0430\u043D\u0438\u0435'
+                        ),
+                        _react2.default.createElement('input', {
+                            type: 'input',
+                            id: 'projectDescription',
+                            className: 'form-control',
+                            value: this.state.projectDescription,
+                            onChange: this.handleChange,
+                            placeholder: '\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u043E\u043F\u0438\u0441\u0430\u043D\u0438\u0435 \u043F\u0440\u043E\u0435\u043A\u0442\u0430'
+                        })
                     ),
                     _react2.default.createElement('input', {
-                        type: 'input',
-                        id: 'projectName',
-                        className: 'form-control',
-                        value: this.state.projectName,
-                        onChange: this.handleChange,
-                        placeholder: '\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u043D\u0430\u0437\u0432\u0430\u043D\u0438\u0435 \u043F\u0440\u043E\u0435\u043A\u0442\u0430'
+                        type: 'submit',
+                        className: 'btn btn-primary',
+                        value: '\u041E\u0442\u043F\u0440\u0430\u0432\u0438\u0442\u044C'
                     })
-                ),
-                _react2.default.createElement(
-                    'div',
-                    { className: 'form-group' },
-                    _react2.default.createElement(
-                        'label',
-                        null,
-                        '\u041E\u043F\u0438\u0441\u0430\u043D\u0438\u0435'
-                    ),
-                    _react2.default.createElement('input', {
-                        type: 'input',
-                        id: 'projectDescription',
-                        className: 'form-control',
-                        value: this.state.projectDescription,
-                        onChange: this.handleChange,
-                        placeholder: '\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u043E\u043F\u0438\u0441\u0430\u043D\u0438\u0435 \u043F\u0440\u043E\u0435\u043A\u0442\u0430'
-                    })
-                ),
-                _react2.default.createElement('input', {
-                    type: 'button',
-                    className: 'btn btn-primary',
-                    value: '\u041E\u0442\u043F\u0440\u0430\u0432\u0438\u0442\u044C',
-                    onClick: function onClick() {
-                        if (!_this2.state.projectName) {
-                            alert('Необходимо заполнить название проекта');
-                        } else if (!_this2.state.projectDescription) {
-                            alert('Необходимо заполнить описание проекта');
-                        } else {
-                            _this2.props.addProject(_this2.state.projectName, _this2.state.projectDescription);
-                        }
-                    }
-                })
+                )
             );
         }
     }]);
@@ -61524,6 +61541,10 @@ var _queryString2 = _interopRequireDefault(_queryString);
 
 var _editProjectActions = __webpack_require__(399);
 
+var _validationForm = __webpack_require__(754);
+
+var _validationForm2 = _interopRequireDefault(_validationForm);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -61548,6 +61569,7 @@ var EditProject = function (_React$Component) {
         };
 
         _this.handleChange = _this.handleChange.bind(_this);
+        _this.handleSubmit = _this.handleSubmit.bind(_this);
         return _this;
     }
 
@@ -61561,9 +61583,18 @@ var EditProject = function (_React$Component) {
             this.setState(_defineProperty({}, id, event.target.value));
         }
     }, {
+        key: 'handleSubmit',
+        value: function handleSubmit(event) {
+            if (this.state.projectName) {
+                this.props.editProject(this.props.data.project.projectId, this.state.projectName, this.state.projectDescription);
+            }
+            event.preventDefault();
+        }
+    }, {
         key: 'componentDidMount',
         value: function componentDidMount() {
             this.getProject();
+            _validationForm2.default.validateForm();
         }
     }, {
         key: 'componentWillReceiveProps',
@@ -61605,64 +61636,63 @@ var EditProject = function (_React$Component) {
     }, {
         key: 'render',
         value: function render() {
-            var _this2 = this;
-
             return _react2.default.createElement(
                 'div',
                 { id: 'editProject' },
                 _react2.default.createElement(
-                    'h3',
-                    null,
-                    '\u0420\u0435\u0434\u0430\u043A\u0442\u0438\u0440\u043E\u0432\u0430\u043D\u0438\u0435 \u043F\u0440\u043E\u0435\u043A\u0442\u0430'
-                ),
-                _react2.default.createElement(
-                    'div',
-                    { className: 'form-group' },
+                    'form',
+                    { className: 'needs-validation', onSubmit: this.handleSubmit, noValidate: true },
                     _react2.default.createElement(
-                        'label',
+                        'h3',
                         null,
-                        '\u041D\u0430\u0437\u0432\u0430\u043D\u0438\u0435'
+                        '\u0420\u0435\u0434\u0430\u043A\u0442\u0438\u0440\u043E\u0432\u0430\u043D\u0438\u0435 \u043F\u0440\u043E\u0435\u043A\u0442\u0430'
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'form-group' },
+                        _react2.default.createElement(
+                            'label',
+                            null,
+                            '\u041D\u0430\u0437\u0432\u0430\u043D\u0438\u0435'
+                        ),
+                        _react2.default.createElement('input', {
+                            type: 'input',
+                            id: 'projectName',
+                            className: 'form-control',
+                            value: this.state.projectName,
+                            onChange: this.handleChange,
+                            placeholder: '\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u043D\u0430\u0437\u0432\u0430\u043D\u0438\u0435 \u043F\u0440\u043E\u0435\u043A\u0442\u0430',
+                            required: true
+                        }),
+                        _react2.default.createElement(
+                            'div',
+                            { className: 'invalid-feedback' },
+                            '\u041D\u0430\u0437\u0432\u0430\u043D\u0438\u0435 \u043F\u0440\u043E\u0435\u043A\u0442\u0430 \u043D\u0435 \u0434\u043E\u043B\u0436\u043D\u043E \u0431\u044B\u0442\u044C \u043F\u0443\u0441\u0442\u044B\u043C.'
+                        )
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'form-group' },
+                        _react2.default.createElement(
+                            'label',
+                            null,
+                            '\u041E\u043F\u0438\u0441\u0430\u043D\u0438\u0435'
+                        ),
+                        _react2.default.createElement('input', {
+                            type: 'input',
+                            id: 'projectDescription',
+                            className: 'form-control',
+                            value: this.state.projectDescription,
+                            onChange: this.handleChange,
+                            placeholder: '\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u043E\u043F\u0438\u0441\u0430\u043D\u0438\u0435 \u043F\u0440\u043E\u0435\u043A\u0442\u0430'
+                        })
                     ),
                     _react2.default.createElement('input', {
-                        type: 'input',
-                        id: 'projectName',
-                        className: 'form-control',
-                        value: this.state.projectName,
-                        onChange: this.handleChange,
-                        placeholder: '\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u043D\u0430\u0437\u0432\u0430\u043D\u0438\u0435 \u043F\u0440\u043E\u0435\u043A\u0442\u0430'
+                        type: 'submit',
+                        className: 'btn btn-primary',
+                        value: '\u041E\u0442\u043F\u0440\u0430\u0432\u0438\u0442\u044C'
                     })
-                ),
-                _react2.default.createElement(
-                    'div',
-                    { className: 'form-group' },
-                    _react2.default.createElement(
-                        'label',
-                        null,
-                        '\u041E\u043F\u0438\u0441\u0430\u043D\u0438\u0435'
-                    ),
-                    _react2.default.createElement('input', {
-                        type: 'input',
-                        id: 'projectDescription',
-                        className: 'form-control',
-                        value: this.state.projectDescription,
-                        onChange: this.handleChange,
-                        placeholder: '\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u043E\u043F\u0438\u0441\u0430\u043D\u0438\u0435 \u043F\u0440\u043E\u0435\u043A\u0442\u0430'
-                    })
-                ),
-                _react2.default.createElement('input', {
-                    type: 'button',
-                    className: 'btn btn-primary',
-                    value: '\u041E\u0442\u043F\u0440\u0430\u0432\u0438\u0442\u044C',
-                    onClick: function onClick() {
-                        if (!_this2.state.projectName) {
-                            alert('Необходимо заполнить название проекта');
-                        } else if (!_this2.state.projectDescription) {
-                            alert('Необходимо заполнить описание проекта');
-                        } else {
-                            _this2.props.editProject(_this2.props.data.project.projectId, _this2.state.projectName, _this2.state.projectDescription);
-                        }
-                    }
-                })
+                )
             );
         }
     }]);
@@ -62230,6 +62260,10 @@ var _queryString2 = _interopRequireDefault(_queryString);
 
 var _newLinkActions = __webpack_require__(404);
 
+var _validationForm = __webpack_require__(754);
+
+var _validationForm2 = _interopRequireDefault(_validationForm);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -62249,7 +62283,7 @@ var NewLink = function (_React$Component) {
         var _this = _possibleConstructorReturn(this, (NewLink.__proto__ || Object.getPrototypeOf(NewLink)).call(this, props));
 
         _this.state = {
-            projectId: 0,
+            projectId: '',
             linkName: '',
             linkDescription: '',
             linkValue: '',
@@ -62259,6 +62293,7 @@ var NewLink = function (_React$Component) {
 
         _this.handleChange = _this.handleChange.bind(_this);
         _this.handleCheckBoxChange = _this.handleCheckBoxChange.bind(_this);
+        _this.handleSubmit = _this.handleSubmit.bind(_this);
         return _this;
     }
 
@@ -62277,9 +62312,18 @@ var NewLink = function (_React$Component) {
             this.setState({ linkIsActive: event.target.checked });
         }
     }, {
+        key: 'handleSubmit',
+        value: function handleSubmit(event) {
+            if (this.state.projectId && this.state.linkName && this.state.linkValue) {
+                this.props.addLink(this.state.projectId, this.state.linkName, this.state.linkDescription, this.state.linkValue, this.state.linkIsActive);
+            }
+            event.preventDefault();
+        }
+    }, {
         key: 'componentDidMount',
         value: function componentDidMount() {
             this.getProject();
+            _validationForm2.default.validateForm();
         }
     }, {
         key: 'getProject',
@@ -62300,8 +62344,6 @@ var NewLink = function (_React$Component) {
     }, {
         key: 'render',
         value: function render() {
-            var _this2 = this;
-
             var choseProject = this.state.isNullProject ? _react2.default.createElement(
                 'div',
                 { className: 'form-group' },
@@ -62317,11 +62359,12 @@ var NewLink = function (_React$Component) {
                         className: 'form-control',
                         value: this.state.projectId,
                         onChange: this.handleChange,
-                        placeholder: '\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u043F\u0440\u043E\u0435\u043A\u0442'
+                        placeholder: '\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u043F\u0440\u043E\u0435\u043A\u0442',
+                        required: true
                     },
                     _react2.default.createElement(
                         'option',
-                        { key: '0', value: '0' },
+                        { selected: true, disabled: true, key: '', value: '' },
                         '\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u043F\u0440\u043E\u0435\u043A\u0442'
                     ),
                     this.props.data.projectsList.map(function (p) {
@@ -62331,6 +62374,11 @@ var NewLink = function (_React$Component) {
                             p.name
                         );
                     })
+                ),
+                _react2.default.createElement(
+                    'div',
+                    { className: 'invalid-feedback' },
+                    '\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u043F\u0440\u043E\u0435\u043A\u0442.'
                 )
             ) : null;
 
@@ -62338,98 +62386,99 @@ var NewLink = function (_React$Component) {
                 'div',
                 { id: 'link' },
                 _react2.default.createElement(
-                    'h3',
-                    null,
-                    '\u041D\u043E\u0432\u0430\u044F \u0441\u0441\u044B\u043B\u043A\u0430'
-                ),
-                choseProject,
-                _react2.default.createElement(
-                    'div',
-                    { className: 'form-group' },
+                    'form',
+                    { className: 'needs-validation', onSubmit: this.handleSubmit, noValidate: true },
                     _react2.default.createElement(
-                        'label',
+                        'h3',
                         null,
-                        '\u041D\u0430\u0437\u0432\u0430\u043D\u0438\u0435'
+                        '\u041D\u043E\u0432\u0430\u044F \u0441\u0441\u044B\u043B\u043A\u0430'
+                    ),
+                    choseProject,
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'form-group' },
+                        _react2.default.createElement(
+                            'label',
+                            null,
+                            '\u041D\u0430\u0437\u0432\u0430\u043D\u0438\u0435'
+                        ),
+                        _react2.default.createElement('input', {
+                            type: 'input',
+                            id: 'linkName',
+                            className: 'form-control',
+                            value: this.state.linkName,
+                            onChange: this.handleChange,
+                            placeholder: '\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u043D\u0430\u0437\u0432\u0430\u043D\u0438\u0435 \u0441\u0441\u044B\u043B\u043A\u0438',
+                            required: true
+                        }),
+                        _react2.default.createElement(
+                            'div',
+                            { className: 'invalid-feedback' },
+                            '\u041D\u0430\u0437\u0432\u0430\u043D\u0438\u0435 \u0441\u0441\u044B\u043B\u043A\u0438 \u043D\u0435 \u0434\u043E\u043B\u0436\u043D\u043E \u0431\u044B\u0442\u044C \u043F\u0443\u0441\u0442\u044B\u043C.'
+                        )
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'form-group' },
+                        _react2.default.createElement(
+                            'label',
+                            null,
+                            '\u041E\u043F\u0438\u0441\u0430\u043D\u0438\u0435'
+                        ),
+                        _react2.default.createElement('input', {
+                            type: 'input',
+                            id: 'linkDescription',
+                            className: 'form-control',
+                            value: this.state.linkDescription,
+                            onChange: this.handleChange,
+                            placeholder: '\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u043E\u043F\u0438\u0441\u0430\u043D\u0438\u0435 \u0441\u0441\u044B\u043B\u043A\u0438'
+                        })
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'form-group' },
+                        _react2.default.createElement(
+                            'label',
+                            null,
+                            '\u041F\u043E\u043B\u043D\u0430\u044F \u0441\u0441\u044B\u043B\u043A\u0430'
+                        ),
+                        _react2.default.createElement('input', {
+                            type: 'url',
+                            id: 'linkValue',
+                            className: 'form-control',
+                            value: this.state.linkValue,
+                            onChange: this.handleChange,
+                            placeholder: '\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u043F\u043E\u043B\u043D\u0443\u044E \u0441\u0441\u044B\u043B\u043A\u0443',
+                            required: true
+                        }),
+                        _react2.default.createElement(
+                            'div',
+                            { className: 'invalid-feedback' },
+                            '\u041D\u0435\u0432\u0435\u0440\u043D\u044B\u0439 \u0444\u043E\u0440\u043C\u0430\u0442 \u0441\u0441\u044B\u043B\u043A\u0438.'
+                        )
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'form-check' },
+                        _react2.default.createElement('input', {
+                            type: 'checkbox',
+                            className: 'form-check-input',
+                            id: 'linkIsActive',
+                            onChange: this.handleCheckBoxChange,
+                            checked: this.state.linkIsActive
+                        }),
+                        _react2.default.createElement(
+                            'label',
+                            { className: 'form-check-label' },
+                            '\u0421\u0441\u044B\u043B\u043A\u0430 \u0430\u043A\u0442\u0438\u0432\u043D\u0430?'
+                        )
                     ),
                     _react2.default.createElement('input', {
-                        type: 'input',
-                        id: 'linkName',
-                        className: 'form-control',
-                        value: this.state.linkName,
-                        onChange: this.handleChange,
-                        placeholder: '\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u043D\u0430\u0437\u0432\u0430\u043D\u0438\u0435 \u0441\u0441\u044B\u043B\u043A\u0438'
+                        type: 'submit',
+                        className: 'btn btn-primary',
+                        value: '\u041E\u0442\u043F\u0440\u0430\u0432\u0438\u0442\u044C'
                     })
-                ),
-                _react2.default.createElement(
-                    'div',
-                    { className: 'form-group' },
-                    _react2.default.createElement(
-                        'label',
-                        null,
-                        '\u041E\u043F\u0438\u0441\u0430\u043D\u0438\u0435'
-                    ),
-                    _react2.default.createElement('input', {
-                        type: 'input',
-                        id: 'linkDescription',
-                        className: 'form-control',
-                        value: this.state.linkDescription,
-                        onChange: this.handleChange,
-                        placeholder: '\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u043E\u043F\u0438\u0441\u0430\u043D\u0438\u0435 \u0441\u0441\u044B\u043B\u043A\u0438'
-                    })
-                ),
-                _react2.default.createElement(
-                    'div',
-                    { className: 'form-group' },
-                    _react2.default.createElement(
-                        'label',
-                        null,
-                        '\u041F\u043E\u043B\u043D\u0430\u044F \u0441\u0441\u044B\u043B\u043A\u0430'
-                    ),
-                    _react2.default.createElement('input', {
-                        type: 'input',
-                        id: 'linkValue',
-                        className: 'form-control',
-                        value: this.state.linkValue,
-                        onChange: this.handleChange,
-                        placeholder: '\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u043F\u043E\u043B\u043D\u0443\u044E \u0441\u0441\u044B\u043B\u043A\u0443'
-                    })
-                ),
-                _react2.default.createElement(
-                    'div',
-                    { className: 'form-check' },
-                    _react2.default.createElement('input', {
-                        type: 'checkbox',
-                        className: 'form-check-input',
-                        id: 'linkIsActive',
-                        onChange: this.handleCheckBoxChange,
-                        checked: this.state.linkIsActive
-                    }),
-                    _react2.default.createElement(
-                        'label',
-                        { className: 'form-check-label' },
-                        '\u0421\u0441\u044B\u043B\u043A\u0430 \u0430\u043A\u0442\u0438\u0432\u043D\u0430?'
-                    )
-                ),
-                _react2.default.createElement('input', {
-                    type: 'button',
-                    className: 'btn btn-primary',
-                    value: '\u041E\u0442\u043F\u0440\u0430\u0432\u0438\u0442\u044C',
-                    onClick: function onClick() {
-                        if (_this2.state.projectId == 0) {
-                            alert('Необходимо выбрать проект');
-                        } else if (!_this2.state.linkName) {
-                            alert('Необходимо заполнить название ссылки');
-                        } else if (!_this2.state.linkDescription) {
-                            alert('Необходимо заполнить описание ссылки');
-                            dispatch({ type: ADD_LINK_ERROR, payload: 'Необходимо заполнить описание ссылки' });
-                        } else if (!_this2.state.linkValue) {
-                            alert('Необходимо заполнить полную ссылку');
-                            dispatch({ type: ADD_LINK_ERROR, payload: 'Необходимо заполнить полную ссылку' });
-                        } else {
-                            _this2.props.addLink(_this2.state.projectId, _this2.state.linkName, _this2.state.linkDescription, _this2.state.linkValue, _this2.state.linkIsActive);
-                        }
-                    }
-                })
+                )
             );
         }
     }]);
@@ -62584,6 +62633,10 @@ var _queryString2 = _interopRequireDefault(_queryString);
 
 var _editLinkActions = __webpack_require__(406);
 
+var _validationForm = __webpack_require__(754);
+
+var _validationForm2 = _interopRequireDefault(_validationForm);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -62612,6 +62665,7 @@ var EditLink = function (_React$Component) {
 
         _this.handleChange = _this.handleChange.bind(_this);
         _this.handleCheckBoxChange = _this.handleCheckBoxChange.bind(_this);
+        _this.handleSubmit = _this.handleSubmit.bind(_this);
         return _this;
     }
 
@@ -62630,9 +62684,18 @@ var EditLink = function (_React$Component) {
             this.setState({ linkIsActive: event.target.checked });
         }
     }, {
+        key: 'handleSubmit',
+        value: function handleSubmit(event) {
+            if (this.state.projectId && this.state.linkName && this.state.linkValue) {
+                this.props.editLink(this.props.data.link.linkId, this.state.projectId, this.state.linkName, this.state.linkDescription, this.state.linkValue, this.state.linkIsActive);
+            }
+            event.preventDefault();
+        }
+    }, {
         key: 'componentDidMount',
         value: function componentDidMount() {
             this.getLink();
+            _validationForm2.default.validateForm();
         }
     }, {
         key: 'componentWillReceiveProps',
@@ -62688,132 +62751,139 @@ var EditLink = function (_React$Component) {
     }, {
         key: 'render',
         value: function render() {
-            var _this2 = this;
-
             return _react2.default.createElement(
                 'div',
                 { id: 'editLink' },
                 _react2.default.createElement(
-                    'h3',
-                    null,
-                    '\u0420\u0435\u0434\u0430\u043A\u0442\u0438\u0440\u043E\u0432\u0430\u043D\u0438\u0435 \u0441\u0441\u044B\u043B\u043A\u0438'
-                ),
-                _react2.default.createElement(
-                    'div',
-                    { className: 'form-group' },
+                    'form',
+                    { className: 'needs-validation', onSubmit: this.handleSubmit, noValidate: true },
                     _react2.default.createElement(
-                        'label',
+                        'h3',
                         null,
-                        '\u041F\u0440\u043E\u0435\u043A\u0442'
+                        '\u0420\u0435\u0434\u0430\u043A\u0442\u0438\u0440\u043E\u0432\u0430\u043D\u0438\u0435 \u0441\u0441\u044B\u043B\u043A\u0438'
                     ),
                     _react2.default.createElement(
-                        'select',
-                        {
-                            id: 'projectId',
-                            className: 'form-control',
-                            value: this.state.projectId,
-                            onChange: this.handleChange,
-                            placeholder: '\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u043F\u0440\u043E\u0435\u043A\u0442'
-                        },
+                        'div',
+                        { className: 'form-group' },
                         _react2.default.createElement(
-                            'option',
-                            { key: '0', value: '0' },
-                            '\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u043F\u0440\u043E\u0435\u043A\u0442'
+                            'label',
+                            null,
+                            '\u041F\u0440\u043E\u0435\u043A\u0442'
                         ),
-                        this.props.data.projectsList.map(function (p) {
-                            return _react2.default.createElement(
+                        _react2.default.createElement(
+                            'select',
+                            {
+                                id: 'projectId',
+                                className: 'form-control',
+                                value: this.state.projectId,
+                                onChange: this.handleChange,
+                                placeholder: '\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u043F\u0440\u043E\u0435\u043A\u0442',
+                                required: true
+                            },
+                            _react2.default.createElement(
                                 'option',
-                                { key: p.id, value: p.id },
-                                p.name
-                            );
+                                { disabled: true, key: '', value: '' },
+                                '\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u043F\u0440\u043E\u0435\u043A\u0442'
+                            ),
+                            this.props.data.projectsList.map(function (p) {
+                                return _react2.default.createElement(
+                                    'option',
+                                    { key: p.id, value: p.id },
+                                    p.name
+                                );
+                            })
+                        ),
+                        _react2.default.createElement(
+                            'div',
+                            { className: 'invalid-feedback' },
+                            '\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u043F\u0440\u043E\u0435\u043A\u0442.'
+                        )
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'form-group' },
+                        _react2.default.createElement(
+                            'label',
+                            null,
+                            '\u041D\u0430\u0437\u0432\u0430\u043D\u0438\u0435'
+                        ),
+                        _react2.default.createElement('input', {
+                            type: 'input',
+                            id: 'linkName',
+                            className: 'form-control',
+                            value: this.state.linkName,
+                            onChange: this.handleChange,
+                            placeholder: '\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u043D\u0430\u0437\u0432\u0430\u043D\u0438\u0435 \u0441\u0441\u044B\u043B\u043A\u0438',
+                            required: true
+                        }),
+                        _react2.default.createElement(
+                            'div',
+                            { className: 'invalid-feedback' },
+                            '\u041D\u0430\u0437\u0432\u0430\u043D\u0438\u0435 \u0441\u0441\u044B\u043B\u043A\u0438 \u043D\u0435 \u0434\u043E\u043B\u0436\u043D\u043E \u0431\u044B\u0442\u044C \u043F\u0443\u0441\u0442\u044B\u043C.'
+                        )
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'form-group' },
+                        _react2.default.createElement(
+                            'label',
+                            null,
+                            '\u041E\u043F\u0438\u0441\u0430\u043D\u0438\u0435'
+                        ),
+                        _react2.default.createElement('input', {
+                            type: 'input',
+                            id: 'linkDescription',
+                            className: 'form-control',
+                            value: this.state.linkDescription,
+                            onChange: this.handleChange,
+                            placeholder: '\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u043E\u043F\u0438\u0441\u0430\u043D\u0438\u0435 \u0441\u0441\u044B\u043B\u043A\u0438'
                         })
-                    )
-                ),
-                _react2.default.createElement(
-                    'div',
-                    { className: 'form-group' },
+                    ),
                     _react2.default.createElement(
-                        'label',
-                        null,
-                        '\u041D\u0430\u0437\u0432\u0430\u043D\u0438\u0435'
+                        'div',
+                        { className: 'form-group' },
+                        _react2.default.createElement(
+                            'label',
+                            null,
+                            '\u041F\u043E\u043B\u043D\u0430\u044F \u0441\u0441\u044B\u043B\u043A\u0430'
+                        ),
+                        _react2.default.createElement('input', {
+                            type: 'input',
+                            id: 'linkValue',
+                            className: 'form-control',
+                            value: this.state.linkValue,
+                            onChange: this.handleChange,
+                            placeholder: '\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u043F\u043E\u043B\u043D\u0443\u044E \u0441\u0441\u044B\u043B\u043A\u0443',
+                            required: true
+                        }),
+                        _react2.default.createElement(
+                            'div',
+                            { className: 'invalid-feedback' },
+                            '\u041D\u0435\u0432\u0435\u0440\u043D\u044B\u0439 \u0444\u043E\u0440\u043C\u0430\u0442 \u0441\u0441\u044B\u043B\u043A\u0438.'
+                        )
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'form-check' },
+                        _react2.default.createElement('input', {
+                            type: 'checkbox',
+                            className: 'form-check-input',
+                            id: 'linkIsActive',
+                            checked: this.state.linkIsActive,
+                            onChange: this.handleCheckBoxChange
+                        }),
+                        _react2.default.createElement(
+                            'label',
+                            { className: 'form-check-label' },
+                            '\u0421\u0441\u044B\u043B\u043A\u0430 \u0430\u043A\u0442\u0438\u0432\u043D\u0430?'
+                        )
                     ),
                     _react2.default.createElement('input', {
-                        type: 'input',
-                        id: 'linkName',
-                        className: 'form-control',
-                        value: this.state.linkName,
-                        onChange: this.handleChange,
-                        placeholder: '\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u043D\u0430\u0437\u0432\u0430\u043D\u0438\u0435 \u0441\u0441\u044B\u043B\u043A\u0438'
+                        type: 'submit',
+                        className: 'btn btn-primary',
+                        value: '\u041E\u0442\u043F\u0440\u0430\u0432\u0438\u0442\u044C'
                     })
-                ),
-                _react2.default.createElement(
-                    'div',
-                    { className: 'form-group' },
-                    _react2.default.createElement(
-                        'label',
-                        null,
-                        '\u041E\u043F\u0438\u0441\u0430\u043D\u0438\u0435'
-                    ),
-                    _react2.default.createElement('input', {
-                        type: 'input',
-                        id: 'linkDescription',
-                        className: 'form-control',
-                        value: this.state.linkDescription,
-                        onChange: this.handleChange,
-                        placeholder: '\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u043E\u043F\u0438\u0441\u0430\u043D\u0438\u0435 \u0441\u0441\u044B\u043B\u043A\u0438'
-                    })
-                ),
-                _react2.default.createElement(
-                    'div',
-                    { className: 'form-group' },
-                    _react2.default.createElement(
-                        'label',
-                        null,
-                        '\u041F\u043E\u043B\u043D\u0430\u044F \u0441\u0441\u044B\u043B\u043A\u0430'
-                    ),
-                    _react2.default.createElement('input', {
-                        type: 'input',
-                        id: 'linkValue',
-                        className: 'form-control',
-                        value: this.state.linkValue,
-                        onChange: this.handleChange,
-                        placeholder: '\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u043F\u043E\u043B\u043D\u0443\u044E \u0441\u0441\u044B\u043B\u043A\u0443'
-                    })
-                ),
-                _react2.default.createElement(
-                    'div',
-                    { className: 'form-check' },
-                    _react2.default.createElement('input', {
-                        type: 'checkbox',
-                        className: 'form-check-input',
-                        id: 'linkIsActive',
-                        checked: this.state.linkIsActive,
-                        onChange: this.handleCheckBoxChange
-                    }),
-                    _react2.default.createElement(
-                        'label',
-                        { className: 'form-check-label' },
-                        '\u0421\u0441\u044B\u043B\u043A\u0430 \u0430\u043A\u0442\u0438\u0432\u043D\u0430?'
-                    )
-                ),
-                _react2.default.createElement('input', {
-                    type: 'button',
-                    className: 'btn btn-primary',
-                    value: '\u041E\u0442\u043F\u0440\u0430\u0432\u0438\u0442\u044C',
-                    onClick: function onClick() {
-                        if (_this2.state.projectId == 0) {
-                            alert('Необходимо выбрать проект');
-                        } else if (!_this2.state.linkName) {
-                            alert('Необходимо заполнить название ссылки');
-                        } else if (!_this2.state.linkDescription) {
-                            alert('Необходимо заполнить описание ссылки');
-                        } else if (!_this2.state.linkValue) {
-                            alert('Необходимо заполнить полную ссылку');
-                        } else {
-                            _this2.props.editLink(_this2.props.data.link.linkId, _this2.state.projectId, _this2.state.linkName, _this2.state.linkDescription, _this2.state.linkValue, _this2.state.linkIsActive);
-                        }
-                    }
-                })
+                )
             );
         }
     }]);
@@ -82912,6 +82982,33 @@ var middleware = function middleware(store) {
 };
 
 exports.default = middleware;
+
+/***/ }),
+/* 754 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony default export */ __webpack_exports__["default"] = ({
+    validateForm: () => {
+        'use strict'
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.querySelectorAll('.needs-validation')
+
+        // Loop over them and prevent submission
+        Array.prototype.slice.call(forms)
+            .forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                    }
+
+                    form.classList.add('was-validated')
+                }, false)
+            })
+    }
+});
 
 /***/ })
 /******/ ]);

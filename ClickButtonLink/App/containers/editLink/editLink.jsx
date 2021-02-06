@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import queryString from 'query-string';
 import { editLink, getLink, getProjectsList } from './editLinkActions.jsx'
+import ValidationForm from '../../utils/validationForm.js'
 
 class EditLink extends React.Component {
     constructor(props) {
@@ -18,6 +19,7 @@ class EditLink extends React.Component {
 
         this.handleChange = this.handleChange.bind(this);
         this.handleCheckBoxChange = this.handleCheckBoxChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     handleChange(event) {
@@ -29,8 +31,23 @@ class EditLink extends React.Component {
         this.setState({ linkIsActive: event.target.checked })
     }
 
+    handleSubmit(event) {
+        if ((this.state.projectId) && (this.state.linkName) && (this.state.linkValue)) {
+            this.props.editLink(
+                this.props.data.link.linkId,
+                this.state.projectId,
+                this.state.linkName,
+                this.state.linkDescription,
+                this.state.linkValue,
+                this.state.linkIsActive
+            )
+        }
+        event.preventDefault();
+    }
+
     componentDidMount() {
         this.getLink();
+        ValidationForm.validateForm();
     }
 
     componentWillReceiveProps(nextProps) {
@@ -84,90 +101,82 @@ class EditLink extends React.Component {
     render() {
         return (
             <div id="editLink">
-                <h3>Редактирование ссылки</h3>
-                <div className="form-group">
-                    <label>Проект</label>
-                    <select
-                        id="projectId"
-                        className="form-control"
-                        value={this.state.projectId}
-                        onChange={this.handleChange}
-                        placeholder="Выберите проект"
-                    >
-                        <option key='0' value='0'>Выберите проект</option>
-                        {this.props.data.projectsList.map((p) => <option key={p.id} value={p.id}>{p.name}</option>)}
-                    </select>
-                </div>
-                <div className="form-group">
-                    <label>Название</label>
+                <form className="needs-validation" onSubmit={this.handleSubmit} noValidate>
+                    <h3>Редактирование ссылки</h3>
+                    <div className="form-group">
+                        <label>Проект</label>
+                        <select
+                            id="projectId"
+                            className="form-control"
+                            value={this.state.projectId}
+                            onChange={this.handleChange}
+                            placeholder="Выберите проект"
+                            required
+                        >
+                            <option disabled key='' value=''>Выберите проект</option>
+                            {this.props.data.projectsList.map((p) => <option key={p.id} value={p.id}>{p.name}</option>)}
+                        </select>
+                        <div className="invalid-feedback">
+                            Выберите проект.
+                        </div>
+                    </div>
+                    <div className="form-group">
+                        <label>Название</label>
+                        <input
+                            type="input"
+                            id="linkName"
+                            className="form-control"
+                            value={this.state.linkName}
+                            onChange={this.handleChange}
+                            placeholder="Введите название ссылки"
+                            required
+                        />
+                        <div className="invalid-feedback">
+                            Название ссылки не должно быть пустым.
+                        </div>
+                    </div>
+                    <div className="form-group">
+                        <label>Описание</label>
+                        <input
+                            type="input"
+                            id="linkDescription"
+                            className="form-control"
+                            value={this.state.linkDescription}
+                            onChange={this.handleChange}
+                            placeholder="Введите описание ссылки"
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label>Полная ссылка</label>
+                        <input
+                            type="input"
+                            id="linkValue"
+                            className="form-control"
+                            value={this.state.linkValue}
+                            onChange={this.handleChange}
+                            placeholder="Введите полную ссылку"
+                            required
+                        />
+                        <div className="invalid-feedback">
+                            Неверный формат ссылки.
+                        </div>
+                    </div>
+                    <div className="form-check">
+                        <input
+                            type="checkbox"
+                            className="form-check-input"
+                            id="linkIsActive"
+                            checked={this.state.linkIsActive}
+                            onChange={this.handleCheckBoxChange}
+                        />
+                        <label className="form-check-label">Ссылка активна?</label>
+                    </div>
                     <input
-                        type="input"
-                        id="linkName"
-                        className="form-control"
-                        value={this.state.linkName}
-                        onChange={this.handleChange}
-                        placeholder="Введите название ссылки"
+                        type="submit"
+                        className="btn btn-primary"
+                        value="Отправить"                        
                     />
-                </div>
-                <div className="form-group">
-                    <label>Описание</label>
-                    <input
-                        type="input"
-                        id="linkDescription"
-                        className="form-control"
-                        value={this.state.linkDescription}
-                        onChange={this.handleChange}
-                        placeholder="Введите описание ссылки"
-                    />
-                </div>
-                <div className="form-group">
-                    <label>Полная ссылка</label>
-                    <input
-                        type="input"
-                        id="linkValue"
-                        className="form-control"
-                        value={this.state.linkValue}
-                        onChange={this.handleChange}
-                        placeholder="Введите полную ссылку"
-                    />
-                </div>
-                <div className="form-check">
-                    <input
-                        type="checkbox"
-                        className="form-check-input"
-                        id="linkIsActive"
-                        checked={this.state.linkIsActive}
-                        onChange={this.handleCheckBoxChange}
-                    />
-                    <label className="form-check-label">Ссылка активна?</label>
-                </div>
-                <input
-                    type="button"
-                    className="btn btn-primary"
-                    value="Отправить"
-                    onClick={() => {
-                        if (this.state.projectId == 0) {
-                            alert('Необходимо выбрать проект');
-                        } else if (!this.state.linkName) {
-                            alert('Необходимо заполнить название ссылки');
-                        } else if (!this.state.linkDescription) {
-                            alert('Необходимо заполнить описание ссылки');
-                        } else if (!this.state.linkValue) {
-                            alert('Необходимо заполнить полную ссылку');
-                        } else {
-                            this.props.editLink(
-                                this.props.data.link.linkId,
-                                this.state.projectId,
-                                this.state.linkName,
-                                this.state.linkDescription,
-                                this.state.linkValue,
-                                this.state.linkIsActive
-                            )
-                        }
-
-                    }
-                    }
-                />
+                </form>
             </div>
         )
     }

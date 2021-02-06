@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import queryString from 'query-string';
 import { editProject, getProject } from './editProjectActions.jsx';
+import ValidationForm from '../../utils/validationForm.js'
 
 class EditProject extends React.Component {
     constructor(props) {
@@ -14,6 +15,7 @@ class EditProject extends React.Component {
         }
 
         this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     handleChange(event) {
@@ -21,8 +23,20 @@ class EditProject extends React.Component {
         this.setState({ [id]: event.target.value })
     }
 
+    handleSubmit(event) {
+        if (this.state.projectName) {
+            this.props.editProject(
+                this.props.data.project.projectId,
+                this.state.projectName,
+                this.state.projectDescription
+            );
+        }
+        event.preventDefault();
+    }
+
     componentDidMount() {
         this.getProject();
+        ValidationForm.validateForm();
     }
 
     componentWillReceiveProps() {
@@ -62,48 +76,40 @@ class EditProject extends React.Component {
     render() {
         return (
             <div id="editProject">
-                <h3>Редактирование проекта</h3>
-                <div className="form-group">
-                    <label>Название</label>
+                <form className="needs-validation" onSubmit={this.handleSubmit} noValidate>
+                    <h3>Редактирование проекта</h3>
+                    <div className="form-group">
+                        <label>Название</label>
+                        <input
+                            type="input"
+                            id="projectName"
+                            className="form-control"
+                            value={this.state.projectName}
+                            onChange={this.handleChange}
+                            placeholder="Введите название проекта"
+                            required
+                        />
+                        <div className="invalid-feedback">
+                            Название проекта не должно быть пустым.
+                    </div>
+                    </div>
+                    <div className="form-group">
+                        <label>Описание</label>
+                        <input
+                            type="input"
+                            id="projectDescription"
+                            className="form-control"
+                            value={this.state.projectDescription}
+                            onChange={this.handleChange}
+                            placeholder="Введите описание проекта"
+                        />
+                    </div>
                     <input
-                        type="input"
-                        id="projectName"
-                        className="form-control"
-                        value={this.state.projectName}
-                        onChange={this.handleChange}
-                        placeholder="Введите название проекта"
+                        type="submit"
+                        className="btn btn-primary"
+                        value="Отправить"
                     />
-                </div>
-                <div className="form-group">
-                    <label>Описание</label>
-                    <input
-                        type="input"
-                        id="projectDescription"
-                        className="form-control"
-                        value={this.state.projectDescription}
-                        onChange={this.handleChange}
-                        placeholder="Введите описание проекта"
-                    />
-                </div>
-                <input
-                    type="button"
-                    className="btn btn-primary"
-                    value="Отправить"
-                    onClick={() => {
-                        if (!this.state.projectName) {
-                            alert('Необходимо заполнить название проекта');
-                        } else if (!this.state.projectDescription) {
-                            alert('Необходимо заполнить описание проекта');
-                        } else {
-                            this.props.editProject(
-                                this.props.data.project.projectId,
-                                this.state.projectName,
-                                this.state.projectDescription
-                            );
-                        }
-                    }
-                }
-                />
+                </form>
             </div>
         );
     }
