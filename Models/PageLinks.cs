@@ -11,6 +11,7 @@ namespace Models
         public int TotalPages { get; set; }
         public int CountLinks { get; set; }
         public int ProjectId { get; set; }
+        public int UserId { get; set; }
         public string ProjectName { get; set; }
         public string ProjectDescription { get; set; }
         public List<T> Records { get; set; }

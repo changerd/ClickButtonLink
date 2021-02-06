@@ -15,31 +15,52 @@ namespace ClickButtonLink.Controllers
     public class LinkController : Controller
     {
         ILinkService _linkService;
+        IIdentityService _identityService;
 
-        public LinkController(ILinkService linkService)
+        public LinkController(ILinkService linkService, IIdentityService identityService)
         {
             _linkService = linkService;
+            _identityService = identityService;
         }
 
         [Route("pagelinks")]
         [HttpGet]
         public async Task<PageLinks<LinksViewModel>> GetLinks(int pageIndex, int projectId)
         {
-            return await _linkService.GetLinks(pageIndex, projectId);
+            var user = await _identityService.GetUser(User.Identity.Name);
+            var result = await _linkService.GetLinks(pageIndex, user.UserId, projectId);            
+            if (projectId != 0 && result.UserId != user.UserId)
+            {
+                return null;
+            }
+            return result;
         }
 
         [Route("link")]
         [HttpGet]
         public async Task<Link> GetLink(int linkId)
         {
-            return await _linkService.GetLink(linkId);
+            var link = await _linkService.GetLink(linkId);
+            var user = await _identityService.GetUser(User.Identity.Name);
+            if (link == null || link.Project.UserId != user.UserId)
+            {
+                return null;
+            }
+            link.Project = null;
+            return link;
         }
 
         [Route("linkdetails")]
         [HttpGet]
         public async Task<LinkViewModel> GetLinkDetails(int linkId)
         {
-            return await _linkService.GetLinkDetails(linkId);
+            var user = await _identityService.GetUser(User.Identity.Name);
+            var link = await _linkService.GetLinkDetails(linkId);
+            if (link == null || link.UserId != user.UserId)
+            {
+                return null;
+            }
+            return link;
         }
 
         [Route("link")]

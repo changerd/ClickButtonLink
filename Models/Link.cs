@@ -12,7 +12,7 @@ namespace Models
         public string LinkValue { get; set; }
         public bool LinkIsActive { get; set; }
         public int ProjectId { get; set; }
-        //public virtual Project Project { get; set; }
+        public Project Project { get; set; }
         public virtual ICollection<Statistic> Statistics { get; set; }
     }
 }

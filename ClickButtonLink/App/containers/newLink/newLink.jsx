@@ -3,20 +3,22 @@ import ReactDOM from 'react-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import queryString from 'query-string';
-import { addLink, getProject } from './newLinkActions.jsx'
+import { addLink, getProject, getProjectsList } from './newLinkActions.jsx'
 
 class NewLink extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            projectId: 0,
             linkName: '',
             linkDescription: '',
             linkValue: '',
-            linkIsActive: false
+            linkIsActive: false,
+            isNullProject: false,
         }
 
         this.handleChange = this.handleChange.bind(this);
-        this.handleCheckBoxChange = this.handleCheckBoxChange.bind(this);
+        this.handleCheckBoxChange = this.handleCheckBoxChange.bind(this);        
     }
 
     handleChange(event) {
@@ -29,16 +31,46 @@ class NewLink extends React.Component {
     }
 
     componentDidMount() {
+        this.getProject();
+    }
+
+    getProject() {
         const parsed = queryString.parse(location.search);
-        if (parsed) {
+        if (parsed['projectId']) {
             this.props.getProject(parsed['projectId']);
+            this.setState({
+                projectId: parsed['projectId'], 
+            })
+        } else {
+            this.props.getProjectsList();
+            this.setState({
+                isNullProject: true,
+            });
         }
     }
 
     render() {
+        let choseProject = this.state.isNullProject ?
+            <div className="form-group">
+                <label>Проект</label>
+                <select
+                    id="projectId"
+                    className="form-control"
+                    value={this.state.projectId}
+                    onChange={this.handleChange}
+                    placeholder="Выберите проект"
+                >
+                    <option key='0' value='0'>Выберите проект</option>
+                    {this.props.data.projectsList.map((p) => <option key={p.id} value={p.id}>{p.name}</option>)}
+                </select>
+            </div>
+            :
+            null;
+
         return (
             <div id="link">
                 <h3>Новая ссылка</h3>
+                {choseProject}
                 <div className="form-group">
                     <label>Название</label>
                     <input
@@ -87,7 +119,9 @@ class NewLink extends React.Component {
                     className="btn btn-primary"
                     value="Отправить"
                     onClick={() => {
-                        if (!this.state.linkName) {
+                        if (this.state.projectId == 0) {
+                            alert('Необходимо выбрать проект');
+                        } else if (!this.state.linkName) {
                             alert('Необходимо заполнить название ссылки');
                         } else if (!this.state.linkDescription) {
                             alert('Необходимо заполнить описание ссылки');
@@ -97,14 +131,14 @@ class NewLink extends React.Component {
                             dispatch({ type: ADD_LINK_ERROR, payload: 'Необходимо заполнить полную ссылку' });
                         } else {
                             this.props.addLink(
-                                this.props.data.project.projectId,
+                                this.state.projectId,
                                 this.state.linkName,
                                 this.state.linkDescription,
                                 this.state.linkValue,
                                 this.state.linkIsActive)
                         }
                     }
-                }                    
+                    }
                 />
             </div>
         );
@@ -121,7 +155,8 @@ let mapProps = (state) => {
 let mapDispatch = (dispatch) => {
     return {
         addLink: bindActionCreators(addLink, dispatch),
-        getProject: bindActionCreators(getProject, dispatch)
+        getProject: bindActionCreators(getProject, dispatch),
+        getProjectsList: bindActionCreators(getProjectsList, dispatch)
     }
 }
 

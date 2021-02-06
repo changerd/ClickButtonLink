@@ -37,7 +37,13 @@ namespace ClickButtonLink.Controllers
         [HttpGet]
         public async Task<Project> GetProject(int projectId)
         {
-            return await _projectService.GetProject(projectId);
+            var result = await _projectService.GetProject(projectId);
+            var user = await _identityService.GetUser(User.Identity.Name);
+            if (result == null || result.UserId != user.UserId)
+            {
+                return null;
+            }
+            return result;
         }
 
         [Route("project")]
@@ -66,6 +72,15 @@ namespace ClickButtonLink.Controllers
         {
             await _projectService.DeleteProject(projectId);
             return NoContent();
+        }
+
+        [Route("projectslist")]
+        [HttpGet]
+        public async Task<List<ProjectsListViewModel>> GetProjectsListByUser()
+        {
+            var user = await _identityService.GetUser(User.Identity.Name);
+            var result = await _projectService.GetProjectsListByUser(user.UserId);
+            return result;
         }
     }
 }

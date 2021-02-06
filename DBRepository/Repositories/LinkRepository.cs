@@ -13,19 +13,24 @@ namespace DBRepository.Repositories
     {
         public LinkRepository(string connectionString, IRepositoryContextFactory contextFactory) : base(connectionString, contextFactory) { }
 
-        public async Task<PageLinks<Link>> GetLinks(int index, int pageSize, int projectId = 0/*, string userId*/)
+        public async Task<PageLinks<Link>> GetLinks(int index, int pageSize, int userId, int projectId = 0)
         {
             var result = new PageLinks<Link>() { CurrentPage = index, PageSize = pageSize };
 
             using (var context = ContextFactory.CreateDbContext(ConnectionString))
             {
-                var query = context.Links/*.Where(u => String.Equals(u.UserId, userId))*/.AsQueryable();
+                var query = context.Links.Where(u => u.Project.UserId == userId).AsQueryable();
                 if (projectId != 0)
                 {
                     var project = context.Projects.Find(projectId);
+                    if (project == null)
+                    {
+                        return null;
+                    }
                     result.ProjectId = project.ProjectId;
                     result.ProjectName = project.ProjectName;
                     result.ProjectDescription = project.ProjectDescription;
+                    result.UserId = project.UserId;
                     query = query.Where(p => p.ProjectId == projectId);
                 }                
                 result.TotalPages = await query.CountAsync();
@@ -39,7 +44,7 @@ namespace DBRepository.Repositories
         {
             using (var context = ContextFactory.CreateDbContext(ConnectionString))
             {
-                return await context.Links.Include(s => s.Statistics).SingleOrDefaultAsync(l => l.LinkId == linkId);
+                return await context.Links.Include(p => p.Project).Include(s => s.Statistics).SingleOrDefaultAsync(l => l.LinkId == linkId);
             }
         }
         public async Task AddLink(Link link)

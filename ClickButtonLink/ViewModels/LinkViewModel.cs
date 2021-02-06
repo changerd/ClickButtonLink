@@ -7,7 +7,7 @@ namespace ClickButtonLink.ViewModels
 {
     public class LinkViewModel
     {
-        public int LinkId;
+        public int LinkId { get; set; }        
         public string LinkName { get; set; }
         public string LinkDescription { get; set; }
         public string LinkValue { get; set; }
@@ -15,6 +15,8 @@ namespace ClickButtonLink.ViewModels
         public int TransitionCount { get; set; }
         public int ArrCount { get; set; }
         public List<Transition> Transitions { get; set; }
+        public int UserId { get; set; }
+        public string ProjectName { get; set; }
     }
 
     public class Transition

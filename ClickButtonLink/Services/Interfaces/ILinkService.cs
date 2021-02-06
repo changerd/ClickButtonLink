@@ -9,7 +9,7 @@ namespace ClickButtonLink.Services.Interfaces
 {
     public interface ILinkService
     {
-        Task<PageLinks<LinksViewModel>> GetLinks(int pageIndex, int projectId);
+        Task<PageLinks<LinksViewModel>> GetLinks(int pageIndex, int userId, int projectId);
         Task<Link> GetLink(int linkId);
         Task<LinkViewModel> GetLinkDetails(int linkId);
         Task AddLink(AddLinkRequest request);

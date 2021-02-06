@@ -33,7 +33,16 @@ namespace DBRepository.Repositories
             {                
                 return await context.Projects.FindAsync(projectId);
             }
-        }        
+        }
+        
+        public async Task<List<Project>> GetProjectsByUser(int userId)
+        {
+            using(var context = ContextFactory.CreateDbContext(ConnectionString))
+            {
+                return await context.Projects.Where(u => u.UserId == userId).ToListAsync();
+            }
+        }
+
         public async Task AddProject(Project project)
         {
             using (var context = ContextFactory.CreateDbContext(ConnectionString))

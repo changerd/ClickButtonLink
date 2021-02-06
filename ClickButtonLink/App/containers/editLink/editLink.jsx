@@ -3,12 +3,13 @@ import ReactDOM from 'react-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import queryString from 'query-string';
-import { editLink, getLink } from './editLinkActions.jsx'
+import { editLink, getLink, getProjectsList } from './editLinkActions.jsx'
 
 class EditLink extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            projectId: '',
             linkName: '',
             linkDescription: '',
             linkValue: '',
@@ -41,6 +42,7 @@ class EditLink extends React.Component {
         }
 
         this.setState({
+            projectId: this.props.data.link.projectId,
             linkName: this.props.data.link.linkName,
             linkDescription: this.props.data.link.linkDescription,
             linkValue: this.props.data.link.linkValue,
@@ -52,6 +54,7 @@ class EditLink extends React.Component {
         const parsed = queryString.parse(location.search);
         if (parsed) {
             this.props.getLink(parsed['linkId']);
+            this.props.getProjectsList();
         }
     }
 
@@ -82,6 +85,19 @@ class EditLink extends React.Component {
         return (
             <div id="editLink">
                 <h3>Редактирование ссылки</h3>
+                <div className="form-group">
+                    <label>Проект</label>
+                    <select
+                        id="projectId"
+                        className="form-control"
+                        value={this.state.projectId}
+                        onChange={this.handleChange}
+                        placeholder="Выберите проект"
+                    >
+                        <option key='0' value='0'>Выберите проект</option>
+                        {this.props.data.projectsList.map((p) => <option key={p.id} value={p.id}>{p.name}</option>)}
+                    </select>
+                </div>
                 <div className="form-group">
                     <label>Название</label>
                     <input
@@ -130,25 +146,27 @@ class EditLink extends React.Component {
                     className="btn btn-primary"
                     value="Отправить"
                     onClick={() => {
-                        if (!this.state.linkName) {
-                            alert('Необходимо заполнить название ссылки');                            
+                        if (this.state.projectId == 0) {
+                            alert('Необходимо выбрать проект');
+                        } else if (!this.state.linkName) {
+                            alert('Необходимо заполнить название ссылки');
                         } else if (!this.state.linkDescription) {
-                            alert('Необходимо заполнить описание ссылки');                            
+                            alert('Необходимо заполнить описание ссылки');
                         } else if (!this.state.linkValue) {
-                            alert('Необходимо заполнить полную ссылку');                            
+                            alert('Необходимо заполнить полную ссылку');
                         } else {
                             this.props.editLink(
                                 this.props.data.link.linkId,
-                                this.props.data.link.projectId,
+                                this.state.projectId,
                                 this.state.linkName,
                                 this.state.linkDescription,
                                 this.state.linkValue,
                                 this.state.linkIsActive
                             )
                         }
-                        
+
                     }
-                }
+                    }
                 />
             </div>
         )
@@ -164,7 +182,8 @@ let mapProps = (state) => {
 let mapDispatch = (dispatch) => {
     return {
         editLink: bindActionCreators(editLink, dispatch),
-        getLink: bindActionCreators(getLink, dispatch)
+        getLink: bindActionCreators(getLink, dispatch),
+        getProjectsList: bindActionCreators(getProjectsList, dispatch),
     }
 }
 

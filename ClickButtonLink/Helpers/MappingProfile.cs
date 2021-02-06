@@ -22,6 +22,8 @@ namespace ClickButtonLink.Helpers
             CreateMap<AddLinkRequest, Link>();
             CreateMap<EditLinkRequest, Link>();
             CreateMap<Link, LinkViewModel>()
+                .ForMember(m => m.UserId, opt => opt.MapFrom(m => m.Project.UserId))
+                .ForMember(m => m.ProjectName, opt => opt.MapFrom(m => m.Project.ProjectName))
                 .ForMember(m => m.TransitionCount, opt => opt.MapFrom(m => m.Statistics != null ? m.Statistics.Count : 0))
                 .ForMember(m => m.Transitions, opt => opt.MapFrom(m => m.Statistics.GroupBy(d => d.StatisticDate).Select(g => new { TransitionDate = g.Key, TransitionCount = g.Count() })))
                 .ForMember(m => m.ArrCount, opt => opt.MapFrom(m => m.Statistics != null ? m.Statistics.GroupBy(d => d.StatisticDate).Count() : 0));

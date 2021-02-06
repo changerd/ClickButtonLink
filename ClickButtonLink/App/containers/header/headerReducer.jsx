@@ -27,6 +27,7 @@ export default function header(state = initialState, action) {
             if(action.payload) {
                 AuthHelper.saveAuth(action.payload.username, action.payload.access_token, action.payload.name);
                 log = true;
+                window.location.replace('/');
             } else {
                 alert("Ошибка авторизации!");
             }                                  

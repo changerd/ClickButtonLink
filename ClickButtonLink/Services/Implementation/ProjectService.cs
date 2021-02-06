@@ -38,6 +38,18 @@ namespace ClickButtonLink.Services.Implementation
             return result;
         }
 
+        public async Task<List<ProjectsListViewModel>> GetProjectsListByUser(int userId)
+        {
+            var projects = await _repository.GetProjectsByUser(userId);
+            var list = new List<ProjectsListViewModel>();
+            foreach(var item in projects)
+            {
+                list.Add(new ProjectsListViewModel(item.ProjectId, item.ProjectName));
+            }
+
+            return list;
+        }
+
         public async Task AddProject(AddProjectRequest request)
         {
             var project = _mapper.Map<AddProjectRequest, Project>(request);

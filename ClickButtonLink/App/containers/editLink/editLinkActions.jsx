@@ -4,7 +4,10 @@
     EDIT_LINK_ERROR,
     GET_LINK_START,
     GET_LINK_SUCCESS,    
-    GET_LINK_ERROR,   
+    GET_LINK_ERROR, 
+    GET_PROJECTSLIST_START,
+    GET_PROJECTSLIST_SUCCESS,
+    GET_PROJECTSLIST_ERROR  
 } from './editLinkConstants.jsx'
 import "isomorphic-fetch"
 
@@ -12,7 +15,7 @@ export function getLink(linkId) {
     return {
         type: 'PROMISE',
         actions: [GET_LINK_START, GET_LINK_SUCCESS, GET_LINK_ERROR],
-        url: window.constants.link + '?linkId=' + linkId,
+        url: constants.link + '?linkId=' + linkId,
         method: 'GET',
     }   
     
@@ -80,4 +83,13 @@ export function editLink(linkId, projectId, linkName, linkDescription, linkValue
             }
         }
     }*/
+}
+
+export function getProjectsList() {
+    return {
+        type: 'PROMISE',
+        actions: [GET_PROJECTSLIST_START, GET_PROJECTSLIST_SUCCESS, GET_PROJECTSLIST_ERROR],
+        url: constants.projectslist,
+        method: 'GET',
+    };
 }

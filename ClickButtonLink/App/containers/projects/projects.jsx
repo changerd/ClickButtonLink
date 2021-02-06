@@ -30,20 +30,13 @@ class Projects extends React.Component {
         if (parsed) {
             pageIndex = parsed['pageIndex'];
         }
-        if (this.props.isLogged) {
-            this.props.getProjects(pageIndex);
-        }
+        this.props.getProjects(pageIndex);
+
     }
 
     componentWillReceiveProps(nextProps) {
         if (this.state.query != location.search) {
             this.setState({ query: location.search });
-            this.getProjects();
-        }
-    }
-
-    componentDidUpdate(prevProps) {
-        if (this.props.isLogged !== prevProps.isLogged) {
             this.getProjects();
         }
     }
@@ -73,8 +66,9 @@ class Projects extends React.Component {
             );
         });
 
-        let renderPage = (this.props.isLogged) ?
-            <div>
+        return (
+            <div id="projects">
+                <br />
                 <div className="row">
                     <div className="col">
                         <h3>Все проекты</h3>
@@ -101,16 +95,6 @@ class Projects extends React.Component {
                 <div id="pagingNumber">
                     {renderPageNumbers}
                 </div>
-            </div>
-            :
-            <div className="text-center">
-                <h1>Пожалуйста авторизируйтесь</h1>
-            </div>
-
-        return (
-            <div id="projects">
-                <br />
-                {renderPage}
             </div>
         );
     }

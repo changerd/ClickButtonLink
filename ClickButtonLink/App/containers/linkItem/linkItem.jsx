@@ -18,28 +18,35 @@ import {
 class LinkItem extends React.Component {
     constructor(props) {
         super(props);
+        this.state = { query: location.search };
         this.deleteLink = this.deleteLink.bind(this);
     }
 
-    componentDidMount() {
-        const parsed = queryString.parse(location.search);
-        if (parsed) {
-            this.props.getLink(parsed['linkId']);
-        }
+    componentDidMount() {        
+        this.getLink();        
+    }    
 
+    getLink(){
+        let linkId;
+        const parsed = queryString.parse(location.search);
+        if (parsed) {            
+            linkId = parsed['linkId'];            
+            this.props.getLink(linkId);            
+        }
+        
     }
 
     deleteLink(linkId) {
         this.props.deleteLink(linkId)
     }
 
-    render() {
+    render() {        
         const monthNames = [
             "Января", "Февраля", "Марта",
             "Апреля", "Мая", "Июня", "Июля",
             "Августа", "Сентября", "Октября",
             "Ноября", "Декабря"
-        ];
+        ];        
 
         let transitionChart = [];
         for (let i = 0; i < this.props.data.arrCount; i++) {
