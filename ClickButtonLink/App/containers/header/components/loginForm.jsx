@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import ValidationForm from '../../../utils/validationForm.js'
 
 export default class LoginForm extends React.Component {
     constructor(props) {
@@ -14,49 +15,96 @@ export default class LoginForm extends React.Component {
         }
 
         this.handleChange = this.handleChange.bind(this);
+        this.handleLoginSubmit = this.handleLoginSubmit.bind(this);
+        this.handleRegisterSubmit = this.handleRegisterSubmit.bind(this);
     }
 
     handleChange(event) {
-        const { id, value } = event.currentTarget;
-        this.setState({ [id]: event.target.value })
+        const { id, value } = event.currentTarget;        
+        this.setState({ [id]: event.target.value })  
+        if((this.state.registerPassword !== event.target.value) && (id == 'registerConfirmPassword')) {                
+            $("#registerConfirmPassword").css("border-color", "#dc3545");
+            $("#passwordsDoesntMatch").css("display", "block");
+        } else {
+            $("#registerConfirmPassword").css("border-color", "#ced4da");
+            $("#passwordsDoesntMatch").css("display", "none");
+        }
+              
+    }
+    handleLoginSubmit(event) {
+        if(this.state.username && this.state.password) {
+            this.props.onLogin(this.state.username, this.state.password)
+        }        
+        event.preventDefault();
+    }
+
+    handleRegisterSubmit(event) {
+        if (this.state.registerUsername && 
+            this.state.registerName && 
+            this.state.registerPassword && 
+            this.state.registerConfirmPassword && 
+            (this.state.registerPassword === this.state.registerConfirmPassword)) {        
+            this.props.onRegister(this.state.registerUsername, this.state.registerName, this.state.registerPassword, this.state.registerConfirmPassword);
+            this.setState({
+                registerUsername: '',
+                registerName: '',
+                registerPassword: '',
+                registerConfirmPassword: '',
+            });
+        }
+        event.preventDefault();
+    }
+
+    componentDidMount() {
+        ValidationForm.validateForm();
     }
 
     render() {
         return (
             <div className="dropdown">
                 <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownLogin" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Sign In
+                    Войти
                 </button>
                 <div className="dropdown-menu" aria-labelledby="dropdownLogin">
-                    <div className="px-4 py-3">
-                        <div className="form-group">
-                            <label>Логин</label>
+                    <form className="needs-validation" onSubmit={this.handleLoginSubmit} noValidate>
+                        <div className="px-4 py-3">
+                            <div className="form-group">
+                                <label>Логин</label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    id="username"
+                                    value={this.state.username}
+                                    onChange={this.handleChange}
+                                    placeholder="Введите логин"
+                                    required
+                                />
+                                <div className="invalid-feedback">
+                                    Введите логин.
+                                </div>
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="password">Пароль</label>
+                                <input
+                                    type="password"
+                                    className="form-control"
+                                    id="password"
+                                    value={this.state.password}
+                                    onChange={this.handleChange}
+                                    placeholder="Введите пароль"
+                                    required
+                                />
+                                <div className="invalid-feedback">
+                                    Введите пароль.
+                                </div>
+                            </div>
                             <input
-                                type="text"
-                                className="form-control"
-                                id="username"
-                                value={this.state.username}
-                                onChange={this.handleChange}
-                                placeholder="Введите логин"
+                                type="submit"
+                                className="btn btn-dark"
+                                value="Войти"
                             />
                         </div>
-                        <div className="form-group">
-                            <label htmlFor="password">Пароль</label>
-                            <input
-                                type="password"
-                                className="form-control"
-                                id="password"
-                                value={this.state.password}
-                                onChange={this.handleChange}
-                                placeholder="Введите пароль" />
-                        </div>
-                        <input
-                            type="button"
-                            className="btn btn-dark"
-                            value="Войти"
-                            onClick={() => this.props.onLogin(this.state.username, this.state.password)}
-                        />
-                    </div>
+                    </form>
                     <div className="dropdown-divider"></div>
                     <button type="button"
                         className="dropdown-item btn btn-dark"
@@ -80,73 +128,81 @@ export default class LoginForm extends React.Component {
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            <div className="modal-body">
-                                <div className="form-group">
-                                    <label htmlFor="registerUsername" className="form-label">Логин</label>
-                                    <input
-                                        type="text"
-                                        className="form-control"
-                                        id="registerUsername"
-                                        value={this.state.registerUsername}
-                                        onChange={this.handleChange}
-                                        placeholder="Введите логин"
-                                    />
+                            <form className="needs-validation" onSubmit={this.handleRegisterSubmit} noValidate>
+                                <div className="modal-body">
+                                    <div className="form-group">
+                                        <label htmlFor="registerUsername" className="form-label">Логин</label>
+                                        <input
+                                            type="text"
+                                            className="form-control"
+                                            id="registerUsername"
+                                            value={this.state.registerUsername}
+                                            onChange={this.handleChange}
+                                            placeholder="Введите логин"
+                                            required
+                                        />
+                                        <div className="invalid-feedback">
+                                            Введите логин.
+                                        </div>
+                                    </div>
+                                    <div className="form-group">
+                                        <label htmlFor="registerName" className="form-label">Имя</label>
+                                        <input
+                                            type="text"
+                                            className="form-control"
+                                            id="registerName"
+                                            value={this.state.registerName}
+                                            onChange={this.handleChange}
+                                            placeholder="Введите имя"
+                                            required
+                                        />
+                                        <div className="invalid-feedback">
+                                            Введите имя.
+                                        </div>
+                                    </div>
+                                    <div className="form-group">
+                                        <label htmlFor="registerPassword" className="form-label">Пароль</label>
+                                        <input
+                                            type="password"
+                                            className="form-control"
+                                            id="registerPassword"
+                                            value={this.state.registerPassword}
+                                            onChange={this.handleChange}
+                                            placeholder="Введите пароль"
+                                            required
+                                        />
+                                        <div className="invalid-feedback">
+                                            Введите пароль.
+                                        </div>
+                                    </div>
+                                    <div className="form-group">
+                                        <label htmlFor="registerConfirmPassword" className="form-label">Подтверждение пароля</label>
+                                        <input
+                                            type="password"
+                                            className="form-control"
+                                            id="registerConfirmPassword"
+                                            value={this.state.registerConfirmPassword}
+                                            onChange={this.handleChange}
+                                            placeholder="Введите пароль ещё раз"
+                                            required
+                                        />
+                                        <div className="invalid-feedback">
+                                            Введите пароль ещё раз.
+                                        </div>
+                                        <div id="passwordsDoesntMatch" className="passwords-doesnt-match">
+                                            Пароли не совпадают.
+                                        </div>
+                                    </div>
                                 </div>
-                                <div className="form-group">
-                                    <label htmlFor="registerName" className="form-label">Имя</label>
+                                <div className="modal-footer">
                                     <input
-                                        type="text"
-                                        className="form-control"
-                                        id="registerName"
-                                        value={this.state.registerName}
-                                        onChange={this.handleChange}
-                                        placeholder="Введите имя"
+                                        type="submit"
+                                        value="Регистрация"
+                                        className="btn btn-dark"                                           
                                     />
+                                    <button type="button" className="btn btn-secondary" data-dismiss="modal">Закрыть</button>
                                 </div>
-                                <div className="form-group">
-                                    <label htmlFor="registerPassword" className="form-label">Пароль</label>
-                                    <input
-                                        type="password"
-                                        className="form-control"
-                                        id="registerPassword"
-                                        value={this.state.registerPassword}
-                                        onChange={this.handleChange}
-                                        placeholder="Введите пароль"
-                                    />
-                                </div>
-                                <div className="form-group">
-                                    <label htmlFor="registerConfirmPassword" className="form-label">Подтверждение пароля</label>
-                                    <input
-                                        type="password"
-                                        className="form-control"
-                                        id="registerConfirmPassword"
-                                        value={this.state.registerConfirmPassword}
-                                        onChange={this.handleChange}
-                                        placeholder="Введите пароль ещё раз"
-                                    />
-                                </div>
-                            </div>
-                            <div className="modal-footer">
-                                <input
-                                    type="button"
-                                    value="Регистрация"
-                                    className="btn btn-dark"
-                                    onClick={() => {
-                                        if (this.state.registerPassword !== this.state.registerConfirmPassword) {
-                                            alert('Password does not match');
-                                        } else {
-                                            this.props.onRegister(this.state.registerUsername, this.state.registerName, this.state.registerPassword, this.state.registerConfirmPassword);
-                                            this.setState({
-                                                registerUsername: '',
-                                                registerName: '',
-                                                registerPassword: '',
-                                                registerConfirmPassword: '',
-                                            });
-                                        }
-                                    }}
-                                />
-                                <button type="button" className="btn btn-secondary" data-dismiss="modal">Закрыть</button>
-                            </div>
+                            </form>
                         </div>
                     </div>
                 </div>
