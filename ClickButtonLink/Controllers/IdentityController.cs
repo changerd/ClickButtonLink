@@ -115,7 +115,7 @@ namespace ClickButtonLink.Controllers
                 {
                     message = "Пользователь уже существует",
                 };
-                return Conflict(response);
+                return Ok(response);
             }
         }       
 
@@ -129,7 +129,9 @@ namespace ClickButtonLink.Controllers
                     ClientInfo.clientId +
                     "&client_secret=" +
                     ClientInfo.clientSecret +
-                    "&redirect_uri=http://localhost:44324/api/Identity/VKLogin&code=" +
+                    "&redirect_uri=https://localhost:" +
+                    HttpContext.Connection.LocalPort +
+                    "/api/Identity/VKLogin&code=" +
                     code);
                 string tokenResponseString = await tokenResponse.Content.ReadAsStringAsync();
                 VkTokenResponse vkTokenResponse = JsonConvert.DeserializeObject<VkTokenResponse>(tokenResponseString);
@@ -179,24 +181,26 @@ namespace ClickButtonLink.Controllers
         
         [Route("user")]
         [HttpGet]
-        public async Task<User> GetUSer()
+        public async Task<User> GetUser()
         {
-            return await _service.GetUser(User.Identity.Name);
+            var user = await _service.GetUser(User.Identity.Name);
+            user.Password = String.Empty;
+            return user;
         }
 
         [Route("user")]
         [HttpPut]
-        public async Task<IActionResult> ChangePassword(string oldPassword, string newPassword)
+        public async Task<IActionResult> ChangePassword([FromBody]ChangePasswordRequest request)
         {
             var user = await _service.GetUser(User.Identity.Name);
 
             if(user != null)
             {
                 var sha256 = new SHA256Managed();
-                var passwordHash = Convert.ToBase64String(sha256.ComputeHash(Encoding.UTF8.GetBytes(oldPassword)));
-                if (passwordHash == user.Password)
+                var passwordHash = Convert.ToBase64String(sha256.ComputeHash(Encoding.UTF8.GetBytes(request.OldPassword)));
+                if (passwordHash == user.Password && !String.IsNullOrEmpty(request.OldPassword) && !String.IsNullOrEmpty(request.NewPassword))
                 {
-                    var newPasswordHash = Convert.ToBase64String(sha256.ComputeHash(Encoding.UTF8.GetBytes(newPassword)));
+                    var newPasswordHash = Convert.ToBase64String(sha256.ComputeHash(Encoding.UTF8.GetBytes(request.NewPassword)));
                     await _service.ChangePassword(user.Login, newPasswordHash);
                     var response = new
                     {
@@ -212,7 +216,7 @@ namespace ClickButtonLink.Controllers
                         code = 409,
                         message = "Неверный пароль пользователя"
                     };
-                    return Conflict(response);
+                    return Ok(response);
                 }
 
             }
@@ -223,7 +227,7 @@ namespace ClickButtonLink.Controllers
                     code = 409,
                     message = "Пользователь не найден"
                 };
-                return Conflict(response);
+                return Ok(response);
             }
             
         }

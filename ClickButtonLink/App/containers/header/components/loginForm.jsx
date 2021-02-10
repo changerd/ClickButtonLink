@@ -113,7 +113,7 @@ export default class LoginForm extends React.Component {
                         Регистрация пользователя
                         </button>
                     <a className="dropdown-item"
-                        href="https://oauth.vk.com/authorize?client_id=7623241&display=page&redirect_uri=http://localhost:44324/api/Identity/VKLogin&scope=friends&response_type=code&v=5.78"
+                        href={"https://oauth.vk.com/authorize?client_id=7623241&display=page&redirect_uri=https://localhost:"+ constants.port +"/api/Identity/VKLogin&scope=friends&response_type=code&v=5.78"}
                     >
                         <img src="/imgs/vk.png" height="32" width="32" alt="Войти с помощью ВК" title="Войти с помощью ВК" />
                     </a>

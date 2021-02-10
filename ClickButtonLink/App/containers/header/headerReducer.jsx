@@ -29,7 +29,7 @@ export default function header(state = initialState, action) {
                 log = true;
                 window.location.replace('/');
             } else {
-                alert("Ошибка авторизации!");
+                alert("Неверный логин или пароль");
             }                                  
             return { ...state, isLogged: log, username: action.payload, name: action.payload, password: '', error: '' }            
 

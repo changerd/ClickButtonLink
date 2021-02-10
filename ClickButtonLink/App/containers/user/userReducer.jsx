@@ -26,10 +26,11 @@ export default function user(state = initialState, action) {
         case CHANGE_PASSWORD_START:
             return { ...state, error: '' }
 
-        case CHANGE_PASSWORD_SUCCESS:
+        case CHANGE_PASSWORD_SUCCESS:           
+            alert(action.payload.message);
             return { ...state }
 
-        case CHANGE_PASSWORD_ERROR:
+        case CHANGE_PASSWORD_ERROR:            
             return { ...state, error: action.payload }
 
         default:

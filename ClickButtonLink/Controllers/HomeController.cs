@@ -10,6 +10,7 @@ namespace ClickButtonLink.Controllers
     {
         public IActionResult Index()
         {
+            ViewData["Port"] = HttpContext.Connection.LocalPort;
             return View();
         }
     }

@@ -37,11 +37,7 @@ class User extends React.Component {
         this.state.oldPassword &&
         this.state.newPassword &&
         this.state.newPasswordConfirm) {
-            this.props.changePassword(
-                this.state.oldPassword, 
-                this.state.newPassword, 
-                this.state.newPasswordConfirm
-                );
+            this.props.changePassword(this.state.oldPassword, this.state.newPassword);
             this.setState({
                 oldPassword: '',
                 newPassword: '',
@@ -61,6 +57,7 @@ class User extends React.Component {
         return (
             <div id="user">
                 <h1 align="center">Личный кабинет</h1>
+                <br />
                 <div className="row">
                     <div className="col-md-6">
                         <dl className="dl-horizontal">
@@ -88,7 +85,7 @@ class User extends React.Component {
                             <div className="form-group">
                                 <label>Старый пароль</label>
                                 <input
-                                    type="input"
+                                    type="password"
                                     id="oldPassword"
                                     className="form-control"
                                     value={this.state.oldPassword}
@@ -103,7 +100,7 @@ class User extends React.Component {
                             <div className="form-group">
                                 <label>Новый пароль</label>
                                 <input
-                                    type="input"
+                                    type="password"
                                     id="newPassword"
                                     className="form-control"
                                     value={this.state.newPassword}
@@ -118,8 +115,8 @@ class User extends React.Component {
                             <div className="form-group">
                                 <label>Подтверждение нового пароля</label>
                                 <input
-                                    type="input"
-                                    id="linkValue"
+                                    type="password"
+                                    id="newPasswordConfirm"
                                     className="form-control"
                                     value={this.state.newPasswordConfirm}
                                     onChange={this.handleChange}
@@ -141,6 +138,7 @@ class User extends React.Component {
                         </form>
                     </div>
                 </div>
+                <br />
             </div>
         )
     }
@@ -148,7 +146,7 @@ class User extends React.Component {
 
 let mapProps = (state) => {
     return {
-        user: state.editLink.user
+        user: state.user.user
     }
 }
 

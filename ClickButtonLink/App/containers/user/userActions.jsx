@@ -10,16 +10,16 @@ import {
 export function getUser() {
     return {
         type: 'PROMISE',
-        actions: [GET_USER_START, GET_USER_SUCCESS, GET_USER_ERROR],
-        method: 'GET',
+        actions: [GET_USER_START, GET_USER_SUCCESS, GET_USER_ERROR],        
         url: constants.user,
+        method: 'GET',
     }
 }
 
 export function changePassword(oldPassword, newPassword) {
     var changePasswordData = {
-        oldPassword: oldPassword,
-        newPassword: newPassword,
+        'oldPassword': oldPassword,
+        'newPassword': newPassword,
     }
 
     return {

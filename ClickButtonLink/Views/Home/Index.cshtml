@@ -14,7 +14,8 @@
             register: '@Url.RouteUrl("DefaultApi", new { controller = "Identity", action = "register" })',
             projectslist: '@Url.RouteUrl("DefaultApi", new { controller = "Project", action = "projectslist" })',
             user: '@Url.RouteUrl("DefaultApi", new { controller = "Identity", action = "user"})',
-            tokenKey: 'tokenKey'
+            tokenKey: 'tokenKey',
+            port: '@ViewData["Port"]',
         }
     </script>
     <title>ClickButtonLink</title>

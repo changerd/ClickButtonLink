@@ -61936,6 +61936,8 @@ var Links = function (_React$Component) {
     }, {
         key: 'render',
         value: function render() {
+            var _this2 = this;
+
             var total = this.props.links.totalPages;
             var pageSize = this.props.links.pageSize;
             var countLinks = this.props.links.countLinks;
@@ -61965,7 +61967,7 @@ var Links = function (_React$Component) {
 
             if (this.props.links.records) {
                 links = this.props.links.records.map(function (item) {
-                    return _react2.default.createElement(_linkItem2.default, { key: item.linkId, data: item, isFull: false });
+                    return _react2.default.createElement(_linkItem2.default, { key: item.linkId, data: item, isFull: false, port: _this2.props.links.port });
                 });
             }
 
@@ -62220,7 +62222,9 @@ var LinkItem = function (_React$Component) {
                     _react2.default.createElement(
                         'a',
                         { href: "/" + this.props.data.linkId },
-                        'localhost:44324/',
+                        'localhost:',
+                        constants.port,
+                        '/',
                         this.props.data.linkId
                     )
                 )
@@ -63216,6 +63220,16 @@ var LinkItem = function (_React$Component) {
                             'dd',
                             null,
                             status
+                        ),
+                        _react2.default.createElement(
+                            'dt',
+                            null,
+                            '\u041F\u0440\u043E\u0435\u043A\u0442'
+                        ),
+                        _react2.default.createElement(
+                            'dd',
+                            null,
+                            this.status.data.projectName
                         ),
                         _react2.default.createElement(
                             'dt',
@@ -81846,7 +81860,7 @@ var User = function (_React$Component) {
         key: 'handleSubmit',
         value: function handleSubmit(event) {
             if (this.state.newPassword == this.state.newPasswordConfirm && this.state.oldPassword && this.state.newPassword && this.state.newPasswordConfirm) {
-                this.props.changePassword(this.state.oldPassword, this.state.newPassword, this.state.newPasswordConfirm);
+                this.props.changePassword(this.state.oldPassword, this.state.newPassword);
                 this.setState({
                     oldPassword: '',
                     newPassword: '',
@@ -81873,6 +81887,7 @@ var User = function (_React$Component) {
                     { align: 'center' },
                     '\u041B\u0438\u0447\u043D\u044B\u0439 \u043A\u0430\u0431\u0438\u043D\u0435\u0442'
                 ),
+                _react2.default.createElement('br', null),
                 _react2.default.createElement(
                     'div',
                     { className: 'row' },
@@ -81924,7 +81939,7 @@ var User = function (_React$Component) {
                                     '\u0421\u0442\u0430\u0440\u044B\u0439 \u043F\u0430\u0440\u043E\u043B\u044C'
                                 ),
                                 _react2.default.createElement('input', {
-                                    type: 'input',
+                                    type: 'password',
                                     id: 'oldPassword',
                                     className: 'form-control',
                                     value: this.state.oldPassword,
@@ -81947,7 +81962,7 @@ var User = function (_React$Component) {
                                     '\u041D\u043E\u0432\u044B\u0439 \u043F\u0430\u0440\u043E\u043B\u044C'
                                 ),
                                 _react2.default.createElement('input', {
-                                    type: 'input',
+                                    type: 'password',
                                     id: 'newPassword',
                                     className: 'form-control',
                                     value: this.state.newPassword,
@@ -81970,8 +81985,8 @@ var User = function (_React$Component) {
                                     '\u041F\u043E\u0434\u0442\u0432\u0435\u0440\u0436\u0434\u0435\u043D\u0438\u0435 \u043D\u043E\u0432\u043E\u0433\u043E \u043F\u0430\u0440\u043E\u043B\u044F'
                                 ),
                                 _react2.default.createElement('input', {
-                                    type: 'input',
-                                    id: 'linkValue',
+                                    type: 'password',
+                                    id: 'newPasswordConfirm',
                                     className: 'form-control',
                                     value: this.state.newPasswordConfirm,
                                     onChange: this.handleChange,
@@ -81996,7 +82011,8 @@ var User = function (_React$Component) {
                             })
                         )
                     )
-                )
+                ),
+                _react2.default.createElement('br', null)
             );
         }
     }]);
@@ -82006,7 +82022,7 @@ var User = function (_React$Component) {
 
 var mapProps = function mapProps(state) {
     return {
-        user: state.editLink.user
+        user: state.user.user
     };
 };
 
@@ -82038,15 +82054,15 @@ function getUser() {
     return {
         type: 'PROMISE',
         actions: [_userConstants.GET_USER_START, _userConstants.GET_USER_SUCCESS, _userConstants.GET_USER_ERROR],
-        method: 'GET',
-        url: constants.user
+        url: constants.user,
+        method: 'GET'
     };
 }
 
 function changePassword(oldPassword, newPassword) {
     var changePasswordData = {
-        oldPassword: oldPassword,
-        newPassword: newPassword
+        'oldPassword': oldPassword,
+        'newPassword': newPassword
     };
 
     return {
@@ -82542,7 +82558,7 @@ var LoginForm = function (_React$Component) {
                     _react2.default.createElement(
                         'a',
                         { className: 'dropdown-item',
-                            href: 'https://oauth.vk.com/authorize?client_id=7623241&display=page&redirect_uri=http://localhost:44324/api/Identity/VKLogin&scope=friends&response_type=code&v=5.78'
+                            href: "https://oauth.vk.com/authorize?client_id=7623241&display=page&redirect_uri=https://localhost:" + constants.port + "/api/Identity/VKLogin&scope=friends&response_type=code&v=5.78"
                         },
                         _react2.default.createElement('img', { src: '/imgs/vk.png', height: '32', width: '32', alt: '\u0412\u043E\u0439\u0442\u0438 \u0441 \u043F\u043E\u043C\u043E\u0449\u044C\u044E \u0412\u041A', title: '\u0412\u043E\u0439\u0442\u0438 \u0441 \u043F\u043E\u043C\u043E\u0449\u044C\u044E \u0412\u041A' })
                     )
@@ -83284,7 +83300,7 @@ function header() {
                 log = true;
                 window.location.replace('/');
             } else {
-                alert("Ошибка авторизации!");
+                alert("Неверный логин или пароль");
             }
             return _extends({}, state, { isLogged: log, username: action.payload, name: action.payload, password: '', error: '' });
 
@@ -83353,6 +83369,7 @@ function user() {
             return _extends({}, state, { error: '' });
 
         case _userConstants.CHANGE_PASSWORD_SUCCESS:
+            alert(action.payload.message);
             return _extends({}, state);
 
         case _userConstants.CHANGE_PASSWORD_ERROR:
