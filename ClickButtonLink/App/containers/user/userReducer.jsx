@@ -1,4 +1,4 @@
-export {
+import {
     GET_USER_START,
     GET_USER_SUCCESS,
     GET_USER_ERROR,

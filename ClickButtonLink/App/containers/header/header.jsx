@@ -40,7 +40,8 @@ class Header extends React.Component {
 
     render() {
         let loginButton = this.props.header.isLogged ?
-            <span className="nameLabel">Здравствуйте, {AuthHelper.getName()}</span> :
+            <Link to="/user"><span className="nameLabel">Здравствуйте, {AuthHelper.getName()}</span></Link>
+            :
             <LoginForm onLogin={this.props.login} onRegister={this.props.register} />
 
         let logoutButton = this.props.header.isLogged ?

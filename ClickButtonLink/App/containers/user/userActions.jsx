@@ -1,6 +1,4 @@
-import { GET_LINKS_ERROR } from '../links/linksConstants.jsx'
-
-export {
+import {
     GET_USER_START,
     GET_USER_SUCCESS,
     GET_USER_ERROR,
@@ -12,7 +10,7 @@ export {
 export function getUser() {
     return {
         type: 'PROMISE',
-        actions: [GET_USER_START, GET_USER_SUCCESS, GET_LINKS_ERROR],
+        actions: [GET_USER_START, GET_USER_SUCCESS, GET_USER_ERROR],
         method: 'GET',
         url: constants.user,
     }

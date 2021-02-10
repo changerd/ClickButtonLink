@@ -123,7 +123,7 @@ class EditLink extends React.Component {
                     <div className="form-group">
                         <label>Название</label>
                         <input
-                            type="input"
+                            type="url"
                             id="linkName"
                             className="form-control"
                             value={this.state.linkName}
