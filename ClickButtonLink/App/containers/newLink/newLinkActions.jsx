@@ -17,18 +17,6 @@ export function getProject(projectId) {
         url: window.constants.project + '?projectId=' + projectId,
         method: 'GET',
     };
-
-    /*return (dispatch) => {
-        fetch(window.constants.project + '?projectId=' + projectId)
-            .then((response) => {
-                return response.json();
-            }).then((data) => {
-                dispatch({ type: GET_PROJECT_SUCCESS, payload: data });
-            }).catch((ex) => {
-                alert(ex);
-                dispatch({ type: GET_PROJECT_ERROR, payload: ex });
-            });
-    }*/
 }
 
 export function getProjectsList() {
@@ -55,39 +43,5 @@ export function addLink(projectId, linkName, linkDescription, linkValue, linkIsA
         url: constants.link,
         method: 'POST',
         data: addLinkData,
-    }
-
-    /*return (dispatch) => {
-        if (projectId, linkName, linkDescription, linkValue) {
-            fetch(constants.link, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ projectId: projectId, linkName: linkName, linkDescription: linkDescription, linkValue: linkValue, linkIsActive: linkIsActive })
-            }).then((response) => {
-                if (response.ok) {
-                    dispatch({ type: ADD_LINK_SUCCESS });
-                    window.history.back();
-                } else {
-                    alert('Ошибка добавления ссылки');
-                    dispatch({ type: ADD_LINK_ERROR, payload: 'Ошибка добавления ссылки' });
-                }
-            }).catch((ex) => {
-                alert(ex);
-                dispatch({ type: ADD_LINK_ERROR, payload: ex });
-            });
-        } else {
-            if (!linkName) {
-                alert('Необходимо заполнить название ссылки');
-                dispatch({ type: ADD_LINK_ERROR, payload: 'Необходимо заполнить название ссылки' });
-            } else if (!linkDescription) {
-                alert('Необходимо заполнить описание ссылки');
-                dispatch({ type: ADD_LINK_ERROR, payload: 'Необходимо заполнить описание ссылки' });
-            } else if (!linkValue) {
-                alert('Необходимо заполнить полную ссылку');
-                dispatch({ type: ADD_LINK_ERROR, payload: 'Необходимо заполнить полную ссылку' });
-            } 
-        }
-    }*/
+    }   
 }

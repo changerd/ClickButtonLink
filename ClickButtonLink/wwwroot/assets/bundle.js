@@ -61526,37 +61526,6 @@ function addProject(projectName, projectDescription) {
         method: 'POST',
         data: addProjectData
     };
-
-    /*return (dispatch) => {
-        if (projectName, projectDescription) {
-            fetch(constants.project, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify()
-            }).then((response) => {
-                if (response.ok) {
-                    dispatch({ type: ADD_PROJECT_SUCCESS });
-                    historyObject.push('/');
-                } else {
-                    alert('Ошибка добавления записи');
-                    dispatch({ type: ADD_PROJECT_ERROR, payload: 'Ошибка добавления записи' });
-                }
-            }).catch((ex) => {
-                alert(ex);
-                dispatch({ type: ADD_PROJECT_ERROR, payload: ex });
-            });
-        } else {
-            if (!projectName) {
-                alert('Необходимо заполнить название проекта');
-                dispatch({ type: ADD_PROJECT_ERROR, payload: 'Необходимо заполнить название новой записи' });
-            } else if (!projectDescription) {
-                alert('Необходимо заполнить описание проекта');
-                dispatch({ type: ADD_PROJECT_ERROR, payload: 'Необходимо заполнить название новой записи' });
-            }
-        }
-    }*/
 }
 
 /***/ }),
@@ -61787,18 +61756,6 @@ function getProject(projectId) {
         actions: [_editProjectConstants.GET_PROJECT_START, _editProjectConstants.GET_PROJECT_SUCCESS, _editProjectConstants.GET_PROJECT_ERROR],
         url: constants.project + '?projectId=' + projectId,
         method: 'GET'
-
-        /*return (dispatch) => {
-            fetch(window.constants.project + '?projectId=' + projectId)
-                .then((response) => {
-                    return response.json();                
-                }).then((data) => {
-                    dispatch({ type: GET_PROJECT_SUCCESS, payload: data });
-                }).catch((ex) => {
-                    alert(ex);
-                    dispatch({ type: GET_PROJECT_ERROR, payload: ex });
-                });
-        }*/
     };
 }
 
@@ -61815,37 +61772,6 @@ function editProject(projectId, projectName, projectDescription) {
         url: constants.project + '?projectId=' + projectId,
         method: 'PUT',
         data: editProjectData
-
-        /*return (dispatch) => {
-            if (projectId, projectName, projectDescription) {
-                fetch(window.constants.project + '?projectId=' + projectId, {
-                    method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ projectId: projectId, projectName: projectName, projectDescription: projectDescription })
-                }).then((response) => {
-                    if (response.ok) {
-                        dispatch({ type: EDIT_PROJECT_SUCCESS });
-                        window.history.back();
-                    } else {
-                        alert('Ошибка редактирования проекта');
-                        dispatch({ type: EDIT_PROJECT_ERROR, payload: 'Ошибка редактирования проекта' });
-                    }
-                }).catch((ex) => {
-                    alert(ex);
-                    dispatch({ type: EDIT_PROJECT_ERROR, payload: ex });
-                });
-            } else {
-                if (!projectName) {
-                    alert('Необходимо заполнить название проекта');
-                    dispatch({ type: EDIT_PROJECT_ERROR, payload: 'Необходимо заполнить название новой записи' });
-                } else if (!projectDescription) {
-                    alert('Необходимо заполнить описание проекта');
-                    dispatch({ type: EDIT_PROJECT_ERROR, payload: 'Необходимо заполнить описание новой записи' });
-                }
-            }
-        }*/
     };
 }
 
@@ -62267,18 +62193,6 @@ function getLinks() {
         actions: [_linksConstants.GET_LINKS_START, _linksConstants.GET_LINKS_SUCCESS, _linksConstants.GET_LINKS_ERROR],
         url: constants.pagelinks + queryTrailer,
         method: 'GET'
-
-        /*return (dispatch) => {
-           
-            fetch(window.constants.pagelinks + queryTrailer)
-                .then((response) => {
-                    return response.json();
-                }).then((data) => {
-                    dispatch({ type: GET_LINKS_SUCCESS, payload: data });
-                }).catch((ex) => {
-                    dispatch({ type: GET_LINKS_ERROR, payload: ex });
-                });
-        }*/
     };
 }
 
@@ -62580,18 +62494,6 @@ function getProject(projectId) {
         url: window.constants.project + '?projectId=' + projectId,
         method: 'GET'
     };
-
-    /*return (dispatch) => {
-        fetch(window.constants.project + '?projectId=' + projectId)
-            .then((response) => {
-                return response.json();
-            }).then((data) => {
-                dispatch({ type: GET_PROJECT_SUCCESS, payload: data });
-            }).catch((ex) => {
-                alert(ex);
-                dispatch({ type: GET_PROJECT_ERROR, payload: ex });
-            });
-    }*/
 }
 
 function getProjectsList() {
@@ -62618,40 +62520,6 @@ function addLink(projectId, linkName, linkDescription, linkValue, linkIsActive) 
         url: constants.link,
         method: 'POST',
         data: addLinkData
-
-        /*return (dispatch) => {
-            if (projectId, linkName, linkDescription, linkValue) {
-                fetch(constants.link, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ projectId: projectId, linkName: linkName, linkDescription: linkDescription, linkValue: linkValue, linkIsActive: linkIsActive })
-                }).then((response) => {
-                    if (response.ok) {
-                        dispatch({ type: ADD_LINK_SUCCESS });
-                        window.history.back();
-                    } else {
-                        alert('Ошибка добавления ссылки');
-                        dispatch({ type: ADD_LINK_ERROR, payload: 'Ошибка добавления ссылки' });
-                    }
-                }).catch((ex) => {
-                    alert(ex);
-                    dispatch({ type: ADD_LINK_ERROR, payload: ex });
-                });
-            } else {
-                if (!linkName) {
-                    alert('Необходимо заполнить название ссылки');
-                    dispatch({ type: ADD_LINK_ERROR, payload: 'Необходимо заполнить название ссылки' });
-                } else if (!linkDescription) {
-                    alert('Необходимо заполнить описание ссылки');
-                    dispatch({ type: ADD_LINK_ERROR, payload: 'Необходимо заполнить описание ссылки' });
-                } else if (!linkValue) {
-                    alert('Необходимо заполнить полную ссылку');
-                    dispatch({ type: ADD_LINK_ERROR, payload: 'Необходимо заполнить полную ссылку' });
-                } 
-            }
-        }*/
     };
 }
 
@@ -62986,18 +62854,6 @@ function getLink(linkId) {
         actions: [_editLinkConstants.GET_LINK_START, _editLinkConstants.GET_LINK_SUCCESS, _editLinkConstants.GET_LINK_ERROR],
         url: constants.link + '?linkId=' + linkId,
         method: 'GET'
-
-        /*return (dispatch) => {
-            fetch(window.constants.link + '?linkId=' + linkId)
-                .then((response) => {
-                    return response.json();
-                }).then((data) => {
-                    dispatch({ type: GET_LINK_SUCCESS, payload: data });
-                }).catch((ex) => {
-                    alert(ex);
-                    dispatch({ type: GET_LINK_ERROR, payload: ex });
-                });
-        }*/
     };
 }
 
@@ -63017,40 +62873,6 @@ function editLink(linkId, projectId, linkName, linkDescription, linkValue, linkI
         url: constants.link,
         method: 'PUT',
         data: editLinkData
-
-        /*return (dispatch) => {
-            if (linkId, projectId, linkName, linkDescription, linkValue) {
-                fetch(constants.link, {
-                    method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ linkId: linkId, projectId: projectId, linkName: linkName, linkDescription: linkDescription, linkValue: linkValue, linkIsActive: linkIsActive })
-                }).then((response) => {
-                    if (response.ok) {
-                        dispatch({ type: EDIT_LINK_SUCCESS });
-                        window.history.back();
-                    } else {
-                        alert('Ошибка редактирования ссылки');
-                        dispatch({ type: EDIT_LINK_ERROR, payload: 'Ошибка редактирования ссылки' });
-                    }
-                }).catch((ex) => {
-                    alert(ex);
-                    dispatch({ type: EDIT_LINK_ERROR, payload: ex });
-                });
-            } else {
-                if (!linkName) {
-                    alert('Необходимо заполнить название ссылки');
-                    dispatch({ type: EDIT_LINK_ERROR, payload: 'Необходимо заполнить название ссылки' });
-                } else if (!linkDescription) {
-                    alert('Необходимо заполнить описание ссылки');
-                    dispatch({ type: EDIT_LINK_ERROR, payload: 'Необходимо заполнить описание ссылки' });
-                } else if (!linkValue) {
-                    alert('Необходимо заполнить полную ссылку');
-                    dispatch({ type: EDIT_LINK_ERROR, payload: 'Необходимо заполнить полную ссылку' });
-                }
-            }
-        }*/
     };
 }
 
@@ -63344,18 +63166,6 @@ function getLink(linkId) {
         actions: [_linkItemConstants.GET_LINK_START, _linkItemConstants.GET_LINK_SUCCESS, _linkItemConstants.GET_LINK_ERROR],
         url: constants.linkdetails + '?linkId=' + linkId,
         method: 'GET'
-
-        /* return (dispatch) => {
-            fetch(window.constants.linkdetails + '?linkId=' + linkId)
-                .then((response) => {
-                    return response.json();
-                }).then((data) => {
-                    dispatch({ type: GET_LINK_SUCCESS, payload: data });
-                }).catch((ex) => {
-                    alert(ex);
-                    dispatch({ type: GET_LINK_ERROR, payload: ex });
-                });
-        }*/
     };
 }
 
@@ -63365,25 +63175,6 @@ function deleteLink(linkId) {
         actions: [_linkItemConstants.DELETE_LINK_START, _linkItemConstants.DELETE_LINK_SUCCESS, _linkItemConstants.DELETE_LINK_ERROR],
         url: constants.link + '?linkId=' + linkId,
         method: 'DELETE'
-
-        /*return (dispatch) => {
-            fetch(window.constants.link + '?linkId=' + linkId, {
-                method: 'DELETE',
-                headers: {
-                    'Content-Type': 'application/json',
-                }
-            }).then((response) => {
-                if (response.ok) {
-                    dispatch({ type: DELETE_LINK_SUCCESS });
-                    window.history.back();
-                } else {
-                    alert('Ошибка удаления ссылки');
-                    dispatch({ type: DELETE_LINK_ERROR, payload: 'Ошибка удаления ссылки' });
-                }
-            }).catch((ex) => {
-                dispatch({ type: DELETE_LINK_ERROR, payload: ex });
-            });
-        }*/
     };
 }
 
