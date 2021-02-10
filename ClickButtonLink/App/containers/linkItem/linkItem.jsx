@@ -92,13 +92,20 @@ class LinkItem extends React.Component {
                     </div>
                     <hr />
                     <dl className="dl-horizontal">
-
                         <dt>
                             Статус
                         </dt>
 
                         <dd>
                             {status}
+                        </dd>
+
+                        <dt>
+                            Проект
+                        </dt>
+
+                        <dd>
+                            {this.status.data.projectName}
                         </dd>
 
                         <dt>
@@ -113,11 +120,9 @@ class LinkItem extends React.Component {
                             Полная ссылка
                         </dt>
 
-
                         <dd>
                             <a target="blank" href={this.props.data.linkValue}>{this.props.data.linkValue}</a>
                         </dd>
-
 
                         <dt>
                             Короткая ссылка
@@ -134,7 +139,6 @@ class LinkItem extends React.Component {
                         <dd>
                             {this.props.data.transitionCount}
                         </dd>
-
                     </dl>
                 </div>
                 <LineChart
