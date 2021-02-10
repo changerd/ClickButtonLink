@@ -27,5 +27,10 @@ namespace ClickButtonLink.Services.Implementation
         {
             await _repository.RegisterUser(user);
         }
+
+        public async Task ChangePassword(string username, string newPassword)
+        {
+            await _repository.ChangePassword(username, newPassword);
+        }
     }
 }

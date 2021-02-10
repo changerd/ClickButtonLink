@@ -28,5 +28,16 @@ namespace DBRepository.Repositories
                 await context.SaveChangesAsync();
             }
         }
+
+        public async Task ChangePassword(string username, string newPassword)
+        {
+            using (var context = ContextFactory.CreateDbContext(ConnectionString))
+            {
+                var user = await GetUser(username);
+                user.Password = newPassword;
+                context.Entry(user).State = EntityState.Modified;
+                await context.SaveChangesAsync();
+            }
+        }
     }
 }

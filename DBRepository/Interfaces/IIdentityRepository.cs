@@ -10,5 +10,6 @@ namespace DBRepository.Interfaces
     {
         Task<User> GetUser(string username);
         Task RegisterUser(User user);
+        Task ChangePassword(string username, string newPassword);
     }
 }

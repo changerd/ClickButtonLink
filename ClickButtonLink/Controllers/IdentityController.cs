@@ -14,6 +14,7 @@ using ClickButtonLink.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.IdentityModel.Tokens;
+using Models;
 using Newtonsoft.Json;
 
 namespace ClickButtonLink.Controllers
@@ -175,6 +176,56 @@ namespace ClickButtonLink.Controllers
 
             return Redirect("/");
         }
+        
+        [Route("user")]
+        [HttpGet]
+        public async Task<User> GetUSer()
+        {
+            return await _service.GetUser(User.Identity.Name);
+        }
 
+        [Route("user")]
+        [HttpPut]
+        public async Task<IActionResult> ChangePassword(string oldPassword, string newPassword)
+        {
+            var user = await _service.GetUser(User.Identity.Name);
+
+            if(user != null)
+            {
+                var sha256 = new SHA256Managed();
+                var passwordHash = Convert.ToBase64String(sha256.ComputeHash(Encoding.UTF8.GetBytes(oldPassword)));
+                if (passwordHash == user.Password)
+                {
+                    var newPasswordHash = Convert.ToBase64String(sha256.ComputeHash(Encoding.UTF8.GetBytes(newPassword)));
+                    await _service.ChangePassword(user.Login, newPasswordHash);
+                    var response = new
+                    {
+                        code = 200,
+                        message = "Пароль успешно изменен"
+                    };
+                    return Ok(response);
+                }
+                else
+                {
+                    var response = new
+                    {
+                        code = 409,
+                        message = "Неверный пароль пользователя"
+                    };
+                    return Conflict(response);
+                }
+
+            }
+            else
+            {
+                var response = new
+                {
+                    code = 409,
+                    message = "Пользователь не найден"
+                };
+                return Conflict(response);
+            }
+            
+        }
     }
 }
