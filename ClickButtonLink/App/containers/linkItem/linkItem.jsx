@@ -7,7 +7,7 @@ import queryString from 'query-string';
 import { getLink, deleteLink } from './linkItemActions.jsx';
 import {
     LineChart,
-    Line, 
+    Line,
     XAxis,
     YAxis,
     CartesianGrid,
@@ -22,31 +22,31 @@ class LinkItem extends React.Component {
         this.deleteLink = this.deleteLink.bind(this);
     }
 
-    componentDidMount() {        
-        this.getLink();        
-    }    
+    componentDidMount() {
+        this.getLink();
+    }
 
-    getLink(){
+    getLink() {
         let linkId;
         const parsed = queryString.parse(location.search);
-        if (parsed) {            
-            linkId = parsed['linkId'];            
-            this.props.getLink(linkId);            
+        if (parsed) {
+            linkId = parsed['linkId'];
+            this.props.getLink(linkId);
         }
-        
+
     }
 
     deleteLink(linkId) {
         this.props.deleteLink(linkId)
     }
 
-    render() {        
+    render() {
         const monthNames = [
             "Января", "Февраля", "Марта",
             "Апреля", "Мая", "Июня", "Июля",
             "Августа", "Сентября", "Октября",
             "Ноября", "Декабря"
-        ];        
+        ];
 
         let transitionChart = [];
         for (let i = 0; i < this.props.data.arrCount; i++) {
@@ -72,11 +72,29 @@ class LinkItem extends React.Component {
         }
 
         const del =
-            <button className="btn btn-dark" onClick={() => {
-            if (confirm('Вы уверены что хотите удалить ссылку?')) {
-                this.deleteLink(this.props.data.linkId);
-            }
-        }}>Удалить</button>
+            <button className="btn btn-dark" data-toggle="modal" data-target="#deleteLinkModal">Удалить</button>
+
+        const delModal =
+            <div className="modal fade" id="deleteLinkModal" tabIndex="-1" role="dialog" aria-labelledby="deleteLinkModalLabel" aria-hidden="true">
+                <div className="modal-dialog" role="document">
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <h5 className="modal-title" id="deleteLinkModalLabel">Удаление ссылки</h5>
+                            <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div className="modal-body">
+                            Вы уверены что хотите удалить ссылку: <b>{this.props.data.linkName}</b>?
+                        </div>
+                        <div className="modal-footer">
+                            <button type="button" className="btn btn-secondary" data-dismiss="modal">Отмена</button>
+                            <button type="button" className="btn btn-danger" onClick={() => { this.deleteLink(this.props.data.linkId); }}>Удалить</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         const edit =
             <Link className="btn btn-dark" to={"/links/edit?linkId=" + this.props.data.linkId}>Редактировать</Link>
 
@@ -88,7 +106,7 @@ class LinkItem extends React.Component {
                 <div>
                     <hr />
                     <div>
-                        {edit} {del}
+                        {edit} {del} {delModal}
                     </div>
                     <hr />
                     <dl className="dl-horizontal">
@@ -105,7 +123,7 @@ class LinkItem extends React.Component {
                         </dt>
 
                         <dd>
-                            {this.status.data.projectName}
+                            {this.props.data.projectName}
                         </dd>
 
                         <dt>
@@ -128,8 +146,8 @@ class LinkItem extends React.Component {
                             Короткая ссылка
                         </dt>
 
-                        <dd>                            
-                            <a href={"/" + this.props.data.linkId}>localhost:44324/{this.props.data.linkId}</a>
+                        <dd>
+                            <a href={"/" + this.props.data.linkId}>localhost:{constants.port}/{this.props.data.linkId}</a>
                         </dd>
 
                         <dt>

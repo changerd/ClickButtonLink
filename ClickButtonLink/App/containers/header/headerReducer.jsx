@@ -28,13 +28,17 @@ export default function header(state = initialState, action) {
                 AuthHelper.saveAuth(action.payload.username, action.payload.access_token, action.payload.name);
                 log = true;
                 window.location.replace('/');
-            } else {
-                alert("Неверный логин или пароль");
+            } else {                
+                $('#logModal').modal('show');
+                $('#logModalLabel').text('Вход'); 
+                $('#logbody').text('Неверный логин или пароль'); 
             }                                  
             return { ...state, isLogged: log, username: action.payload, name: action.payload, password: '', error: '' }            
 
         case LOGIN_ERROR:
-            alert('Auth error');
+            $('#logModal').modal('show');
+            $('#logModalLabel').text('Вход'); 
+            $('#logbody').text('Ошибка авторизации'); 
             return { ...state, error: action.payload }
 
         case LOGOUT:
@@ -44,7 +48,9 @@ export default function header(state = initialState, action) {
             return { ...state, error: '' }
 
         case REGISTER_SUCCESS:
-            alert(action.payload.message);
+            $('#logModal').modal('show');
+            $('#logModalLabel').text('Регистрация'); 
+            $('#logbody').text(action.payload.message);            
             if(action.payload.message == 'Регистрация завершена') {                
                 $('#registerModal').modal('toggle');
             }             

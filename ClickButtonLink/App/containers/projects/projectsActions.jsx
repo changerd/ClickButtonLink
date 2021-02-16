@@ -18,6 +18,7 @@ export function getProjects(pageIndex = 0) {
 }
 
 export function deleteProject(projectId) {
+    $('#deleteProjectModal').modal('toggle');
     return {
         type: 'PROMISE',
         actions: [DELETE_PROJECT_START, DELETE_PROJECT_SUCCESS, DELETE_PROJECT_ERROR],

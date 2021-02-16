@@ -23,7 +23,7 @@ class User extends React.Component {
         const { id, value } = event.currentTarget;
         this.setState({ [id]: event.target.value })
 
-        if((this.state.newPassword !== event.target.value) && (id == 'newPasswordConfirm')) {                
+        if ((this.state.newPassword !== event.target.value) && (id == 'newPasswordConfirm')) {
             $("#newPasswordConfirm").css("border-color", "#dc3545");
             $("#passwordsDoesntMatch").css("display", "block");
         } else {
@@ -33,10 +33,10 @@ class User extends React.Component {
     }
 
     handleSubmit(event) {
-        if((this.state.newPassword == this.state.newPasswordConfirm) &&
-        this.state.oldPassword &&
-        this.state.newPassword &&
-        this.state.newPasswordConfirm) {
+        if ((this.state.newPassword == this.state.newPasswordConfirm) &&
+            this.state.oldPassword &&
+            this.state.newPassword &&
+            this.state.newPasswordConfirm) {
             this.props.changePassword(this.state.oldPassword, this.state.newPassword);
             this.setState({
                 oldPassword: '',
@@ -81,7 +81,7 @@ class User extends React.Component {
                     </div>
                     <div className="col-md-6">
                         <form className="needs-validation" onSubmit={this.handleSubmit} noValidate>
-                            <h3>Смена пароля</h3>                            
+                            <h3>Смена пароля</h3>
                             <div className="form-group">
                                 <label>Старый пароль</label>
                                 <input
@@ -129,13 +129,29 @@ class User extends React.Component {
                                 <div id="passwordsDoesntMatch" className="passwords-doesnt-match">
                                     Пароли не совпадают.
                                 </div>
-                            </div>                            
+                            </div>
                             <input
                                 type="submit"
                                 className="btn btn-primary"
                                 value="Отправить"
                             />
                         </form>
+                    </div>
+                </div>
+                <div className="modal fade" id="cpModal" tabIndex="-1" role="dialog" aria-labelledby="cpModalLabel" aria-hidden="true">
+                    <div className="modal-dialog" role="document">
+                        <div className="modal-content">
+                            <div className="modal-header">
+                                <h5 className="modal-title" id="cpModalLabel">Смена пароля</h5>
+                                <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div className="modal-body" id="cpbody"></div>
+                            <div className="modal-footer">
+                                <button type="button" className="btn btn-primary" data-dismiss="modal">Ок</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <br />

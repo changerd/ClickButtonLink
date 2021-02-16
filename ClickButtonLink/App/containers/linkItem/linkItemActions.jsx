@@ -18,6 +18,7 @@ export function getLink(linkId) {
 }
 
 export function deleteLink(linkId) {
+    $('#deleteLinkModal').modal('toggle');
     return {
         type: 'PROMISE',
         actions: [DELETE_LINK_START, DELETE_LINK_SUCCESS, DELETE_LINK_ERROR],

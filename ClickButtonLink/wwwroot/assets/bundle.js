@@ -60702,12 +60702,6 @@ var ProjectItem = function (_React$Component) {
         value: function render() {
             var _this2 = this;
 
-            //let countBlock;
-            //if (!this.props.isFull) {
-            //    countBlock =
-            //        <React.Fragment>{this.props.data.transitionCount}</React.Fragment>;
-            //}
-
             var linkBlock = void 0;
             if (!this.props.isFull) {
                 linkBlock = _react2.default.createElement(
@@ -60720,12 +60714,66 @@ var ProjectItem = function (_React$Component) {
 
             var deleteBlock = _react2.default.createElement(
                 'button',
-                { className: 'btn btn-dark', onClick: function onClick() {
-                        if (confirm('Вы уверены что хотите удалить проект?')) {
-                            _this2.props.deleteProject(_this2.props.data.projectId);
-                        }
-                    } },
+                { className: 'btn btn-dark', 'data-toggle': 'modal', 'data-target': '#deleteProjectModal' },
                 '\u0423\u0434\u0430\u043B\u0438\u0442\u044C \u043F\u0440\u043E\u0435\u043A\u0442'
+            );
+
+            var deleteModal = _react2.default.createElement(
+                'div',
+                { className: 'modal fade', id: 'deleteProjectModal', tabIndex: '-1', role: 'dialog', 'aria-labelledby': 'deleteProjectModalLabel', 'aria-hidden': 'true' },
+                _react2.default.createElement(
+                    'div',
+                    { className: 'modal-dialog', role: 'document' },
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'modal-content' },
+                        _react2.default.createElement(
+                            'div',
+                            { className: 'modal-header' },
+                            _react2.default.createElement(
+                                'h5',
+                                { className: 'modal-title', id: 'deleteProjectModalLabel' },
+                                '\u0423\u0434\u0430\u043B\u0435\u043D\u0438\u0435 \u043F\u0440\u043E\u0435\u043A\u0442\u0430'
+                            ),
+                            _react2.default.createElement(
+                                'button',
+                                { type: 'button', className: 'close', 'data-dismiss': 'modal', 'aria-label': 'Close' },
+                                _react2.default.createElement(
+                                    'span',
+                                    { 'aria-hidden': 'true' },
+                                    '\xD7'
+                                )
+                            )
+                        ),
+                        _react2.default.createElement(
+                            'div',
+                            { className: 'modal-body' },
+                            '\u0412\u044B \u0443\u0432\u0435\u0440\u0435\u043D\u044B \u0447\u0442\u043E \u0445\u043E\u0442\u0438\u0442\u0435 \u0443\u0434\u0430\u043B\u0438\u0442\u044C \u043F\u0440\u043E\u0435\u043A\u0442: ',
+                            _react2.default.createElement(
+                                'b',
+                                null,
+                                this.props.data.projectName
+                            ),
+                            '?'
+                        ),
+                        _react2.default.createElement(
+                            'div',
+                            { className: 'modal-footer' },
+                            _react2.default.createElement(
+                                'button',
+                                { type: 'button', className: 'btn btn-secondary', 'data-dismiss': 'modal' },
+                                '\u041E\u0442\u043C\u0435\u043D\u0430'
+                            ),
+                            _react2.default.createElement(
+                                'button',
+                                { type: 'button', className: 'btn btn-danger', onClick: function onClick() {
+                                        _this2.props.deleteProject(_this2.props.data.projectId);
+                                    } },
+                                '\u0423\u0434\u0430\u043B\u0438\u0442\u044C'
+                            )
+                        )
+                    )
+                )
             );
 
             var editBlock = _react2.default.createElement(
@@ -60757,7 +60805,9 @@ var ProjectItem = function (_React$Component) {
                     null,
                     editBlock,
                     ' ',
-                    deleteBlock
+                    deleteBlock,
+                    ' ',
+                    deleteModal
                 )
             );
         }
@@ -60796,6 +60846,7 @@ function getProjects() {
 }
 
 function deleteProject(projectId) {
+    $('#deleteProjectModal').modal('toggle');
     return {
         type: 'PROMISE',
         actions: [_projectsConstants.DELETE_PROJECT_START, _projectsConstants.DELETE_PROJECT_SUCCESS, _projectsConstants.DELETE_PROJECT_ERROR],
@@ -62995,13 +63046,68 @@ var LinkItem = function (_React$Component) {
 
             var del = _react2.default.createElement(
                 'button',
-                { className: 'btn btn-dark', onClick: function onClick() {
-                        if (confirm('Вы уверены что хотите удалить ссылку?')) {
-                            _this2.deleteLink(_this2.props.data.linkId);
-                        }
-                    } },
+                { className: 'btn btn-dark', 'data-toggle': 'modal', 'data-target': '#deleteLinkModal' },
                 '\u0423\u0434\u0430\u043B\u0438\u0442\u044C'
             );
+
+            var delModal = _react2.default.createElement(
+                'div',
+                { className: 'modal fade', id: 'deleteLinkModal', tabIndex: '-1', role: 'dialog', 'aria-labelledby': 'deleteLinkModalLabel', 'aria-hidden': 'true' },
+                _react2.default.createElement(
+                    'div',
+                    { className: 'modal-dialog', role: 'document' },
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'modal-content' },
+                        _react2.default.createElement(
+                            'div',
+                            { className: 'modal-header' },
+                            _react2.default.createElement(
+                                'h5',
+                                { className: 'modal-title', id: 'deleteLinkModalLabel' },
+                                '\u0423\u0434\u0430\u043B\u0435\u043D\u0438\u0435 \u0441\u0441\u044B\u043B\u043A\u0438'
+                            ),
+                            _react2.default.createElement(
+                                'button',
+                                { type: 'button', className: 'close', 'data-dismiss': 'modal', 'aria-label': 'Close' },
+                                _react2.default.createElement(
+                                    'span',
+                                    { 'aria-hidden': 'true' },
+                                    '\xD7'
+                                )
+                            )
+                        ),
+                        _react2.default.createElement(
+                            'div',
+                            { className: 'modal-body' },
+                            '\u0412\u044B \u0443\u0432\u0435\u0440\u0435\u043D\u044B \u0447\u0442\u043E \u0445\u043E\u0442\u0438\u0442\u0435 \u0443\u0434\u0430\u043B\u0438\u0442\u044C \u0441\u0441\u044B\u043B\u043A\u0443: ',
+                            _react2.default.createElement(
+                                'b',
+                                null,
+                                this.props.data.linkName
+                            ),
+                            '?'
+                        ),
+                        _react2.default.createElement(
+                            'div',
+                            { className: 'modal-footer' },
+                            _react2.default.createElement(
+                                'button',
+                                { type: 'button', className: 'btn btn-secondary', 'data-dismiss': 'modal' },
+                                '\u041E\u0442\u043C\u0435\u043D\u0430'
+                            ),
+                            _react2.default.createElement(
+                                'button',
+                                { type: 'button', className: 'btn btn-danger', onClick: function onClick() {
+                                        _this2.deleteLink(_this2.props.data.linkId);
+                                    } },
+                                '\u0423\u0434\u0430\u043B\u0438\u0442\u044C'
+                            )
+                        )
+                    )
+                )
+            );
+
             var edit = _react2.default.createElement(
                 _reactRouterDom.Link,
                 { className: 'btn btn-dark', to: "/links/edit?linkId=" + this.props.data.linkId },
@@ -63027,7 +63133,9 @@ var LinkItem = function (_React$Component) {
                         null,
                         edit,
                         ' ',
-                        del
+                        del,
+                        ' ',
+                        delModal
                     ),
                     _react2.default.createElement('hr', null),
                     _react2.default.createElement(
@@ -63051,7 +63159,7 @@ var LinkItem = function (_React$Component) {
                         _react2.default.createElement(
                             'dd',
                             null,
-                            this.status.data.projectName
+                            this.props.data.projectName
                         ),
                         _react2.default.createElement(
                             'dt',
@@ -63088,7 +63196,9 @@ var LinkItem = function (_React$Component) {
                             _react2.default.createElement(
                                 'a',
                                 { href: "/" + this.props.data.linkId },
-                                'localhost:44324/',
+                                'localhost:',
+                                constants.port,
+                                '/',
                                 this.props.data.linkId
                             )
                         ),
@@ -63170,6 +63280,7 @@ function getLink(linkId) {
 }
 
 function deleteLink(linkId) {
+    $('#deleteLinkModal').modal('toggle');
     return {
         type: 'PROMISE',
         actions: [_linkItemConstants.DELETE_LINK_START, _linkItemConstants.DELETE_LINK_SUCCESS, _linkItemConstants.DELETE_LINK_ERROR],
@@ -81803,6 +81914,46 @@ var User = function (_React$Component) {
                         )
                     )
                 ),
+                _react2.default.createElement(
+                    'div',
+                    { className: 'modal fade', id: 'cpModal', tabIndex: '-1', role: 'dialog', 'aria-labelledby': 'cpModalLabel', 'aria-hidden': 'true' },
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'modal-dialog', role: 'document' },
+                        _react2.default.createElement(
+                            'div',
+                            { className: 'modal-content' },
+                            _react2.default.createElement(
+                                'div',
+                                { className: 'modal-header' },
+                                _react2.default.createElement(
+                                    'h5',
+                                    { className: 'modal-title', id: 'cpModalLabel' },
+                                    '\u0421\u043C\u0435\u043D\u0430 \u043F\u0430\u0440\u043E\u043B\u044F'
+                                ),
+                                _react2.default.createElement(
+                                    'button',
+                                    { type: 'button', className: 'close', 'data-dismiss': 'modal', 'aria-label': 'Close' },
+                                    _react2.default.createElement(
+                                        'span',
+                                        { 'aria-hidden': 'true' },
+                                        '\xD7'
+                                    )
+                                )
+                            ),
+                            _react2.default.createElement('div', { className: 'modal-body', id: 'cpbody' }),
+                            _react2.default.createElement(
+                                'div',
+                                { className: 'modal-footer' },
+                                _react2.default.createElement(
+                                    'button',
+                                    { type: 'button', className: 'btn btn-primary', 'data-dismiss': 'modal' },
+                                    '\u041E\u043A'
+                                )
+                            )
+                        )
+                    )
+                ),
                 _react2.default.createElement('br', null)
             );
         }
@@ -82086,9 +82237,7 @@ var Header = function (_React$Component) {
 
             var logoutButton = this.props.header.isLogged ? _react2.default.createElement(
                 'button',
-                { className: 'btn btn-dark', onClick: function onClick() {
-                        if (confirm('Вы хотите выйти?')) _this2.props.logout();
-                    } },
+                { className: 'btn btn-dark', 'data-toggle': 'modal', 'data-target': '#logoutModal' },
                 '\u0412\u044B\u0439\u0442\u0438'
             ) : '';
 
@@ -82135,7 +82284,98 @@ var Header = function (_React$Component) {
                         { className: 'navbar-text' },
                         loginButton,
                         ' ',
-                        logoutButton
+                        logoutButton,
+                        _react2.default.createElement(
+                            'div',
+                            { className: 'modal fade', id: 'logModal', tabIndex: '-1', role: 'dialog', 'aria-labelledby': 'logModalLabel', 'aria-hidden': 'true' },
+                            _react2.default.createElement(
+                                'div',
+                                { className: 'modal-dialog', role: 'document' },
+                                _react2.default.createElement(
+                                    'div',
+                                    { className: 'modal-content' },
+                                    _react2.default.createElement(
+                                        'div',
+                                        { className: 'modal-header' },
+                                        _react2.default.createElement(
+                                            'h5',
+                                            { className: 'modal-title', id: 'logModalLabel' },
+                                            '\u0412\u0445\u043E\u0434'
+                                        ),
+                                        _react2.default.createElement(
+                                            'button',
+                                            { type: 'button', className: 'close', 'data-dismiss': 'modal', 'aria-label': 'Close' },
+                                            _react2.default.createElement(
+                                                'span',
+                                                { 'aria-hidden': 'true' },
+                                                '\xD7'
+                                            )
+                                        )
+                                    ),
+                                    _react2.default.createElement('div', { className: 'modal-body', id: 'logbody' }),
+                                    _react2.default.createElement(
+                                        'div',
+                                        { className: 'modal-footer' },
+                                        _react2.default.createElement(
+                                            'button',
+                                            { type: 'button', className: 'btn btn-primary', 'data-dismiss': 'modal' },
+                                            '\u041E\u043A'
+                                        )
+                                    )
+                                )
+                            )
+                        ),
+                        _react2.default.createElement(
+                            'div',
+                            { className: 'modal fade', id: 'logoutModal', tabIndex: '-1', role: 'dialog', 'aria-labelledby': 'logoutModalLabel', 'aria-hidden': 'true' },
+                            _react2.default.createElement(
+                                'div',
+                                { className: 'modal-dialog', role: 'document' },
+                                _react2.default.createElement(
+                                    'div',
+                                    { className: 'modal-content' },
+                                    _react2.default.createElement(
+                                        'div',
+                                        { className: 'modal-header' },
+                                        _react2.default.createElement(
+                                            'h5',
+                                            { className: 'modal-title', id: 'logoutModalLabel' },
+                                            '\u0412\u044B\u0445\u043E\u0434'
+                                        ),
+                                        _react2.default.createElement(
+                                            'button',
+                                            { type: 'button', className: 'close', 'data-dismiss': 'modal', 'aria-label': 'Close' },
+                                            _react2.default.createElement(
+                                                'span',
+                                                { 'aria-hidden': 'true' },
+                                                '\xD7'
+                                            )
+                                        )
+                                    ),
+                                    _react2.default.createElement(
+                                        'div',
+                                        { className: 'modal-body' },
+                                        '\u0412\u044B \u0434\u0435\u0439\u0441\u0442\u0432\u0438\u0442\u0435\u043B\u044C\u043D\u043E \u0445\u043E\u0442\u0438\u0442\u0435 \u0432\u044B\u0439\u0442\u0438?'
+                                    ),
+                                    _react2.default.createElement(
+                                        'div',
+                                        { className: 'modal-footer' },
+                                        _react2.default.createElement(
+                                            'button',
+                                            { type: 'button', className: 'btn btn-secondary', 'data-dismiss': 'modal' },
+                                            '\u041E\u0442\u043C\u0435\u043D\u0430'
+                                        ),
+                                        _react2.default.createElement(
+                                            'button',
+                                            { type: 'button', className: 'btn btn-primary', onClick: function onClick() {
+                                                    _this2.props.logout();$('#logoutModal').modal('toggle');
+                                                } },
+                                            '\u0412\u044B\u0439\u0442\u0438'
+                                        )
+                                    )
+                                )
+                            )
+                        )
                     )
                 )
             );
@@ -83091,12 +83331,16 @@ function header() {
                 log = true;
                 window.location.replace('/');
             } else {
-                alert("Неверный логин или пароль");
+                $('#logModal').modal('show');
+                $('#logModalLabel').text('Вход');
+                $('#logbody').text('Неверный логин или пароль');
             }
             return _extends({}, state, { isLogged: log, username: action.payload, name: action.payload, password: '', error: '' });
 
         case _headerConstants.LOGIN_ERROR:
-            alert('Auth error');
+            $('#logModal').modal('show');
+            $('#logModalLabel').text('Вход');
+            $('#logbody').text('Ошибка авторизации');
             return _extends({}, state, { error: action.payload });
 
         case _headerConstants.LOGOUT:
@@ -83106,7 +83350,9 @@ function header() {
             return _extends({}, state, { error: '' });
 
         case _headerConstants.REGISTER_SUCCESS:
-            alert(action.payload.message);
+            $('#logModal').modal('show');
+            $('#logModalLabel').text('Регистрация');
+            $('#logbody').text(action.payload.message);
             if (action.payload.message == 'Регистрация завершена') {
                 $('#registerModal').modal('toggle');
             }
@@ -83160,7 +83406,8 @@ function user() {
             return _extends({}, state, { error: '' });
 
         case _userConstants.CHANGE_PASSWORD_SUCCESS:
-            alert(action.payload.message);
+            $('#cpModal').modal('show');
+            $('#cpbody').text(action.payload.message);
             return _extends({}, state);
 
         case _userConstants.CHANGE_PASSWORD_ERROR:

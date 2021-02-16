@@ -26,8 +26,9 @@ export default function user(state = initialState, action) {
         case CHANGE_PASSWORD_START:
             return { ...state, error: '' }
 
-        case CHANGE_PASSWORD_SUCCESS:           
-            alert(action.payload.message);
+        case CHANGE_PASSWORD_SUCCESS:
+            $('#cpModal').modal('show');            
+            $('#cpbody').text(action.payload.message);           
             return { ...state }
 
         case CHANGE_PASSWORD_ERROR:            

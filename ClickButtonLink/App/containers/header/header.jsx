@@ -6,7 +6,7 @@ import { Link, Redirect } from 'react-router-dom';
 import LoginForm from './components/loginForm.jsx'
 import {
     login,
-    logout,    
+    logout,
     register,
 } from './headerActions.jsx';
 import AuthHelper from '../../utils/authHelpers.js';
@@ -25,18 +25,16 @@ class Header extends React.Component {
     vkLogin() {
         let vkLogin, vkPassword;
         const parsed = queryString.parse(location.search)
-        if(parsed)
-        {
+        if (parsed) {
             vkLogin = parsed['vkLogin'];
-            vkPassword = parsed['vkPassword'];            
+            vkPassword = parsed['vkPassword'];
 
-            if (vkLogin && vkPassword)
-            {                
+            if (vkLogin && vkPassword) {
                 this.props.login(vkLogin, vkPassword.split("").reverse().join(""));
                 <Redirect to="/" />
             }
         }
-    }   
+    }
 
     render() {
         let loginButton = this.props.header.isLogged ?
@@ -45,10 +43,11 @@ class Header extends React.Component {
             <LoginForm onLogin={this.props.login} onRegister={this.props.register} />
 
         let logoutButton = this.props.header.isLogged ?
-            <button className="btn btn-dark" onClick={() => { if (confirm('Вы хотите выйти?')) this.props.logout() }} >Выйти</button> :
+            <button className="btn btn-dark" data-toggle="modal" data-target="#logoutModal">Выйти</button>
+            :
             '';
 
-        return (                     
+        return (
             <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
                 <Link className="navbar-brand" to="/">ClickButtonLink</Link>
                 <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -65,6 +64,42 @@ class Header extends React.Component {
                     </ul>
                     <div className="navbar-text">
                         {loginButton} {logoutButton}
+
+                        <div className="modal fade" id="logModal" tabIndex="-1" role="dialog" aria-labelledby="logModalLabel" aria-hidden="true">
+                            <div className="modal-dialog" role="document">
+                                <div className="modal-content">
+                                    <div className="modal-header">
+                                        <h5 className="modal-title" id="logModalLabel">Вход</h5>
+                                        <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div className="modal-body" id="logbody"></div>
+                                    <div className="modal-footer">
+                                        <button type="button" className="btn btn-primary" data-dismiss="modal">Ок</button>                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="modal fade" id="logoutModal" tabIndex="-1" role="dialog" aria-labelledby="logoutModalLabel" aria-hidden="true">
+                            <div className="modal-dialog" role="document">
+                                <div className="modal-content">
+                                    <div className="modal-header">
+                                        <h5 className="modal-title" id="logoutModalLabel">Выход</h5>
+                                        <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div className="modal-body">
+                                        Вы действительно хотите выйти?
+                                    </div>
+                                    <div className="modal-footer">
+                                        <button type="button" className="btn btn-secondary" data-dismiss="modal">Отмена</button>
+                                        <button type="button" className="btn btn-primary" onClick={() => { this.props.logout(); $('#logoutModal').modal('toggle'); }}>Выйти</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </nav>
@@ -81,7 +116,7 @@ let mapProps = (state) => {
 let mapDispatch = (dispatch) => {
     return {
         login: bindActionCreators(login, dispatch),
-        logout: bindActionCreators(logout, dispatch),        
+        logout: bindActionCreators(logout, dispatch),
         register: bindActionCreators(register, dispatch)
     }
 }

@@ -31,7 +31,7 @@ export default function projects(state = initialState, action) {
         case DELETE_PROJECT_START:
             return { ...state, error: '' }
 
-        case DELETE_PROJECT_SUCCESS:
+        case DELETE_PROJECT_SUCCESS:            
             return { ...state }
 
         case DELETE_PROJECT_ERROR:
