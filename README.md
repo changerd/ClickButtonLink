@@ -1,10 +1,10 @@
 # ClickButtonLink
 
-ClickButtonLink то сервис, который позволяет сокращать ссылки большой длины в компактный вид. 
+ClickButtonLink is a service that allows you to shorten long links into a compact form.
 
 ## Installation
 
-Для разработки нужно установить: 
+For development, you need to install:
 
 [Node.js](https://nodejs.org/) v12 
 
@@ -12,14 +12,14 @@ Microsoft Visual Studio
 
 ## Start
 
-Перед развертыванием приложения нужно установить npm-пакеты.
-Для это нужно зайти в корневыю папку проекта и выполнить команду в конслоли:
+Before deploying the application, you need to install npm packages.
+To do this, go to the root folder of the project and run the command in the console:
 
 ```
 npm install
 ```
 
-## Пакеты Node.js
+## Node.js packages
 
 package.json:
 
